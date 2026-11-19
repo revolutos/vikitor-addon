@@ -46,5 +46,13 @@
   "contentUpdate": {
     "label": "Inhalts-Aktualisierung",
     "url": "https://vikitor.de/addon/content.json"
+  },
+  "shop": {
+    "label": "VIKITOR Shop",
+    "url": "https://vikitor.de/shop/"
+  },
+  "warteliste": {
+    "label": "Auf die Warteliste",
+    "url": "https://vikitor.de/shop/#warteliste"
   }
 }

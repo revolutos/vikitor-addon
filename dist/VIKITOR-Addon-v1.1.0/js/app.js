@@ -12,6 +12,7 @@ import { viewSkills } from "./views/skills.js";
 import { viewGuides } from "./views/guides.js";
 import { viewSaved } from "./views/saved.js";
 import { viewAbout } from "./views/about.js";
+import { viewShop } from "./views/shop.js";
 
 const VIEWS = [
   { id: "start", label: "Start", icon: "home", render: viewStart },
@@ -22,6 +23,7 @@ const VIEWS = [
   { id: "skills", label: "Gratis-Skills", icon: "bolt", render: viewSkills },
   { id: "guides", label: "Anleitungen", icon: "book", render: viewGuides },
   { id: "saved", label: "Merkliste", icon: "bookmark", render: viewSaved },
+  { id: "shop", label: "Shop · bald", icon: "bag", render: viewShop },
   { id: "about", label: "Über Viktor", icon: "user", render: viewAbout }
 ];
 
@@ -39,7 +41,7 @@ const ctx = {
 };
 
 function linkList(links, cls = "links") {
-  const order = ["website", "webinar", "instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok", "datenschutz"];
+  const order = ["website", "shop", "webinar", "instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok", "datenschutz"];
   return h("nav", { class: cls, "aria-label": "Links" },
     order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Webinar" : links[k].label)));
 }

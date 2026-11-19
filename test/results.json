@@ -1,15 +1,15 @@
 {
-  "date": "2026-11-19T02:24:53.076Z",
+  "date": "2026-11-19T02:33:59.863Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
       "pass": true,
-      "info": "hbnkkbhmophiiodoackmcbajdcebfpem"
+      "info": "ikpkjjkcgofnlehojjehhmobdgkdpknb"
     },
     {
       "name": "Willkommensansicht wird nach Installation geöffnet",
       "pass": true,
-      "info": "chrome-extension://hbnkkbhmophiiodoackmcbajdcebfpem/app.html?view=tab&welcome=1"
+      "info": "chrome-extension://ikpkjjkcgofnlehojjehhmobdgkdpknb/app.html?view=tab&welcome=1"
     },
     {
       "name": "tab: Ansicht „start“ ohne Layoutfehler",
@@ -48,6 +48,11 @@
     },
     {
       "name": "tab: Ansicht „saved“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „shop“ ohne Layoutfehler",
       "pass": true,
       "info": ""
     },
@@ -93,6 +98,11 @@
     },
     {
       "name": "panel: Ansicht „saved“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „shop“ ohne Layoutfehler",
       "pass": true,
       "info": ""
     },

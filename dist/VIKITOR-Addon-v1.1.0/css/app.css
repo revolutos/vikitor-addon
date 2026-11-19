@@ -422,3 +422,9 @@ body.is-panel .foot { padding: 18px 16px 22px; flex-direction: column; align-ite
   body:not(.is-panel) .topbar { display: flex; }
   body:not(.is-panel) .content { padding: 28px 20px; }
 }
+
+/* Shop (bald) */
+.badge-soon { align-self: flex-start; margin-bottom: 8px; padding: 3px 9px; border: 1px solid color-mix(in srgb, var(--signal) 55%, var(--border)); border-radius: 999px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--signal); }
+.shop-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.shop-promo .overline svg { width: 13px; height: 13px; vertical-align: -2px; }
+.shop-grid .tile { cursor: default; }

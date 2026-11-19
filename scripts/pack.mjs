@@ -26,9 +26,9 @@ for (const f of must) if (!fs.existsSync(path.join(src, f))) { console.error("Fe
 for (const f of ["data/content.json", "data/links.json", "_locales/de/messages.json"]) JSON.parse(fs.readFileSync(path.join(src, f), "utf8"));
 
 fs.mkdirSync(path.join(dist, "skills"), { recursive: true });
-const FOLDER = "VIKITOR-Addon";
+const FOLDER = `VIKITOR-Addon-v${manifest.version}`; // Name mit Version; Chrome erkennt es über den festen Schlüssel (manifest.key) trotzdem als dasselbe Addon
+for (const f of fs.readdirSync(dist)) if (/^VIKITOR-Addon(-v[\d.]+)?$/.test(f) || /^vikitor-addon-v[\d.]+\.zip$/.test(f)) fs.rmSync(path.join(dist, f), { recursive: true, force: true });
 const folder = path.join(dist, FOLDER);
-fs.rmSync(folder, { recursive: true, force: true });
 fs.cpSync(src, folder, { recursive: true, filter: (f) => !f.endsWith(".DS_Store") });
 console.log("Ordner zum Laden:", path.relative(root, folder));
 
@@ -41,7 +41,16 @@ console.log("Erweiterung (Leads):", path.relative(root, zipPath), `(${(fs.statSy
 fs.mkdirSync(path.join(dist, "store"), { recursive: true });
 const storePath = path.join(dist, "store", `vikitor-addon-v${manifest.version}-store.zip`);
 fs.rmSync(storePath, { force: true });
-execFileSync("zip", ["-r", "-X", "-q", storePath, ".", "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: src, stdio: "inherit" });
+// Chrome Web Store erlaubt kein "key" im Manifest: Kopie ohne Schlüssel packen
+const storeDir = path.join(dist, ".store-tmp");
+fs.rmSync(storeDir, { recursive: true, force: true });
+fs.cpSync(src, storeDir, { recursive: true, filter: (f) => !f.endsWith(".DS_Store") });
+const sm = JSON.parse(fs.readFileSync(path.join(storeDir, "manifest.json"), "utf8"));
+delete sm.key;
+fs.writeFileSync(path.join(storeDir, "manifest.json"), JSON.stringify(sm, null, 2) + "\n");
+for (const f of fs.readdirSync(path.join(dist, "store"))) fs.rmSync(path.join(dist, "store", f));
+execFileSync("zip", ["-r", "-X", "-q", storePath, ".", "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: storeDir, stdio: "inherit" });
+fs.rmSync(storeDir, { recursive: true, force: true });
 console.log("Erweiterung (Chrome Web Store):", path.relative(root, storePath));
 
 const skillsDir = path.join(root, "skills");

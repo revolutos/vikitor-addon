@@ -1,4 +1,5 @@
 import { h, icon } from "../ui.js";
+import { shopPromo } from "./shop.js";
 
 export function viewStart(ctx) {
   const tiles = [
@@ -31,5 +32,6 @@ export function viewStart(ctx) {
       h("span", { class: "tile-ic" }, icon("bolt")), h("h3", {}, "Gratis-Skills"), h("p", {}, "Drei fertige Skills für Claude Code: Mobil-Check, SEO-Basis und Launch-Check.")),
     h("button", { class: "card tile hover-lift", type: "button", onclick: () => ctx.go("guides") },
       h("span", { class: "tile-ic" }, icon("book")), h("h3", {}, "Anleitungen"), h("p", {}, "Von der Installation über Git bis zur eigenen Domain, verständlich erklärt."))));
+  out.push(shopPromo(ctx, true));
   return out;
 }

@@ -35,7 +35,9 @@ vikitor-addon/
 
 1. Öffne in Chrome die Adresse `chrome://extensions`.
 2. Schalte oben rechts den **Entwicklermodus** ein.
-3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `dist/VIKITOR-Addon` aus (entsteht mit `node scripts/pack.mjs`). Zum Entwickeln geht auch `src/`. Leads bekommen die ZIP von vikitor.de/addon/, darin liegt genau dieser eine Ordner `VIKITOR-Addon`.
+3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `dist/VIKITOR-Addon-v<version>` aus (entsteht mit `node scripts/pack.mjs`). Zum Entwickeln geht auch `src/`. Leads bekommen die ZIP von vikitor.de/addon/, darin liegt genau dieser eine Ordner `VIKITOR-Addon-v<version>`.
+
+**Gleiche Kennung bei jeder Version:** `src/manifest.json` enthält einen festen Schlüssel (`key`). Dadurch hat das Addon immer die ID `ikpkjjkcgofnlehojjehhmobdgkdpknb`, egal wie der Ordner heißt. Eine neue Version lädt man einfach als neuen Ordner, Chrome ersetzt die alte, und die Merkliste bleibt. Der private Schlüssel liegt in `keys/` (nicht im Git, nicht in den ZIPs) und wird nur gebraucht, wenn man später selbst signierte Pakete erstellen will. Die Store-ZIP enthält den Schlüssel nicht, weil der Chrome Web Store ihn nicht erlaubt.
 4. Nach der Installation öffnet sich automatisch die Willkommensansicht in einem neuen Tab.
 5. Klicke auf das Puzzle-Symbol in der Chrome-Leiste und hefte „VIKITOR Vibecoding Assistent (Free)“ an. Ein Klick auf das Symbol öffnet ab jetzt die Seitenleiste. Mit einem Rechtsklick auf das Symbol öffnest du den Assistenten über „Assistent im großen Fenster öffnen“ als Tab.
 
@@ -49,8 +51,8 @@ node scripts/pack.mjs
 
 Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die JSON-Dateien gültig sind, und erzeugt dann:
 
-- `dist/VIKITOR-Addon/` – fertiger Ordner zum Laden in Chrome,
-- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/addon/): enthält genau den Ordner `VIKITOR-Addon`,
+- `dist/VIKITOR-Addon-v<version>/` – fertiger Ordner zum Laden in Chrome,
+- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/addon/): enthält genau den Ordner `VIKITOR-Addon-v<version>`,
 - `dist/store/vikitor-addon-v1.0.0-store.zip` – für den Chrome Web Store, `manifest.json` liegt im Wurzelverzeichnis der ZIP,
 - `dist/skills/<name>.zip` – je ein Skill-Ordner,
 - `dist/web/addon/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).

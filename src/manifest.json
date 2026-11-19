@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "VIKITOR Vibecoding Assistent (Free)",
   "short_name": "VIKITOR",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Kostenloser Vibecoding-Werkzeugkasten von Viktor Siemens: Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check, Skills und Anleitungen.",
   "default_locale": "de",
   "icons": {
@@ -60,5 +60,6 @@
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
-  }
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvvaXYKAv7A3+w+lF3TnJnaqa5mQg2UyMvjFkq8tJ55Rt4Z9kp3pSj+u0Lpu2Z9YjZeEyXrRhi9YXRqA48mjTaogBhLU3KjbfE/4jcpNQoYSEzH3+o3j2B06jygIulVXmC3SmrT3iCbONzZo71F6luaoYHxKIZYxNn6B0BSb7gvFGhNngkWsRePAarEAcdJiGOsOglp9izDjI0iMjsxzH3ROlkfepDVFjiEstilX0YF92ubKlAZ0k5ITmvVl1Gq/U50W9OUxYvAHUzAmVbil4B6p0YbJbDF+lYcUKicJntd93huuagsWE57fgwSzpE3J17FCkktdzxC/+eMjfIoo+aQIDAQAB"
 }

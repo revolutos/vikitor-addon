@@ -13,7 +13,7 @@ const SRC = path.join(root, "src");
 const SHOTS = path.join(root, "test/screens");
 fs.mkdirSync(SHOTS, { recursive: true });
 
-const VIEWS = ["start", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "about"];
+const VIEWS = ["start", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "shop", "about"];
 const results = [];
 const ok = (name, pass, info = "") => { results.push({ name, pass, info }); console.log(`${pass ? "OK  " : "FAIL"} ${name}${info ? " – " + info : ""}`); };
 const consoleIssues = [];
