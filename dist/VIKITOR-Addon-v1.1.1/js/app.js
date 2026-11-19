@@ -41,14 +41,21 @@ const ctx = {
 };
 
 function linkList(links, cls = "links") {
-  const order = ["website", "shop", "webinar", "datenschutz"];
+  const order = ["website", "downloads", "vsmacos", "shop", "webinar", "datenschutz"];
   return h("nav", { class: cls, "aria-label": "Links" },
     order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Webinar" : links[k].label)));
 }
 
+/** Logo mit Untertitel: führt überall zurück zum Start (schließt dabei das Menü) */
+function homeLink(cls, before) {
+  return h("a", { class: `${cls} home-link`, href: "#start", title: "Zum Start", "aria-label": "VIKITOR – zum Start",
+    onclick: (e) => { e.preventDefault(); if (before) before(); go("start"); } },
+    wordmark(), h("span", { class: "by" }, "von Viktor Siemens"));
+}
+
 function footer() {
   return h("footer", { class: "foot" },
-    h("div", { class: "foot-brand" }, wordmark(), h("span", { class: "by" }, "von Viktor Siemens")),
+    homeLink("foot-brand"),
     linkList(ctx.links),
     socialRow(ctx.links),
     h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.0.0"} · kostenlos`));
@@ -91,7 +98,7 @@ function shell() {
   document.body.classList.toggle("is-panel", ctx.mode === "panel");
 
   const side = h("aside", { class: "side" },
-    h("div", { class: "side-brand" }, wordmark(), h("span", { class: "by" }, "von Viktor Siemens")),
+    homeLink("side-brand"),
     h("nav", { class: "nav", "aria-label": "Hauptmenü" }, navItems()),
     h("div", { class: "side-foot" },
       h("a", { class: "side-cta", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" },
@@ -103,7 +110,7 @@ function shell() {
   menuBtn = h("button", { class: "icon-btn", type: "button", "aria-label": "Menü", "aria-expanded": "false", "aria-controls": "drawer",
     onclick: () => { const open = !drawer.classList.contains("is-open"); drawer.classList.toggle("is-open", open); menuBtn.setAttribute("aria-expanded", String(open)); } }, icon("menu"));
   const topbar = h("div", { class: "topbar" },
-    h("div", { class: "topbar-brand" }, wordmark(), h("span", { class: "by" }, "von Viktor Siemens")),
+    homeLink("topbar-brand", closeMenu),
     h("div", { class: "topbar-actions" },
       ctx.inPanel ? h("button", { class: "icon-btn", type: "button", title: "Im großen Fenster öffnen", "aria-label": "Im großen Fenster öffnen", onclick: () => openInTab(currentView()) }, icon("expand")) : null,
       menuBtn));

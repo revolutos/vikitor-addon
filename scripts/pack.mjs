@@ -64,8 +64,8 @@ for (const name of fs.readdirSync(skillsDir)) {
 }
 
 // Upload-Paket für vikitor.de: genau die Dateien, die die Erweiterung dort erwartet
-// (https://vikitor.de/addon/content.json und https://vikitor.de/addon/skills/<name>.zip).
-const web = path.join(dist, "web", "addon");
+// (https://vikitor.de/downloads/addons/content.json und https://vikitor.de/downloads/addons/skills/<name>.zip).
+const web = path.join(dist, "web", "downloads", "addons");
 fs.rmSync(path.join(dist, "web"), { recursive: true, force: true });
 fs.mkdirSync(path.join(web, "skills"), { recursive: true });
 fs.copyFileSync(path.join(src, "data", "content.json"), path.join(web, "content.json"));

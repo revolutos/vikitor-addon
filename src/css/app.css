@@ -475,3 +475,9 @@ body.is-panel .sig-photo::after { background: linear-gradient(0deg, var(--bg) 0%
 /* Abstände: Fußzeile und Abschluss klar getrennt, Sektionen gleichmäßig */
 .foot { margin-top: 56px; }
 body.is-panel .foot { margin-top: 40px; }
+
+/* Logo führt zum Start */
+.home-link { color: inherit; text-decoration: none; cursor: pointer; border-radius: 8px; transition: opacity .15s; }
+.home-link:hover { opacity: .85; }
+.home-link:hover .word b, .home-link:focus-visible .word b { text-decoration: underline; text-underline-offset: 3px; }
+.home-link:focus-visible { outline: 2px solid var(--signal, #c8ff3d); outline-offset: 3px; }

@@ -11,9 +11,17 @@
     "label": "VS Premium Vibecoding Framework",
     "url": "https://vikitor.de/framework/"
   },
+  "downloads": {
+    "label": "Downloads",
+    "url": "https://vikitor.de/downloads/"
+  },
+  "vsmacos": {
+    "label": "VS MAC OS",
+    "url": "https://vikitor.de/downloads/vs-mac-os/"
+  },
   "datenschutz": {
     "label": "Datenschutz",
-    "url": "https://vikitor.de/addon/datenschutz/"
+    "url": "https://vikitor.de/downloads/addons/datenschutz/"
   },
   "instagram": {
     "label": "Instagram",
@@ -41,11 +49,11 @@
   },
   "skillsBase": {
     "label": "Skill-Downloads",
-    "url": "https://vikitor.de/addon/skills/"
+    "url": "https://vikitor.de/downloads/addons/skills/"
   },
   "contentUpdate": {
     "label": "Inhalts-Aktualisierung",
-    "url": "https://vikitor.de/addon/content.json"
+    "url": "https://vikitor.de/downloads/addons/content.json"
   },
   "shop": {
     "label": "VIKITOR Shop",

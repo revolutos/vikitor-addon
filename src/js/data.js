@@ -2,7 +2,7 @@
 // Es wird nur JSON geladen, niemals Code. Ungültige Daten werden still verworfen.
 import { get, set } from "./store.js";
 
-const REMOTE = "https://vikitor.de/addon/content.json";
+const REMOTE = "https://vikitor.de/downloads/addons/content.json";
 
 const isObj = (o) => o && typeof o === "object" && !Array.isArray(o);
 const isStr = (s) => typeof s === "string" && s.length > 0;

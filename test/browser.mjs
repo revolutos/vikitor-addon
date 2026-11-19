@@ -53,6 +53,16 @@ try {
     return page;
   }
 
+  // Logo führt zum Start (Tab: Seitenmenü-Logo, Seitenleiste: Logo in der oberen Leiste, beide: Fußzeile)
+  for (const [w, hgt, label, sel] of [[1440, 900, "tab", ".side-brand"], [400, 800, "panel", ".topbar-brand"], [1440, 900, "tab", ".foot-brand"]]) {
+    const p = await openApp("guides", w, hgt, label);
+    await p.click(sel);
+    await sleep(400);
+    const on = await p.evaluate(() => document.querySelector(".nav-item.is-on")?.dataset.view || location.hash);
+    ok(`Logo (${sel}, ${label}) führt zum Start`, on === "start", on);
+    await p.close();
+  }
+
   async function layoutIssues(page) {
     return page.evaluate(() => {
       const issues = [];
@@ -263,7 +273,7 @@ try {
   const relevantAll = consoleIssues.filter((c) => c.startsWith("[tab]") || c.startsWith("[panel]"));
   const known = relevantAll.filter(expected404);
   const relevant = relevantAll.filter((c) => !expected404(c));
-  ok("Keine Konsolenfehler in der Erweiterung (außer 404 der noch nicht gehosteten content.json)", relevant.length === 0, relevant.join(" | ") || `${known.length}× erwarteter 404 für https://vikitor.de/addon/content.json`);
+  ok("Keine Konsolenfehler in der Erweiterung (außer 404 der noch nicht gehosteten content.json)", relevant.length === 0, relevant.join(" | ") || `${known.length}× erwarteter 404 für https://vikitor.de/downloads/addons/content.json`);
 } finally {
   await browser.close();
 }

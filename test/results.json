@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-19T02:39:47.971Z",
+  "date": "2026-11-19T03:56:53.501Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
@@ -10,6 +10,21 @@
       "name": "Willkommensansicht wird nach Installation geöffnet",
       "pass": true,
       "info": "chrome-extension://ikpkjjkcgofnlehojjehhmobdgkdpknb/app.html?view=tab&welcome=1"
+    },
+    {
+      "name": "Logo (.side-brand, tab) führt zum Start",
+      "pass": true,
+      "info": "start"
+    },
+    {
+      "name": "Logo (.topbar-brand, panel) führt zum Start",
+      "pass": true,
+      "info": "start"
+    },
+    {
+      "name": "Logo (.foot-brand, tab) führt zum Start",
+      "pass": true,
+      "info": "start"
     },
     {
       "name": "tab: Ansicht „start“ ohne Layoutfehler",
@@ -209,7 +224,7 @@
     {
       "name": "Keine Konsolenfehler in der Erweiterung (außer 404 der noch nicht gehosteten content.json)",
       "pass": true,
-      "info": "0× erwarteter 404 für https://vikitor.de/addon/content.json"
+      "info": "0× erwarteter 404 für https://vikitor.de/downloads/addons/content.json"
     }
   ],
   "consoleIssues": []

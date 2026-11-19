@@ -35,7 +35,7 @@ vikitor-addon/
 
 1. Öffne in Chrome die Adresse `chrome://extensions`.
 2. Schalte oben rechts den **Entwicklermodus** ein.
-3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `dist/VIKITOR-Addon-v<version>` aus (entsteht mit `node scripts/pack.mjs`). Zum Entwickeln geht auch `src/`. Leads bekommen die ZIP von vikitor.de/addon/, darin liegt genau dieser eine Ordner `VIKITOR-Addon-v<version>`.
+3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `dist/VIKITOR-Addon-v<version>` aus (entsteht mit `node scripts/pack.mjs`). Zum Entwickeln geht auch `src/`. Leads bekommen die ZIP von vikitor.de/downloads/addons/, darin liegt genau dieser eine Ordner `VIKITOR-Addon-v<version>`.
 
 **Gleiche Kennung bei jeder Version:** `src/manifest.json` enthält einen festen Schlüssel (`key`). Dadurch hat das Addon immer die ID `ikpkjjkcgofnlehojjehhmobdgkdpknb`, egal wie der Ordner heißt. Eine neue Version lädt man einfach als neuen Ordner, Chrome ersetzt die alte, und die Merkliste bleibt. Der private Schlüssel liegt in `keys/` (nicht im Git, nicht in den ZIPs) und wird nur gebraucht, wenn man später selbst signierte Pakete erstellen will. Die Store-ZIP enthält den Schlüssel nicht, weil der Chrome Web Store ihn nicht erlaubt.
 4. Nach der Installation öffnet sich automatisch die Willkommensansicht in einem neuen Tab.
@@ -52,10 +52,10 @@ node scripts/pack.mjs
 Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die JSON-Dateien gültig sind, und erzeugt dann:
 
 - `dist/VIKITOR-Addon-v<version>/` – fertiger Ordner zum Laden in Chrome,
-- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/addon/): enthält genau den Ordner `VIKITOR-Addon-v<version>`,
+- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/downloads/addons/): enthält genau den Ordner `VIKITOR-Addon-v<version>`,
 - `dist/store/vikitor-addon-v1.0.0-store.zip` – für den Chrome Web Store, `manifest.json` liegt im Wurzelverzeichnis der ZIP,
 - `dist/skills/<name>.zip` – je ein Skill-Ordner,
-- `dist/web/addon/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).
+- `dist/web/downloads/addons/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).
 
 Die Versionsnummer kommt aus `src/manifest.json`. Für jede neue Store-Version musst du sie erhöhen.
 
@@ -75,13 +75,13 @@ Alle Texte, Vorlagen, Quizfragen, Prüfregeln, Anleitungen und Skill-Beschreibun
 Es gibt zwei Wege:
 
 1. **Mit neuer Version im Store:** `content.json` bzw. `links.json` ändern, Version im Manifest erhöhen, `node scripts/pack.mjs`, die Store-ZIP aus `dist/store/` hochladen.
-2. **Ohne neue Store-Version:** Die Erweiterung ruft höchstens alle zwölf Stunden `https://vikitor.de/addon/content.json` ab. Ist die Datei vorhanden und gültig, gilt sie ab dem nächsten Öffnen des Assistenten. Dafür lädst du den Inhalt von `dist/web/addon/` so auf die Website, dass folgende Adressen erreichbar sind:
-   - `https://vikitor.de/addon/content.json`
-   - `https://vikitor.de/addon/skills/vikitor-mobil-check.zip`
-   - `https://vikitor.de/addon/skills/vikitor-seo-basis.zip`
-   - `https://vikitor.de/addon/skills/vikitor-launch-check.zip`
+2. **Ohne neue Store-Version:** Die Erweiterung ruft höchstens alle zwölf Stunden `https://vikitor.de/downloads/addons/content.json` ab. Ist die Datei vorhanden und gültig, gilt sie ab dem nächsten Öffnen des Assistenten. Dafür lädst du den Inhalt von `dist/web/downloads/addons/` so auf die Website, dass folgende Adressen erreichbar sind:
+   - `https://vikitor.de/downloads/addons/content.json`
+   - `https://vikitor.de/downloads/addons/skills/vikitor-mobil-check.zip`
+   - `https://vikitor.de/downloads/addons/skills/vikitor-seo-basis.zip`
+   - `https://vikitor.de/downloads/addons/skills/vikitor-launch-check.zip`
 
-   Bei der Next.js-Website von vikitor.de genügt es, den Ordner `addon` nach `public/addon` zu kopieren und neu zu veröffentlichen.
+   Bei der Next.js-Website von vikitor.de genügt es, den Ordner `downloads/addons` nach `public/downloads/addons` zu kopieren und neu zu veröffentlichen.
 
 Wichtig für die Online-Datei: Sie muss dasselbe Schema haben wie die gebündelte `content.json`. Jeder Bereich (zum Beispiel `templates`, `quiz`, `guides`) wird einzeln geprüft; ungültige Bereiche werden still verworfen und durch die gebündelten Inhalte ersetzt. Es wird nur JSON geladen, niemals Code. Links werden nicht online aktualisiert, sondern nur über eine neue Version (`links.json`).
 

@@ -21,7 +21,7 @@ Diese Daten werden nicht übertragen. Du kannst sie jederzeit löschen, indem du
 
 ## Verbindungen zu Servern
 
-Die Erweiterung baut genau eine eigene Verbindung auf: Sie ruft höchstens alle zwölf Stunden die Datei `https://vikitor.de/addon/content.json` ab, um Vorlagen, Anleitungen und Texte aktuell zu halten. Dabei werden keine personenbezogenen Daten und keine Eingaben mitgesendet. Wie bei jedem Abruf einer Website erhält der Server technisch bedingt deine IP-Adresse; Näheres dazu steht in der Datenschutzerklärung unter https://vikitor.de/datenschutz/. Die Datei enthält nur Texte (JSON) und niemals ausführbaren Code.
+Die Erweiterung baut genau eine eigene Verbindung auf: Sie ruft höchstens alle zwölf Stunden die Datei `https://vikitor.de/downloads/addons/content.json` ab, um Vorlagen, Anleitungen und Texte aktuell zu halten. Dabei werden keine personenbezogenen Daten und keine Eingaben mitgesendet. Wie bei jedem Abruf einer Website erhält der Server technisch bedingt deine IP-Adresse; Näheres dazu steht in der Datenschutzerklärung unter https://vikitor.de/datenschutz/. Die Datei enthält nur Texte (JSON) und niemals ausführbaren Code.
 
 Die Schriften „Inter Tight“ und „JetBrains Mono“ sind in der Erweiterung enthalten. Es wird dafür keine Verbindung zu Google oder anderen Schriftanbietern aufgebaut.
 
