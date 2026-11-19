@@ -2,7 +2,7 @@ import { h, icon } from "../ui.js";
 
 export function viewAbout(ctx) {
   const L = ctx.links;
-  const socials = ["instagram", "facebook", "linkedin", "youtube", "tiktok"].filter((k) => L[k] && L[k].url);
+  const socials = ["instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok"].filter((k) => L[k] && L[k].url);
   const features = ["25+ Kapitel vom ersten Prompt bis zum Funnel", "17 Skills für Claude Code", "Über 20 Prompt-Vorlagen", "Generator mit Projekt-Startpaket", "Vorlagen-Bibliothek", "Mitgliederbereich"];
   return [
     h("header", { class: "vhead" },

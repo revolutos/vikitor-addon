@@ -65,7 +65,9 @@ if (s1.score !== 100) fail("Perfekte Seite ergibt nicht 100");
 const all = JSON.stringify(content) + JSON.stringify(links);
 if (/mr\.?\s*lovable/i.test(all)) fail("Verbotener Name gefunden");
 if (/whatsapp|wa\.me/i.test(all)) fail("WhatsApp-Bezug gefunden");
-for (const k of ["facebook", "linkedin", "youtube", "tiktok"]) if (links[k].url) fail(`${k} darf nicht befüllt sein`);
+const EXPECT = { instagram: "https://www.instagram.com/viktorsiemens.business/", facebook: "https://www.facebook.com/viktorsiemens", facebookPrivat: "https://www.facebook.com/viktorsiemens90/", linkedin: "https://www.linkedin.com/in/viktor-siemens/" };
+for (const [k, u] of Object.entries(EXPECT)) if (links[k]?.url !== u) fail(`${k}: falsche oder fehlende Adresse`);
+for (const k of ["youtube", "tiktok"]) if (links[k].url) fail(`${k} darf nicht befüllt sein (keine geprüfte Adresse)`);
 
 console.log(fails ? `\n${fails} Fehler` : "\nAlle Logik-Tests bestanden.");
 process.exit(fails ? 1 : 0);

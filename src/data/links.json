@@ -21,11 +21,15 @@
   },
   "facebook": {
     "label": "Facebook",
-    "url": ""
+    "url": "https://www.facebook.com/viktorsiemens"
+  },
+  "facebookPrivat": {
+    "label": "Facebook privat",
+    "url": "https://www.facebook.com/viktorsiemens90/"
   },
   "linkedin": {
     "label": "LinkedIn",
-    "url": ""
+    "url": "https://www.linkedin.com/in/viktor-siemens/"
   },
   "youtube": {
     "label": "YouTube",

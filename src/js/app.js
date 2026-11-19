@@ -39,7 +39,7 @@ const ctx = {
 };
 
 function linkList(links, cls = "links") {
-  const order = ["website", "webinar", "instagram", "facebook", "linkedin", "youtube", "tiktok", "datenschutz"];
+  const order = ["website", "webinar", "instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok", "datenschutz"];
   return h("nav", { class: cls, "aria-label": "Links" },
     order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Webinar" : links[k].label)));
 }
