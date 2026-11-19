@@ -521,3 +521,4 @@ a.nav-item { text-decoration: none; }
 .md h3 { margin-top: 10px; font-size: 15px; color: var(--text); }
 .md-row { font-family: var(--mono); font-size: 12px; color: var(--text-subtle); }
 .md-li { padding-left: 4px; }
+.unlock-buy { display: grid; gap: 8px; justify-items: start; padding-top: 12px; border-top: 1px solid var(--border); }

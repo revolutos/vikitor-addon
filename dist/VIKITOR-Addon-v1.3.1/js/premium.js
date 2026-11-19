@@ -57,8 +57,9 @@ export function premiumGate(ctx, feature) {
       h("span", { class: "overline" }, "Freischaltcode"),
       h("div", { class: "unlock-row" }, input, btn),
       err,
-      h("p", { class: "small subtle" }, "Den Code bekommst du von Viktor. Er gilt auch für VS MAC OS Premium. ",
-        h("a", { href: ctx.links.shop.url, target: "_blank", rel: "noopener" }, "VIKITOR Shop")))
+      h("div", { class: "unlock-buy" },
+        h("a", { class: "btn btn-signal", href: ctx.links.shop.url + "?utm_source=vikitor-addon&utm_medium=addon&utm_content=premium-kaufen", target: "_blank", rel: "noopener" }, icon("bag"), "Freischaltcode kaufen"),
+        h("p", { class: "small subtle" }, "Noch keinen Code? Im VIKITOR Shop gibt es ihn in Kürze zu kaufen. Er gilt auch für VS MAC OS Premium.")))
   ];
 }
 
