@@ -111,8 +111,8 @@
   "templates": [
     {
       "id": "website",
-      "title": "Website neu bauen",
-      "short": "Eine vollständige Website mit mehreren Seiten von Grund auf.",
+      "title": "Webseite neu bauen",
+      "short": "Eine vollständige Webseite mit mehreren Seiten von Grund auf.",
       "fields": [
         "firma",
         "branche",
@@ -122,7 +122,7 @@
         "ziel",
         "stil"
       ],
-      "goal": "Baue eine neue, moderne Website für {{firma|mein Unternehmen}}, die Besucher schnell überzeugt und zu einer klaren Handlung führt.",
+      "goal": "Baue eine neue, moderne Webseite für {{firma|mein Unternehmen}}, die Besucher schnell überzeugt und zu einer klaren Handlung führt.",
       "steps": [
         "Fasse zuerst in drei Sätzen zusammen, wie du mein Angebot und meine Zielgruppe verstehst, und stell mir deine offenen Fragen.",
         "Schlage mir eine Seitenstruktur vor (zum Beispiel Startseite, Leistungen, Über mich, Kontakt, Impressum und Datenschutz) und begründe sie kurz.",
@@ -178,8 +178,8 @@
     },
     {
       "id": "relaunch",
-      "title": "Relaunch einer alten Website",
-      "short": "Eine bestehende Website modern, schnell und mobil neu aufsetzen.",
+      "title": "Relaunch einer alten Webseite",
+      "short": "Eine bestehende Webseite modern, schnell und mobil neu aufsetzen.",
       "fields": [
         "firma",
         "url",
@@ -188,9 +188,9 @@
         "ziel",
         "stil"
       ],
-      "goal": "Plane und baue den Relaunch der bestehenden Website von {{firma|meinem Unternehmen}}, damit sie modern, schnell und auf dem Handy überzeugend wird.",
+      "goal": "Plane und baue den Relaunch der bestehenden Webseite von {{firma|meinem Unternehmen}}, damit sie modern, schnell und auf dem Handy überzeugend wird.",
       "steps": [
-        "Sieh dir die alte Website[[ unter {{url}}]] an und liste auf, welche Inhalte, Seiten und Funktionen es heute gibt.",
+        "Sieh dir die alte Webseite[[ unter {{url}}]] an und liste auf, welche Inhalte, Seiten und Funktionen es heute gibt.",
         "Bewerte ehrlich, was gut ist und erhalten bleiben soll und was den Besuchern im Weg steht.",
         "Schlage eine neue, schlankere Struktur vor und zeige mir, welche alte Seite auf welche neue Seite weitergeleitet wird, damit keine Adresse ins Leere läuft.",
         "Übernimm vorhandene Texte nur, wenn sie gut sind, und verbessere sie ansonsten verständlich für {{zielgruppe|meine Zielgruppe}}.",
@@ -228,7 +228,7 @@
         "region",
         "zielgruppe"
       ],
-      "goal": "Verbessere die Sichtbarkeit von {{firma|meiner Website}} bei Google und in KI-Suchen wie ChatGPT, ohne Tricks und mit sauberen Grundlagen.",
+      "goal": "Verbessere die Sichtbarkeit von {{firma|meiner Webseite}} bei Google und in KI-Suchen wie ChatGPT, ohne Tricks und mit sauberen Grundlagen.",
       "steps": [
         "Prüfe die Seite[[ {{url}}]] und liste für jede Unterseite Titel, Beschreibung und Überschriften auf.",
         "Schreib für jede Seite einen eindeutigen Titel (etwa 30 bis 60 Zeichen) und eine Beschreibung (etwa 70 bis 160 Zeichen)[[, passend zu {{branche}}]][[ in {{region}}]].",
@@ -250,7 +250,7 @@
         "angebot",
         "stil"
       ],
-      "goal": "Überarbeite die Texte von {{firma|meiner Website}}, damit {{zielgruppe|meine Zielgruppe}} sofort versteht, was ich anbiete und warum es ihr hilft.",
+      "goal": "Überarbeite die Texte von {{firma|meiner Webseite}}, damit {{zielgruppe|meine Zielgruppe}} sofort versteht, was ich anbiete und warum es ihr hilft.",
       "steps": [
         "Lies die vorhandenen Texte[[ unter {{url}}]] und fasse in drei Sätzen zusammen, welche Botschaft heute ankommt.",
         "Benenne die größten Schwächen: zu allgemein, zu lang, zu viel „wir“ statt „du“ oder „Sie“, fehlender Nutzen.",
@@ -270,7 +270,7 @@
         "stil",
         "zielgruppe"
       ],
-      "goal": "Frische das Design von {{firma|meiner Website}} auf, damit es modern, ruhig und hochwertig wirkt, ohne die Inhalte zu verlieren.",
+      "goal": "Frische das Design von {{firma|meiner Webseite}} auf, damit es modern, ruhig und hochwertig wirkt, ohne die Inhalte zu verlieren.",
       "steps": [
         "Sieh dir die Seite[[ {{url}}]] an und beschreibe in wenigen Sätzen, was heute altmodisch oder unruhig wirkt.",
         "Schlage ein kleines, festes Gestaltungssystem vor: zwei Schriften, wenige Farben, feste Abstände und einheitliche Knöpfe.",
@@ -839,7 +839,7 @@
           ]
         },
         {
-          "code": "# Projekt: Website Praxis am Sonnenweg\n\n## Regeln\n- Mobil zuerst (390 px), danach Desktop.\n- Keine erfundenen Zahlen, Bewertungen oder Kundenstimmen.\n- Fehlende Infos als Fragen sammeln.\n- Vor jeder Fertigmeldung im Browser prüfen.",
+          "code": "# Projekt: Webseite Praxis am Sonnenweg\n\n## Regeln\n- Mobil zuerst (390 px), danach Desktop.\n- Keine erfundenen Zahlen, Bewertungen oder Kundenstimmen.\n- Fehlende Infos als Fragen sammeln.\n- Vor jeder Fertigmeldung im Browser prüfen.",
           "label": "Beispiel für eine CLAUDE.md"
         },
         {
@@ -1036,7 +1036,7 @@
       "blocks": [
         {
           "steps": [
-            "Ohne Ziel starten: Wer nur „Mach mir eine Website“ schreibt, bekommt etwas Beliebiges. Nenne Ziel, Zielgruppe und Angebot.",
+            "Ohne Ziel starten: Wer nur „Mach mir eine Webseite“ schreibt, bekommt etwas Beliebiges. Nenne Ziel, Zielgruppe und Angebot.",
             "Alles auf einmal wollen: Große Aufträge in einem Rutsch führen zu Chaos. Arbeite in kleinen Schritten und prüfe nach jedem Schritt.",
             "Erst am Desktop prüfen: Die meisten Besucher kommen über das Handy. Prüfe immer zuerst auf 390 px Breite.",
             "Erfundene Inhalte übernehmen: KI ergänzt gern Zahlen, Bewertungen und Kundenstimmen. Verbiete das und lies jeden Text gegen.",

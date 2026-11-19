@@ -1,6 +1,6 @@
 # VIKITOR Vibecoding Assistent (Free)
 
-Kostenlose Chrome-Erweiterung von Viktor Siemens (Marke VIKITOR, https://vikitor.de) für Leads und Webinar-Teilnehmer. Der Assistent öffnet sich als Seitenleiste neben jeder Website und zusätzlich als große Ansicht in einem eigenen Tab.
+Kostenlose Chrome-Erweiterung von Viktor Siemens (Marke VIKITOR, https://vikitor.de) für Leads und Webinar-Teilnehmer. Der Assistent öffnet sich als Seitenleiste neben jeder Webseite und zusätzlich als große Ansicht in einem eigenen Tab.
 
 **Funktionen:** Start mit Webinar-Hinweis, Prompt-Generator (10 Vorlagen × Claude Code, ChatGPT/Codex, Lovable), Funnel-Quiz (7 Fragen, 6 Funnel-Typen), Prompt-Check (regelbasiert, ohne Server), Seiten-Check (Schnellcheck auf Knopfdruck), drei Gratis-Skills für Claude Code, Anleitungen, Merkliste und „Über Viktor“.
 
@@ -75,13 +75,13 @@ Alle Texte, Vorlagen, Quizfragen, Prüfregeln, Anleitungen und Skill-Beschreibun
 Es gibt zwei Wege:
 
 1. **Mit neuer Version im Store:** `content.json` bzw. `links.json` ändern, Version im Manifest erhöhen, `node scripts/pack.mjs`, die Store-ZIP aus `dist/store/` hochladen.
-2. **Ohne neue Store-Version:** Die Erweiterung ruft höchstens alle zwölf Stunden `https://vikitor.de/downloads/addons/content.json` ab. Ist die Datei vorhanden und gültig, gilt sie ab dem nächsten Öffnen des Assistenten. Dafür lädst du den Inhalt von `dist/web/downloads/addons/` so auf die Website, dass folgende Adressen erreichbar sind:
+2. **Ohne neue Store-Version:** Die Erweiterung ruft höchstens alle zwölf Stunden `https://vikitor.de/downloads/addons/content.json` ab. Ist die Datei vorhanden und gültig, gilt sie ab dem nächsten Öffnen des Assistenten. Dafür lädst du den Inhalt von `dist/web/downloads/addons/` so auf die Webseite, dass folgende Adressen erreichbar sind:
    - `https://vikitor.de/downloads/addons/content.json`
    - `https://vikitor.de/downloads/addons/skills/vikitor-mobil-check.zip`
    - `https://vikitor.de/downloads/addons/skills/vikitor-seo-basis.zip`
    - `https://vikitor.de/downloads/addons/skills/vikitor-launch-check.zip`
 
-   Bei der Next.js-Website von vikitor.de genügt es, den Ordner `downloads/addons` nach `public/downloads/addons` zu kopieren und neu zu veröffentlichen.
+   Bei der Next.js-Webseite von vikitor.de genügt es, den Ordner `downloads/addons` nach `public/downloads/addons` zu kopieren und neu zu veröffentlichen.
 
 Wichtig für die Online-Datei: Sie muss dasselbe Schema haben wie die gebündelte `content.json`. Jeder Bereich (zum Beispiel `templates`, `quiz`, `guides`) wird einzeln geprüft; ungültige Bereiche werden still verworfen und durch die gebündelten Inhalte ersetzt. Es wird nur JSON geladen, niemals Code. Links werden nicht online aktualisiert, sondern nur über eine neue Version (`links.json`).
 

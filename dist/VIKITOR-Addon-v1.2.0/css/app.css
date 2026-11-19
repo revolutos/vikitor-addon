@@ -481,3 +481,29 @@ body.is-panel .foot { margin-top: 40px; }
 .home-link:hover { opacity: .85; }
 .home-link:hover .word b, .home-link:focus-visible .word b { text-decoration: underline; text-underline-offset: 3px; }
 .home-link:focus-visible { outline: 2px solid var(--signal, #c8ff3d); outline-offset: 3px; }
+
+/* Neu von VIKITOR: News, Ratgeber, Updates, Events */
+.nav-badge { margin-left: auto; min-width: 18px; padding: 1px 6px; border-radius: 999px; background: var(--signal); color: var(--on-signal); font-family: var(--mono); font-size: 10.5px; font-weight: 700; text-align: center; }
+.feed-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 14px; }
+.feed-filter button { padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--text-muted); font: inherit; font-size: 13px; cursor: pointer; }
+.feed-filter button:hover { color: var(--text); }
+.feed-filter button.is-on { background: var(--signal); border-color: var(--signal); color: var(--on-signal); font-weight: 600; }
+.feed-list { display: grid; gap: 10px; }
+.feed-card { display: flex; flex-direction: column; gap: 8px; }
+.feed-card.is-live { border-color: var(--signal); }
+.feed-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.feed-meta .overline { margin: 0; }
+.feed-date { font-family: var(--mono); font-size: 11px; color: var(--text-subtle); }
+.feed-status { padding: 1px 8px; border-radius: 999px; font-family: var(--mono); font-size: 10.5px; font-weight: 700; }
+.feed-status.is-kommend { color: var(--signal); border: 1px solid color-mix(in srgb, var(--signal) 50%, transparent); }
+.feed-status.is-live { background: var(--signal); color: var(--on-signal); }
+.feed-status.is-vorbei { color: var(--text-subtle); border: 1px solid var(--border); }
+.feed-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); margin-left: auto; }
+.feed-title { font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
+.feed-when { font-size: 13px; font-weight: 600; color: var(--text); }
+.feed-sum { font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
+.feed-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 2px; }
+.feed-more { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; color: var(--text-muted); }
+.feed-more svg { width: 14px; height: 14px; }
+.feed-more:hover { color: var(--signal); }
+body.is-panel .feed-title { font-size: 14.5px; }

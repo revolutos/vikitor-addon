@@ -13,9 +13,11 @@ import { viewGuides } from "./views/guides.js";
 import { viewSaved } from "./views/saved.js";
 import { viewAbout } from "./views/about.js";
 import { viewShop } from "./views/shop.js";
+import { viewNeu, unreadCount } from "./views/neu.js";
 
 const VIEWS = [
   { id: "start", label: "Start", icon: "home", render: viewStart },
+  { id: "neu", label: "Neu von VIKITOR", icon: "spark", render: viewNeu },
   { id: "generator", label: "Prompt-Generator", icon: "wand", render: viewGenerator },
   { id: "quiz", label: "Funnel-Quiz", icon: "compass", render: viewQuiz },
   { id: "promptcheck", label: "Prompt-Check", icon: "check", render: viewPromptCheck },
@@ -37,7 +39,8 @@ const ctx = {
   gen: null,
   cleanup: [],
   views: VIEWS,
-  go
+  go,
+  refreshBadge: () => refreshBadge()
 };
 
 function linkList(links, cls = "links") {
@@ -88,6 +91,15 @@ function navItems(onPick) {
     class: "nav-item", type: "button", "data-view": v.id,
     onclick: () => { onPick && onPick(); go(v.id); }
   }, icon(v.icon), h("span", {}, v.label)));
+}
+
+/** Zähler ungelesener Beiträge am Menüpunkt „Neu von VIKITOR“ */
+async function refreshBadge() {
+  const n = await unreadCount().catch(() => 0);
+  document.querySelectorAll('.nav-item[data-view="neu"]').forEach((b) => {
+    b.querySelector(".nav-badge")?.remove();
+    if (n > 0) b.append(h("span", { class: "nav-badge", "aria-label": `${n} neu` }, String(n)));
+  });
 }
 
 let content, drawer, menuBtn;
@@ -159,6 +171,7 @@ async function init() {
     if (m !== ctx.mode) { ctx.mode = m; shell(); render(); }
   });
   await render();
+  refreshBadge();
   document.documentElement.dataset.ready = "1";
 }
 

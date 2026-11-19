@@ -12,7 +12,7 @@ export function viewStart(ctx) {
   if (ctx.welcome) {
     out.push(h("div", { class: "notice is-signal" },
       h("b", {}, "Schön, dass du da bist. "),
-      "Damit du den Assistenten jederzeit griffbereit hast, klick in Chrome oben rechts auf das Puzzle-Symbol und hefte „VIKITOR Vibecoding Assistent“ an. Ein Klick auf das Symbol öffnet ihn dann als Seitenleiste neben jeder Website."));
+      "Damit du den Assistenten jederzeit griffbereit hast, klick in Chrome oben rechts auf das Puzzle-Symbol und hefte „VIKITOR Vibecoding Assistent“ an. Ein Klick auf das Symbol öffnet ihn dann als Seitenleiste neben jeder Webseite."));
   }
   out.push(h("header", { class: "vhead" },
     h("span", { class: "overline" }, "Vibecoding Assistent · kostenlos"),
@@ -25,7 +25,7 @@ export function viewStart(ctx) {
     h("div", {},
       h("span", { class: "overline" }, h("span", { class: "live-dot" }), "Kostenloses Live-Webinar"),
       h("h2", { style: { marginTop: "10px" } }, h("span", { class: "hl" }, "Vibecoding 3.0 live erleben")),
-      h("p", {}, "Ich zeige dir live, wie aus einer Idee mit KI eine Website oder ein Funnel entsteht, der wirklich verkauft, und beantworte deine Fragen direkt.")),
+      h("p", {}, "Ich zeige dir live, wie aus einer Idee mit KI eine Webseite oder ein Funnel entsteht, der wirklich verkauft, und beantworte deine Fragen direkt.")),
     h("a", { class: "btn btn-signal", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" }, "Kostenlosen Platz sichern", icon("arrow"))));
   out.push(h("section", { class: "section tiles" },
     h("button", { class: "card tile hover-lift", type: "button", onclick: () => ctx.go("skills") },

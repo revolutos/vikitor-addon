@@ -6,7 +6,7 @@ const STATUS = { ok: "erfüllt", warn: "ausbaufähig", bad: "fehlt" };
 
 export async function viewPromptCheck(ctx) {
   const C = ctx.content;
-  const ta = h("textarea", { class: "textarea is-big", id: "pc-text", placeholder: "Füge hier deinen Prompt ein, zum Beispiel: „Baue mir eine Website für meine Praxis …“", "aria-label": "Dein Prompt" });
+  const ta = h("textarea", { class: "textarea is-big", id: "pc-text", placeholder: "Füge hier deinen Prompt ein, zum Beispiel: „Baue mir eine Webseite für meine Praxis …“", "aria-label": "Dein Prompt" });
   ta.value = await get("lastPromptCheck", "");
   const result = h("div", { class: "stack", id: "pc-result", style: { marginTop: "24px" } });
   let timer;

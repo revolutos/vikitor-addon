@@ -13,7 +13,7 @@ const SRC = path.join(root, "src");
 const SHOTS = path.join(root, "test/screens");
 fs.mkdirSync(SHOTS, { recursive: true });
 
-const VIEWS = ["start", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "shop", "about"];
+const VIEWS = ["start", "neu", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "shop", "about"];
 const results = [];
 const ok = (name, pass, info = "") => { results.push({ name, pass, info }); console.log(`${pass ? "OK  " : "FAIL"} ${name}${info ? " – " + info : ""}`); };
 const consoleIssues = [];
@@ -181,7 +181,7 @@ try {
   await tab.evaluate(() => { location.hash = "promptcheck"; });
   await sleep(600);
   await tab.evaluate(() => { const t = document.getElementById("pc-text"); t.value = ""; });
-  await tab.type("#pc-text", "Mach mir eine schöne Website für mein Café.");
+  await tab.type("#pc-text", "Mach mir eine schöne Webseite für mein Café.");
   await sleep(600);
   const before = await tab.$eval("#pc-result .h2", (e) => e.textContent);
   await tab.evaluate(() => Array.from(document.querySelectorAll("#pc-result button")).find((b) => b.textContent.includes("Fehlendes ergänzen")).click());

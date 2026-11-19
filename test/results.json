@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-19T03:56:53.501Z",
+  "date": "2026-11-19T04:21:45.721Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
@@ -28,6 +28,11 @@
     },
     {
       "name": "tab: Ansicht „start“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „neu“ ohne Layoutfehler",
       "pass": true,
       "info": ""
     },
@@ -78,6 +83,11 @@
     },
     {
       "name": "panel: Ansicht „start“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „neu“ ohne Layoutfehler",
       "pass": true,
       "info": ""
     },

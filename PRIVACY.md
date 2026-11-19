@@ -21,7 +21,7 @@ Diese Daten werden nicht übertragen. Du kannst sie jederzeit löschen, indem du
 
 ## Verbindungen zu Servern
 
-Die Erweiterung baut genau eine eigene Verbindung auf: Sie ruft höchstens alle zwölf Stunden die Datei `https://vikitor.de/downloads/addons/content.json` ab, um Vorlagen, Anleitungen und Texte aktuell zu halten. Dabei werden keine personenbezogenen Daten und keine Eingaben mitgesendet. Wie bei jedem Abruf einer Website erhält der Server technisch bedingt deine IP-Adresse; Näheres dazu steht in der Datenschutzerklärung unter https://vikitor.de/datenschutz/. Die Datei enthält nur Texte (JSON) und niemals ausführbaren Code.
+Die Erweiterung baut genau zwei eigene Verbindungen auf: Sie ruft höchstens alle zwölf Stunden die Datei `https://vikitor.de/downloads/addons/content.json` ab, um Vorlagen, Anleitungen und Texte aktuell zu halten, und höchstens alle drei Stunden `https://vikitor.de/feed.json` für den Bereich „Neu von VIKITOR“ (News, Ratgeber, Updates, Events). Dabei werden keine personenbezogenen Daten und keine Eingaben mitgesendet. Wie bei jedem Abruf einer Webseite erhält der Server technisch bedingt deine IP-Adresse; Näheres dazu steht in der Datenschutzerklärung unter https://vikitor.de/datenschutz/. Die Dateien enthalten nur Texte (JSON) und niemals ausführbaren Code.
 
 Die Schriften „Inter Tight“ und „JetBrains Mono“ sind in der Erweiterung enthalten. Es wird dafür keine Verbindung zu Google oder anderen Schriftanbietern aufgebaut.
 
@@ -35,7 +35,7 @@ Auf `claude.ai`, `chatgpt.com` und `lovable.dev` läuft ein kleines Skript, das 
 
 Der Seiten-Check läuft nur, wenn du ausdrücklich auf „Aktuelle Seite prüfen“ klickst, und nur auf der Seite im aktiven Tab. Dabei werden ausschließlich technische Angaben gelesen: Viewport-Angabe, Seitentitel, Meta-Beschreibung, Anzahl der H1-Überschriften, Bilder ohne Alternativtext, Strukturdaten (JSON-LD), Sprachangabe, Vorschaubild, Canonical-Link und ob unter derselben Adresse eine Datei `/llms.txt` erreichbar ist. Die Auswertung geschieht lokal in deinem Browser; das Ergebnis wird nicht gespeichert und nicht übertragen.
 
-Falls Chrome für eine Website eine zusätzliche Erlaubnis verlangt, fragt die Erweiterung dich vorher. Die Erlaubnis gilt nur für diese eine Website und lässt sich in den Chrome-Einstellungen der Erweiterung jederzeit wieder entziehen.
+Falls Chrome für eine Webseite eine zusätzliche Erlaubnis verlangt, fragt die Erweiterung dich vorher. Die Erlaubnis gilt nur für diese eine Webseite und lässt sich in den Chrome-Einstellungen der Erweiterung jederzeit wieder entziehen.
 
 ## Berechtigungen und wofür sie gebraucht werden
 
@@ -46,8 +46,8 @@ Falls Chrome für eine Website eine zusätzliche Erlaubnis verlangt, fragt die E
 | `activeTab`, `scripting` | Seiten-Check auf Knopfdruck und Einfügen von Prompts |
 | `contextMenus` | Menüpunkt „Assistent im großen Fenster öffnen“ am Symbol |
 | Zugriff auf claude.ai, chatgpt.com, lovable.dev | Einfügen von Prompts in das Eingabefeld |
-| Zugriff auf vikitor.de | Abruf der aktualisierten Inhalte (content.json) |
-| optional: Zugriff auf eine einzelne Website | nur falls Chrome ihn für den Seiten-Check verlangt, mit deiner Zustimmung |
+| Zugriff auf vikitor.de | Abruf der aktualisierten Inhalte (content.json) und der Neuigkeiten (feed.json) |
+| optional: Zugriff auf eine einzelne Webseite | nur falls Chrome ihn für den Seiten-Check verlangt, mit deiner Zustimmung |
 
 ## Keine Weitergabe und kein Verkauf
 

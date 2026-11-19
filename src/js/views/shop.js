@@ -4,14 +4,14 @@ import { h, icon } from "../ui.js";
 export const SHOP_ITEMS = [
   { t: "Premium-Addons", d: "Erweiterungen für Chrome mit mehr Vorlagen, Prüfungen und Abkürzungen für deinen Alltag." },
   { t: "Premium-Skills", d: "Fertige Claude-Code-Skills für Design, Mobil, SEO, Conversion und Livegang." },
-  { t: "Premium-Templates", d: "Baupläne für Websites, Shops, Funnels und Nischen, die dein Agent direkt umsetzt." },
+  { t: "Premium-Templates", d: "Baupläne für Webseiten, Shops, Funnels und Nischen, die dein Agent direkt umsetzt." },
   { t: "Premium-Frameworks", d: "Komplette Regelwerke wie das VS Premium Vibecoding Framework." },
   { t: "Premium-Systeme", d: "Durchdachte Systeme für Vertrieb, Marketing und Abläufe in deinem Business." },
-  { t: "Mentoring", d: "Ich begleite dich über Wochen, bis deine Website, dein Funnel oder dein Angebot steht." },
+  { t: "Mentoring", d: "Ich begleite dich über Wochen, bis deine Webseite, dein Funnel oder dein Angebot steht." },
   { t: "Coaching", d: "Gezielte Einzelsitzungen zu deinem Projekt, deinem Werkzeug oder deiner Strategie." },
   { t: "Consulting", d: "Beratung für Unternehmen, die KI und Vibecoding sinnvoll einführen wollen." },
   { t: "Workshops", d: "Für Mitarbeiter, Selbstständige und Unternehmer, vor Ort oder online." },
-  { t: "Done-for-you", d: "Du willst es nicht selbst bauen? Dann setzen wir deine Website, Funnels oder Systeme für dich um." }
+  { t: "Done-for-you", d: "Du willst es nicht selbst bauen? Dann setzen wir deine Webseite, Funnels oder Systeme für dich um." }
 ];
 
 export function shopPromo(ctx, compact = false) {

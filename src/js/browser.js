@@ -71,14 +71,14 @@ async function inject(tabId) {
 }
 
 // Seiten-Check: erst mit activeTab versuchen; falls Chrome den Zugriff verweigert,
-// den Zugriff nur für genau diese Website erfragen (optionale Berechtigung).
+// den Zugriff nur für genau diese Webseite erfragen (optionale Berechtigung).
 export async function runPageCheck(tab) {
   try {
     return { data: await inject(tab.id) };
   } catch (err) {
     const msg = String(err && err.message || err);
     if (/chrome:\/\/|chrome-extension:|webstore|Cannot access a chrome|extensions gallery/i.test(msg)) {
-      return { error: "Diese Seite ist von Chrome geschützt und kann nicht geprüft werden. Öffne eine normale Website und versuche es erneut." };
+      return { error: "Diese Seite ist von Chrome geschützt und kann nicht geprüft werden. Öffne eine normale Webseite und versuche es erneut." };
     }
     let origin = null;
     try { origin = tab.url ? new URL(tab.url).origin : null; } catch (_) { origin = null; }

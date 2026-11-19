@@ -48,7 +48,7 @@ export function viewPageCheck(ctx) {
     result.textContent = "";
     const tab = await getActiveTab();
     if (!tab || tab.isSelf) {
-      result.append(h("div", { class: "notice" }, h("b", {}, "Keine Website ausgewählt. "),
+      result.append(h("div", { class: "notice" }, h("b", {}, "Keine Webseite ausgewählt. "),
         "Öffne die Seite, die du prüfen möchtest, in einem Tab, klicke dort auf das VIKITOR-Symbol, damit sich die Seitenleiste öffnet, und starte den Check dann dort."));
       return;
     }
@@ -66,7 +66,7 @@ export function viewPageCheck(ctx) {
 
   note.textContent = ctx.inPanel
     ? "Geprüft wird die Seite im aktiven Tab. Der Assistent liest dabei nur die unten genannten technischen Angaben aus und sendet nichts an einen Server."
-    : "Tipp: Der Seiten-Check prüft die Seite im aktiven Tab. Am einfachsten startest du ihn in der Seitenleiste neben der Website, die du prüfen möchtest.";
+    : "Tipp: Der Seiten-Check prüft die Seite im aktiven Tab. Am einfachsten startest du ihn in der Seitenleiste neben der Webseite, die du prüfen möchtest.";
 
   return [
     h("header", { class: "vhead" },
