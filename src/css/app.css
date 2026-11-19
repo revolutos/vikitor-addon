@@ -507,3 +507,17 @@ body.is-panel .foot { margin-top: 40px; }
 .feed-more svg { width: 14px; height: 14px; }
 .feed-more:hover { color: var(--signal); }
 body.is-panel .feed-title { font-size: 14.5px; }
+
+/* Premium: Vorlagen und Funnel-Hack */
+.nav-premium { margin-left: auto; padding: 1px 6px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--signal) 55%, transparent); color: var(--signal); font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: .08em; }
+.nav-ext { margin-left: auto; color: var(--text-subtle); font-size: 12px; }
+a.nav-item { text-decoration: none; }
+.unlock-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.unlock-row .input { flex: 1 1 180px; }
+.row-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.vorlage-tile { gap: 8px; }
+.vorlage-title { white-space: normal !important; line-height: 1.25; }
+.md { display: grid; gap: 8px; font-size: 13.5px; line-height: 1.55; color: var(--text-muted); }
+.md h3 { margin-top: 10px; font-size: 15px; color: var(--text); }
+.md-row { font-family: var(--mono); font-size: 12px; color: var(--text-subtle); }
+.md-li { padding-left: 4px; }

@@ -14,6 +14,9 @@ import { viewSaved } from "./views/saved.js";
 import { viewAbout } from "./views/about.js";
 import { viewShop } from "./views/shop.js";
 import { viewNeu, unreadCount } from "./views/neu.js";
+import { viewVorlagen } from "./views/vorlagen.js";
+import { viewFunnelHack } from "./views/funnelhack.js";
+import { isUnlocked } from "./premium.js";
 
 const VIEWS = [
   { id: "start", label: "Start", icon: "home", render: viewStart },
@@ -25,6 +28,9 @@ const VIEWS = [
   { id: "skills", label: "Gratis-Skills", icon: "bolt", render: viewSkills },
   { id: "guides", label: "Anleitungen", icon: "book", render: viewGuides },
   { id: "saved", label: "Merkliste", icon: "bookmark", render: viewSaved },
+  { id: "vorlagen", label: "Funnel-Vorlagen", icon: "book", render: viewVorlagen, premium: true },
+  { id: "funnelhack", label: "Funnel-Hack", icon: "compass", render: viewFunnelHack, premium: true },
+  { id: "downloads", label: "Downloads", icon: "download", href: "https://vikitor.de/downloads/" },
   { id: "shop", label: "Shop · bald", icon: "bag", render: viewShop },
   { id: "about", label: "Über Viktor", icon: "user", render: viewAbout }
 ];
@@ -40,6 +46,7 @@ const ctx = {
   cleanup: [],
   views: VIEWS,
   go,
+  current: () => currentView(),
   refreshBadge: () => refreshBadge()
 };
 
@@ -87,10 +94,14 @@ function ctaFoot() {
 }
 
 function navItems(onPick) {
-  return VIEWS.map((v) => h("button", {
-    class: "nav-item", type: "button", "data-view": v.id,
-    onclick: () => { onPick && onPick(); go(v.id); }
-  }, icon(v.icon), h("span", {}, v.label)));
+  return VIEWS.map((v) => v.href
+    // Menüpunkt, der direkt zur Webseite führt
+    ? h("a", { class: "nav-item", href: v.href + "?utm_source=vikitor-addon&utm_medium=addon&utm_content=menue", target: "_blank", rel: "noopener", "data-view": v.id, onclick: () => onPick && onPick() },
+        icon(v.icon), h("span", {}, v.label), h("span", { class: "nav-ext", "aria-hidden": "true" }, "↗"))
+    : h("button", {
+        class: "nav-item", type: "button", "data-view": v.id,
+        onclick: () => { onPick && onPick(); go(v.id); }
+      }, icon(v.icon), h("span", {}, v.label), v.premium ? h("span", { class: "nav-premium", title: "Premium" }, "PRO") : null));
 }
 
 /** Zähler ungelesener Beiträge am Menüpunkt „Neu von VIKITOR“ */
@@ -136,7 +147,7 @@ function shell() {
 
 function currentView() {
   const id = location.hash.replace("#", "");
-  return VIEWS.find((v) => v.id === id) ? id : "start";
+  return VIEWS.find((v) => v.id === id && !v.href) ? id : "start";
 }
 
 async function render() {

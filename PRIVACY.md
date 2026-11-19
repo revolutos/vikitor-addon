@@ -52,3 +52,9 @@ Falls Chrome für eine Webseite eine zusätzliche Erlaubnis verlangt, fragt die 
 ## Keine Weitergabe und kein Verkauf
 
 Es werden keine Daten an Dritte weitergegeben oder verkauft. Die Erweiterung verwendet keine Daten für Werbung, Bonitätsprüfungen oder andere Zwecke, die nichts mit ihrer Funktion zu tun haben.
+
+## Premium (Funnel-Vorlagen und Funnel-Hack)
+
+Wer Premium freischaltet, sendet den Freischaltcode einmalig an `https://vikitor.de/api/vsmacos/freischalten/`. Zurück kommt eine Lizenz, die nur lokal in der Erweiterung gespeichert wird. Damit lädt die Erweiterung die Vorlagen von `https://vikitor.de/api/vsmacos/premium/`. Personenbezogene Daten werden dabei nicht übertragen.
+
+Der Funnel-Hack liest die Struktur der gerade geöffneten Seite (Überschriften, Texte, Buttons, Formularfelder, Preise, Links) nur auf Knopfdruck und nur lokal. Daraus entsteht ein Text, den du selbst kopierst oder in Claude, ChatGPT oder Lovable einfügst. Die Erweiterung sendet diese Inhalte an keinen Server. Dein Briefing (Angebot, Zielgruppe, Marke) bleibt lokal in der Erweiterung gespeichert.

@@ -13,7 +13,7 @@ const SRC = path.join(root, "src");
 const SHOTS = path.join(root, "test/screens");
 fs.mkdirSync(SHOTS, { recursive: true });
 
-const VIEWS = ["start", "neu", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "shop", "about"];
+const VIEWS = ["start", "neu", "vorlagen", "funnelhack", "generator", "quiz", "promptcheck", "pagecheck", "skills", "guides", "saved", "shop", "about"];
 const results = [];
 const ok = (name, pass, info = "") => { results.push({ name, pass, info }); console.log(`${pass ? "OK  " : "FAIL"} ${name}${info ? " – " + info : ""}`); };
 const consoleIssues = [];
@@ -192,6 +192,47 @@ try {
   ok("Prompt-Check: bewertet und ergänzt fehlende Vorgaben", before !== after, `${before} → ${after}`);
   await tab.screenshot({ path: path.join(SHOTS, "tab-promptcheck-result.png"), fullPage: true });
 
+  // Premium: freischalten (echter Code gegen vikitor.de), Vorlagen laden, Funnel-Hack-Erfassung auf echter Seite
+  {
+    const p = await openApp("start", 1440, 900, "tab");
+    await p.evaluate(() => { location.hash = "vorlagen"; });
+    await p.waitForSelector("#premium-code", { timeout: 8000 }).catch(() => {});
+    const gate = await p.$("#premium-code");
+    ok("Vorlagen gesperrt bis zur Freischaltung", !!gate);
+    await p.type("#premium-code", "falscher-code"); await p.click(".unlock-row .btn");
+    await p.waitForFunction(() => /stimmt nicht|nicht erreichbar/.test(document.body.innerText), { timeout: 15000 }).catch(() => {});
+    ok("Falscher Code wird abgelehnt", await p.evaluate(() => /stimmt nicht/.test(document.body.innerText)));
+    await p.evaluate(() => { document.querySelector("#premium-code").value = ""; });
+    await p.type("#premium-code", process.env.PREMIUM_CODE || ""); await p.click(".unlock-row .btn");
+    await p.waitForFunction(() => document.querySelectorAll(".vorlage-tile").length > 0, { timeout: 20000 }).catch(() => {});
+    const tiles = await p.evaluate(() => document.querySelectorAll(".vorlage-tile").length);
+    ok("Richtiger Code schaltet frei, Funnel-Vorlagen erscheinen", tiles > 0, `${tiles} Funnel-Vorlagen`);
+    if (tiles) {
+      await p.click(".vorlage-tile"); await sleep(300);
+      ok("Vorlage öffnet mit Bauplan und Kopieren-Button", await p.evaluate(() => !!document.querySelector(".md h3") && /Kopieren/.test(document.body.innerText)));
+      await p.screenshot({ path: path.join(SHOTS, "tab-vorlage-detail.png") });
+    }
+    const issues = await layoutIssues(p);
+    ok("Vorlagen ohne Layoutfehler (freigeschaltet)", issues.length === 0, issues.join(" | "));
+    await p.close();
+    const fh = await openApp("start", 400, 800, "panel");
+    await fh.evaluate(() => { location.hash = "funnelhack"; });
+    await fh.waitForFunction(() => /vorbild erfassen/i.test(document.body.innerText), { timeout: 8000 }).catch(() => {});
+    ok("Funnel-Hack nach Freischaltung offen", await fh.evaluate(() => /vorbild erfassen/i.test(document.body.innerText)));
+    await fh.screenshot({ path: path.join(SHOTS, "panel-funnelhack.png") });
+    await fh.close();
+    const { collectFunnelData, funnelPrompt } = await import(path.join(SRC, "js", "funnel.js"));
+    const web = await browser.newPage();
+    try {
+      await web.goto("https://vikitor.de/", { waitUntil: "networkidle2", timeout: 30000 });
+      const d = await web.evaluate(collectFunnelData);
+      const pr = funnelPrompt(d, { angebot: "Testangebot", zielgruppe: "Testzielgruppe", marke: "" });
+      ok("Funnel-Hack erfasst eine echte Seite", d.items.filter((i) => /^h[1-3]$/.test(i.type)).length > 3 && d.items.some((i) => i.type === "cta"), `${d.items.length} Elemente, ${d.links.length} Folgeseiten`);
+      ok("Funnel-Hack-Auftrag enthält Regeln, Briefing und Struktur", /NIE fremde Texte/.test(pr) && /Testangebot/.test(pr) && /### Struktur/.test(pr), `${pr.length} Zeichen`);
+    } catch (e) { ok("Funnel-Hack erfasst eine echte Seite", false, e.message); }
+    await web.close();
+  }
+
   // Seiten-Check auf echter Seite (vikitor.de) aus der Panel-Seite heraus
   const site = await browser.newPage();
   watch(site, "vikitor.de");
@@ -269,7 +310,9 @@ try {
   }
 
   // Konsole
-  const expected404 = (c) => c.includes("Failed to load resource") && c.includes("404") && c.includes("addon/content.json");
+  const expected404 = (c) => (c.includes("Failed to load resource") && c.includes("404") && c.includes("addon/content.json"))
+    // gewollt: der Test schickt absichtlich einen falschen Freischaltcode
+    || (c.includes("Failed to load resource") && c.includes("401") && c.includes("/api/vsmacos/freischalten/"));
   const relevantAll = consoleIssues.filter((c) => c.startsWith("[tab]") || c.startsWith("[panel]"));
   const known = relevantAll.filter(expected404);
   const relevant = relevantAll.filter((c) => !expected404(c));

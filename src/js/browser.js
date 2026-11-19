@@ -1,5 +1,6 @@
 // Anbindung an Chrome: aktiven Tab ermitteln, Prompt einfügen, Seiten-Check ausführen.
 import { collectPageData } from "./pagecheck.js";
+import { collectFunnelData } from "./funnel.js";
 
 export const AI_SITES = {
   "claude.ai": "Claude",
@@ -65,16 +66,16 @@ export function onTabChange(cb) {
   };
 }
 
-async function inject(tabId) {
-  const [res] = await chrome.scripting.executeScript({ target: { tabId }, func: collectPageData });
+async function inject(tabId, func = collectPageData) {
+  const [res] = await chrome.scripting.executeScript({ target: { tabId }, func });
   return res ? res.result : null;
 }
 
 // Seiten-Check: erst mit activeTab versuchen; falls Chrome den Zugriff verweigert,
 // den Zugriff nur für genau diese Webseite erfragen (optionale Berechtigung).
-export async function runPageCheck(tab) {
+export async function runPageCheck(tab, func = collectPageData) {
   try {
-    return { data: await inject(tab.id) };
+    return { data: await inject(tab.id, func) };
   } catch (err) {
     const msg = String(err && err.message || err);
     if (/chrome:\/\/|chrome-extension:|webstore|Cannot access a chrome|extensions gallery/i.test(msg)) {
@@ -86,7 +87,7 @@ export async function runPageCheck(tab) {
     try {
       const granted = await chrome.permissions.request({ origins });
       if (!granted) return { error: "Ohne deine Erlaubnis kann der Assistent diese Seite nicht prüfen." };
-      return { data: await inject(tab.id) };
+      return { data: await inject(tab.id, func) };
     } catch (e2) {
       return { error: "Die Seite konnte nicht geprüft werden. Lade sie neu, klicke einmal auf das VIKITOR-Symbol und versuche es dann erneut." };
     }
@@ -97,3 +98,6 @@ export function openInTab(hash = "") {
   const url = chrome.runtime.getURL("app.html?view=tab" + (hash ? "#" + hash : ""));
   chrome.tabs.create({ url });
 }
+
+/** Funnel-Hack: Struktur der aktuellen Seite erfassen (gleiche Berechtigungslogik wie der Seiten-Check) */
+export const runFunnelCapture = (tab) => runPageCheck(tab, collectFunnelData);
