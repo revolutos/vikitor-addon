@@ -81,7 +81,7 @@ Die Versionsnummer kommt aus `src/manifest.json`. Für jede neue Store-Version m
 
 ```bash
 node test/logic.mjs     # Generator (10 Vorlagen × 3 Werkzeuge), alle Quiz-Pfade, Prompt-Check, Bewertung, Inhaltsregeln
-node test/browser.mjs   # lädt die Erweiterung in Chrome, klickt alle Ansichten durch, Screenshots nach test/screens/
+PREMIUM_CODE=<Code> node test/browser.mjs   # ohne PREMIUM_CODE werden die Premium-Tests übersprungen; lädt die Erweiterung in Chrome, klickt alle Ansichten durch, Screenshots nach test/screens/
 ```
 
 Der Browser-Test nutzt `puppeteer-core` (Pfad per Umgebungsvariable `PUPPETEER_CORE` änderbar) und Google Chrome (`CHROME_PATH`). Mit `HEADFUL=1` läuft er sichtbar.

@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-19T05:09:50.464Z",
+  "date": "2026-11-19T05:20:14.441Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
@@ -254,12 +254,12 @@
     {
       "name": "Funnel-Hack erfasst eine echte Seite",
       "pass": true,
-      "info": "165 Elemente, 12 Folgeseiten"
+      "info": "172 Elemente, 12 Folgeseiten"
     },
     {
       "name": "Funnel-Hack-Auftrag enthält Regeln, Briefing und Struktur",
       "pass": true,
-      "info": "16276 Zeichen"
+      "info": "16823 Zeichen"
     },
     {
       "name": "Seiten-Check auf https://vikitor.de liefert Ergebnis",

@@ -192,8 +192,10 @@ try {
   ok("Prompt-Check: bewertet und ergänzt fehlende Vorgaben", before !== after, `${before} → ${after}`);
   await tab.screenshot({ path: path.join(SHOTS, "tab-promptcheck-result.png"), fullPage: true });
 
-  // Premium: freischalten (echter Code gegen vikitor.de), Vorlagen laden, Funnel-Hack-Erfassung auf echter Seite
-  {
+  // Premium: freischalten (echter Code gegen vikitor.de), Vorlagen laden, Funnel-Hack-Erfassung auf echter Seite.
+  // Der Code steht nie im Repository: PREMIUM_CODE=… node test/browser.mjs
+  if (!process.env.PREMIUM_CODE) console.log("SKIP Premium-Tests (PREMIUM_CODE nicht gesetzt)");
+  else {
     const p = await openApp("start", 1440, 900, "tab");
     await p.evaluate(() => { location.hash = "vorlagen"; });
     await p.waitForSelector("#premium-code", { timeout: 8000 }).catch(() => {});
