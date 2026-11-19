@@ -1,8 +1,7 @@
-import { h, icon } from "../ui.js";
+import { h, icon, socialRow } from "../ui.js";
 
 export function viewAbout(ctx) {
   const L = ctx.links;
-  const socials = ["instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok"].filter((k) => L[k] && L[k].url);
   const features = ["25+ Kapitel vom ersten Prompt bis zum Funnel", "17 Skills für Claude Code", "Über 20 Prompt-Vorlagen", "Generator mit Projekt-Startpaket", "Vorlagen-Bibliothek", "Mitgliederbereich"];
   return [
     h("header", { class: "vhead" },
@@ -14,10 +13,11 @@ export function viewAbout(ctx) {
         h("p", {}, "Ich bin Viktor Siemens, der Nr. 1 Vibecoder Deutschlands für KI-Webseiten und Funnels, die wirklich verkaufen. Seit vier Jahren arbeite ich intensiv mit KI und seit einem Jahr bin ich voll auf Vibecoding, ohne selbst eine Zeile Code zu schreiben. Über 250 Kunden haben mir bisher ihr Business anvertraut, und das ERFOLG Magazin hat mich 2024 zu den Top 100 Unternehmern gezählt."),
         h("p", {}, "Diesen Assistenten habe ich gebaut, damit du die Werkzeuge, die ich jeden Tag selbst benutze, kostenlos ausprobieren kannst. Alles hier funktioniert ohne Kauf und ohne Anmeldung, und ich freue mich, wenn er dir bei deinem nächsten Projekt hilft."),
         h("img", { class: "signature", src: "img/signatur.png", alt: "Unterschrift Viktor Siemens", width: 591, height: 246 }),
-        h("div", { class: "links" },
-          h("a", { href: L.website.url, target: "_blank", rel: "noopener" }, L.website.label),
-          h("a", { href: L.webinar.url, target: "_blank", rel: "noopener" }, "Live-Webinar"),
-          socials.map((k) => h("a", { href: L[k].url, target: "_blank", rel: "noopener" }, L[k].label))))),
+        h("div", { class: "about-links" },
+          h("div", { class: "links" },
+            h("a", { href: L.website.url, target: "_blank", rel: "noopener" }, L.website.label),
+            h("a", { href: L.webinar.url, target: "_blank", rel: "noopener" }, "Live-Webinar")),
+          socialRow(L)))),
     h("section", { class: "section card is-strong stack" },
       h("span", { class: "overline" }, "Der nächste Schritt"),
       h("h2", { class: "h2" }, h("span", { class: "hl" }, "VS Premium Vibecoding Framework")),

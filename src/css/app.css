@@ -428,3 +428,50 @@ body.is-panel .foot { padding: 18px 16px 22px; flex-direction: column; align-ite
 .shop-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .shop-promo .overline svg { width: 13px; height: 13px; vertical-align: -2px; }
 .shop-grid .tile { cursor: default; }
+
+/* Social-Icons */
+.social { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.social a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); color: var(--text-muted); transition: color 160ms, border-color 160ms, transform 160ms, box-shadow 160ms; }
+.social a svg { width: 18px; height: 18px; }
+.social a:hover { color: var(--signal); border-color: color-mix(in srgb, var(--signal) 60%, var(--border)); transform: translateY(-1px); }
+.social a.is-fav { background: var(--signal); border-color: var(--signal); color: var(--on-signal); }
+.social a.is-fav:hover { color: var(--on-signal); box-shadow: 0 0 20px -4px color-mix(in srgb, var(--signal) 70%, transparent); }
+
+/* Abschluss unter der Fußzeile (wie vikitor.de) */
+.sig { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: 560px; border-top: 1px solid var(--border); background: radial-gradient(70% 90% at 80% 40%, #17181b 0%, var(--bg) 62%); }
+.sig-photo { position: absolute; inset: 0 0 0 auto; z-index: -1; width: 48%; }
+.sig-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 12%; filter: grayscale(1) contrast(1.06); opacity: 0; transform: scale(1.04); transition: opacity 1100ms ease-out, transform 1500ms cubic-bezier(.2,.7,.2,1); }
+.sig-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 70%, transparent) 24%, transparent 58%), linear-gradient(0deg, var(--bg) 0%, transparent 30%), linear-gradient(180deg, var(--bg) 0%, transparent 14%); }
+.sig.is-in .sig-photo img { opacity: 1; transform: none; }
+.sig-in { position: relative; width: 100%; padding: 72px 40px; }
+.sig-in > * { max-width: 560px; }
+.sig-h { margin-top: 14px; font-size: clamp(36px, 5vw, 68px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.98; color: var(--signal); }
+.sig-h span { display: block; white-space: nowrap; }
+.sig-sub { margin-top: 18px; font-size: 17px; line-height: 1.45; font-weight: 500; color: var(--text); }
+.sig-facts { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0 0; padding: 0; list-style: none; }
+.sig-facts li { padding: 6px 11px; border: 1px solid var(--border); border-radius: 999px; background: color-mix(in srgb, var(--surface) 85%, transparent); font-size: 12.5px; color: var(--text-muted); }
+.sig-facts b { color: var(--text); }
+.sig-who { display: flex; align-items: center; gap: 16px; margin-top: 26px; }
+.sig-name { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-subtle); white-space: nowrap; }
+.sig-sign { height: 46px; width: auto; }
+.sig-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 24px; }
+.sig-cta .btn { height: 48px; padding: 0 22px; font-weight: 700; }
+.sig-social { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.sig .sig-a { opacity: 0; transform: translateY(18px); filter: blur(6px); transition: opacity 750ms cubic-bezier(.2,.7,.2,1), transform 750ms cubic-bezier(.2,.7,.2,1), filter 750ms; }
+.sig.is-in .sig-a { opacity: 1; transform: none; filter: none; }
+.sig.is-in .sig-a:nth-child(2) { transition-delay: 110ms; } .sig.is-in .sig-a:nth-child(3) { transition-delay: 220ms; } .sig.is-in .sig-a:nth-child(4) { transition-delay: 330ms; } .sig.is-in .sig-a:nth-child(5) { transition-delay: 440ms; } .sig.is-in .sig-a:nth-child(6) { transition-delay: 550ms; } .sig.is-in .sig-a:nth-child(7) { transition-delay: 660ms; }
+body.is-panel .sig { display: block; min-height: 0; }
+body.is-panel .sig-photo { position: relative; inset: auto; width: 100%; height: 360px; }
+body.is-panel .sig-photo::after { background: linear-gradient(0deg, var(--bg) 0%, transparent 50%), linear-gradient(180deg, var(--bg) 0%, transparent 16%); }
+body.is-panel .sig-in { margin-top: -110px; padding: 0 16px 40px; }
+body.is-panel .sig-h { font-size: 38px; }
+body.is-panel .sig-sub { font-size: 15.5px; }
+@media (prefers-reduced-motion: reduce) { .sig .sig-a, .sig-photo img { opacity: 1; transform: none; filter: none; transition: none; } }
+.about-links { display: grid; gap: 14px; margin-top: 4px; }
+.about-text .signature { margin: 0; }
+/* Seitenleiste: Hintergrund der Abschluss-Sektion flach, damit am Fotoende keine Kante entsteht */
+body.is-panel .sig { background: var(--bg); }
+body.is-panel .sig-photo::after { background: linear-gradient(0deg, var(--bg) 0%, var(--bg) 6%, transparent 62%), linear-gradient(180deg, var(--bg) 0%, transparent 16%); }
+/* Abstände: Fußzeile und Abschluss klar getrennt, Sektionen gleichmäßig */
+.foot { margin-top: 56px; }
+body.is-panel .foot { margin-top: 40px; }

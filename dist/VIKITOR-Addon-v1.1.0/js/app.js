@@ -1,5 +1,5 @@
 // VIKITOR Vibecoding Assistent – App-Gerüst: Layout (Seitenleiste oder Tab), Menü, Router.
-import { h, icon, wordmark, reveal } from "./ui.js";
+import { h, icon, wordmark, reveal, socialRow } from "./ui.js";
 import { loadContent, loadLinks } from "./data.js";
 import { get } from "./store.js";
 import { openInTab } from "./browser.js";
@@ -41,7 +41,7 @@ const ctx = {
 };
 
 function linkList(links, cls = "links") {
-  const order = ["website", "shop", "webinar", "instagram", "facebook", "facebookPrivat", "linkedin", "youtube", "tiktok", "datenschutz"];
+  const order = ["website", "shop", "webinar", "datenschutz"];
   return h("nav", { class: cls, "aria-label": "Links" },
     order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Webinar" : links[k].label)));
 }
@@ -50,7 +50,30 @@ function footer() {
   return h("footer", { class: "foot" },
     h("div", { class: "foot-brand" }, wordmark(), h("span", { class: "by" }, "von Viktor Siemens")),
     linkList(ctx.links),
+    socialRow(ctx.links),
     h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.0.0"} · kostenlos`));
+}
+
+/** Abschluss unter der Fußzeile: Positionierung mit Foto, Unterschrift und Webinar-CTA (wie auf vikitor.de) */
+function ctaFoot() {
+  const sec = h("section", { class: "sig", "aria-labelledby": "sig-h" },
+    h("div", { class: "sig-photo", "aria-hidden": "true" }, h("img", { src: "img/viktor-experte.jpg", alt: "", loading: "lazy" })),
+    h("div", { class: "sig-in" },
+      h("span", { class: "overline sig-a" }, "Viktor Siemens · VIKITOR"),
+      h("h2", { id: "sig-h", class: "sig-h sig-a" }, h("span", {}, "Der Nr. 1 Vibecoder"), h("span", {}, "Deutschlands.")),
+      h("p", { class: "sig-sub sig-a" }, "Für KI-Webseiten und Funnels, die wirklich verkaufen. Und nichts davon sieht nach billiger KI aus."),
+      h("ul", { class: "sig-facts sig-a" },
+        h("li", {}, h("b", {}, "250+"), " Kunden"),
+        h("li", {}, h("b", {}, "Top 100"), " Unternehmer 2024, ERFOLG Magazin"),
+        h("li", {}, h("b", {}, "4 Jahre"), " intensiv mit KI")),
+      h("div", { class: "sig-who sig-a" }, h("span", { class: "sig-name" }, "Viktor Siemens"), h("img", { class: "sig-sign", src: "img/signatur.png", alt: "Unterschrift von Viktor Siemens" })),
+      h("div", { class: "sig-cta sig-a" },
+        h("a", { class: "btn btn-signal", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" }, "Kostenlosen Webinar-Platz sichern", icon("arrow")),
+        h("span", { class: "small subtle" }, "Live-Webinar „Vibecoding 3.0“ · Mac oder Windows · ohne Vorkenntnisse")),
+      h("div", { class: "sig-social sig-a" }, h("span", { class: "overline" }, "Folge mir"), socialRow(ctx.links))));
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { sec.classList.add("is-in"); io.disconnect(); } }, { threshold: 0.15 });
+  io.observe(sec);
+  return sec;
 }
 
 function navItems(onPick) {
@@ -88,7 +111,7 @@ function shell() {
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
 
   content = h("div", { class: "content", id: "content" });
-  const main = h("main", { class: "main" }, topbar, drawer, content, footer());
+  const main = h("main", { class: "main" }, topbar, drawer, content, footer(), ctaFoot());
   app.append(side, main);
 }
 

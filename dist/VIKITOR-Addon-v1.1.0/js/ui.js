@@ -46,6 +46,10 @@ const P = {
   refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   bag: '<path d="M5 8h14l-1.2 12.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/>',
+  facebook: '<path d="M15 8h-2a2 2 0 0 0-2 2v11M8 13h6"/><rect x="3" y="3" width="18" height="18" rx="5"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
 };
 
@@ -120,3 +124,12 @@ export function codebox(label, text, extra) {
       } }, icon("copy"), "Kopieren"), extra || null),
     pre);
 }
+
+// Social-Icons (Instagram als Favorit hervorgehoben)
+const SOCIAL = [["instagram", "instagram", "Instagram (@viktorsiemens.business)"], ["facebook", "facebook", "Facebook (offizieller Kanal)"], ["facebookPrivat", "facebook", "Facebook (privates Profil)"], ["linkedin", "linkedin", "LinkedIn"]];
+export function socialRow(links) {
+  return h("ul", { class: "social", "aria-label": "Viktor Siemens in sozialen Netzwerken" },
+    SOCIAL.filter(([k]) => links[k] && links[k].url).map(([k, ic, label]) =>
+      h("li", {}, h("a", { href: links[k].url, target: "_blank", rel: "noopener", "aria-label": label, title: label, class: k === "instagram" ? "is-fav" : "" }, icon(ic)))));
+}
+
