@@ -522,3 +522,10 @@ a.nav-item { text-decoration: none; }
 .md-row { font-family: var(--mono); font-size: 12px; color: var(--text-subtle); }
 .md-li { padding-left: 4px; }
 .unlock-buy { display: grid; gap: 8px; justify-items: start; padding-top: 12px; border-top: 1px solid var(--border); }
+
+/* Menü in Gruppen */
+.nav-h { margin: 14px 10px 4px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-subtle); }
+.nav-buy { padding: 6px 10px 2px; }
+.nav-buy-btn { width: 100%; justify-content: center; }
+.nav-buy-ok { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--signal); }
+.nav-buy-ok svg { width: 14px; height: 14px; }

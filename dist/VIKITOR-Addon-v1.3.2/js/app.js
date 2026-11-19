@@ -21,18 +21,18 @@ import { isUnlocked } from "./premium.js";
 const VIEWS = [
   { id: "start", label: "Start", icon: "home", render: viewStart },
   { id: "neu", label: "Neu von VIKITOR", icon: "spark", render: viewNeu },
-  { id: "generator", label: "Prompt-Generator", icon: "wand", render: viewGenerator },
-  { id: "quiz", label: "Funnel-Quiz", icon: "compass", render: viewQuiz },
-  { id: "promptcheck", label: "Prompt-Check", icon: "check", render: viewPromptCheck },
-  { id: "pagecheck", label: "Seiten-Check", icon: "gauge", render: viewPageCheck },
-  { id: "skills", label: "Gratis-Skills", icon: "bolt", render: viewSkills },
-  { id: "guides", label: "Anleitungen", icon: "book", render: viewGuides },
-  { id: "saved", label: "Merkliste", icon: "bookmark", render: viewSaved },
-  { id: "vorlagen", label: "Funnel-Vorlagen", icon: "book", render: viewVorlagen, premium: true },
-  { id: "funnelhack", label: "Funnel-Hack", icon: "compass", render: viewFunnelHack, premium: true },
-  { id: "downloads", label: "Downloads", icon: "download", href: "https://vikitor.de/downloads/" },
-  { id: "shop", label: "Shop · bald", icon: "bag", render: viewShop },
-  { id: "about", label: "Über Viktor", icon: "user", render: viewAbout }
+  { id: "generator", label: "Prompt-Generator", icon: "wand", render: viewGenerator, group: "Werkzeuge" },
+  { id: "quiz", label: "Funnel-Quiz", icon: "compass", render: viewQuiz, group: "Werkzeuge" },
+  { id: "promptcheck", label: "Prompt-Check", icon: "check", render: viewPromptCheck, group: "Werkzeuge" },
+  { id: "pagecheck", label: "Seiten-Check", icon: "gauge", render: viewPageCheck, group: "Werkzeuge" },
+  { id: "vorlagen", label: "Funnel-Vorlagen", icon: "book", render: viewVorlagen, premium: true, group: "Premium" },
+  { id: "funnelhack", label: "Funnel-Hack", icon: "compass", render: viewFunnelHack, premium: true, group: "Premium" },
+  { id: "skills", label: "Gratis-Skills", icon: "bolt", render: viewSkills, group: "Lernen" },
+  { id: "guides", label: "Anleitungen", icon: "book", render: viewGuides, group: "Lernen" },
+  { id: "saved", label: "Merkliste", icon: "bookmark", render: viewSaved, group: "Lernen" },
+  { id: "downloads", label: "Downloads", icon: "download", href: "https://vikitor.de/downloads/", group: "Mehr" },
+  { id: "shop", label: "Shop · bald", icon: "bag", render: viewShop, group: "Mehr" },
+  { id: "about", label: "Über Viktor", icon: "user", render: viewAbout, group: "Mehr" }
 ];
 
 const params = new URLSearchParams(location.search);
@@ -93,7 +93,33 @@ function ctaFoot() {
   return sec;
 }
 
+/** Menü in Gruppen: Überschrift vor jeder neuen Gruppe, im Premium-Block zusätzlich der Kaufen-Button */
 function navItems(onPick) {
+  const out = [];
+  let group = null;
+  for (const [i, el] of navButtons(onPick).entries()) {
+    const g = VIEWS[i].group || null;
+    if (g !== group) {
+      if (group === "Premium") out.push(premiumBuy(onPick));
+      if (g) out.push(h("div", { class: "nav-h" }, g));
+      group = g;
+    }
+    out.push(el);
+  }
+  return out;
+}
+
+function premiumBuy(onPick) {
+  const box = h("div", { class: "nav-buy" });
+  isUnlocked().then((ok) => {
+    box.append(ok
+      ? h("span", { class: "nav-buy-ok" }, icon("ok"), "Premium aktiv")
+      : h("a", { class: "btn btn-signal btn-sm nav-buy-btn", href: "https://vikitor.de/shop/?utm_source=vikitor-addon&utm_medium=addon&utm_content=menue-premium", target: "_blank", rel: "noopener", onclick: () => onPick && onPick() }, icon("bag"), "Premium-Code kaufen"));
+  });
+  return box;
+}
+
+function navButtons(onPick) {
   return VIEWS.map((v) => v.href
     // Menüpunkt, der direkt zur Webseite führt
     ? h("a", { class: "nav-item", href: v.href + "?utm_source=vikitor-addon&utm_medium=addon&utm_content=menue", target: "_blank", rel: "noopener", "data-view": v.id, onclick: () => onPick && onPick() },
