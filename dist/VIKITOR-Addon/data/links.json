@@ -1,0 +1,46 @@
+{
+  "website": {
+    "label": "vikitor.de",
+    "url": "https://vikitor.de"
+  },
+  "webinar": {
+    "label": "Zum Live-Webinar anmelden",
+    "url": "https://vikitor.de/#anfrage"
+  },
+  "framework": {
+    "label": "VS Premium Vibecoding Framework",
+    "url": "https://vikitor.de/framework/"
+  },
+  "datenschutz": {
+    "label": "Datenschutz",
+    "url": "https://vikitor.de/addon/datenschutz/"
+  },
+  "instagram": {
+    "label": "Instagram",
+    "url": "https://www.instagram.com/viktorsiemens.business/"
+  },
+  "facebook": {
+    "label": "Facebook",
+    "url": ""
+  },
+  "linkedin": {
+    "label": "LinkedIn",
+    "url": ""
+  },
+  "youtube": {
+    "label": "YouTube",
+    "url": ""
+  },
+  "tiktok": {
+    "label": "TikTok",
+    "url": ""
+  },
+  "skillsBase": {
+    "label": "Skill-Downloads",
+    "url": "https://vikitor.de/addon/skills/"
+  },
+  "contentUpdate": {
+    "label": "Inhalts-Aktualisierung",
+    "url": "https://vikitor.de/addon/content.json"
+  }
+}

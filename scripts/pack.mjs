@@ -1,5 +1,8 @@
-// Packt die Erweiterung (Inhalt von src/ mit manifest.json im ZIP-Wurzelverzeichnis)
-// nach dist/vikitor-addon-v<version>.zip und jeden Skill nach dist/skills/<name>.zip.
+// Packt die Erweiterung:
+// - dist/VIKITOR-Addon/                     fertiger Ordner zum Laden in Chrome (Entpackte Erweiterung laden)
+// - dist/vikitor-addon-v<version>.zip       für Leads: enthält genau einen Ordner „VIKITOR-Addon“ mit manifest.json
+// - dist/store/vikitor-addon-v<version>-store.zip  für den Chrome Web Store (manifest.json im Wurzelverzeichnis)
+// und jeden Skill nach dist/skills/<name>.zip.
 // Benötigt nur Node und das unter macOS vorhandene Programm „zip“.
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -23,11 +26,23 @@ for (const f of must) if (!fs.existsSync(path.join(src, f))) { console.error("Fe
 for (const f of ["data/content.json", "data/links.json", "_locales/de/messages.json"]) JSON.parse(fs.readFileSync(path.join(src, f), "utf8"));
 
 fs.mkdirSync(path.join(dist, "skills"), { recursive: true });
+const FOLDER = "VIKITOR-Addon";
+const folder = path.join(dist, FOLDER);
+fs.rmSync(folder, { recursive: true, force: true });
+fs.cpSync(src, folder, { recursive: true, filter: (f) => !f.endsWith(".DS_Store") });
+console.log("Ordner zum Laden:", path.relative(root, folder));
+
 const zipName = `vikitor-addon-v${manifest.version}.zip`;
 const zipPath = path.join(dist, zipName);
 fs.rmSync(zipPath, { force: true });
-execFileSync("zip", ["-r", "-X", "-q", zipPath, ".", "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: src, stdio: "inherit" });
-console.log("Erweiterung:", path.relative(root, zipPath), `(${(fs.statSync(zipPath).size / 1024).toFixed(1)} KB)`);
+execFileSync("zip", ["-r", "-X", "-q", zipPath, FOLDER, "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: dist, stdio: "inherit" });
+console.log("Erweiterung (Leads):", path.relative(root, zipPath), `(${(fs.statSync(zipPath).size / 1024).toFixed(1)} KB)`);
+
+fs.mkdirSync(path.join(dist, "store"), { recursive: true });
+const storePath = path.join(dist, "store", `vikitor-addon-v${manifest.version}-store.zip`);
+fs.rmSync(storePath, { force: true });
+execFileSync("zip", ["-r", "-X", "-q", storePath, ".", "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: src, stdio: "inherit" });
+console.log("Erweiterung (Chrome Web Store):", path.relative(root, storePath));
 
 const skillsDir = path.join(root, "skills");
 for (const name of fs.readdirSync(skillsDir)) {

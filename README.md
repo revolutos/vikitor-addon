@@ -35,7 +35,7 @@ vikitor-addon/
 
 1. Öffne in Chrome die Adresse `chrome://extensions`.
 2. Schalte oben rechts den **Entwicklermodus** ein.
-3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `src/` dieses Projekts aus (nicht den Projektordner selbst, sondern genau `src`).
+3. Klicke auf **Entpackte Erweiterung laden** und wähle den Ordner `dist/VIKITOR-Addon` aus (entsteht mit `node scripts/pack.mjs`). Zum Entwickeln geht auch `src/`. Leads bekommen die ZIP von vikitor.de/addon/, darin liegt genau dieser eine Ordner `VIKITOR-Addon`.
 4. Nach der Installation öffnet sich automatisch die Willkommensansicht in einem neuen Tab.
 5. Klicke auf das Puzzle-Symbol in der Chrome-Leiste und hefte „VIKITOR Vibecoding Assistent (Free)“ an. Ein Klick auf das Symbol öffnet ab jetzt die Seitenleiste. Mit einem Rechtsklick auf das Symbol öffnest du den Assistenten über „Assistent im großen Fenster öffnen“ als Tab.
 
@@ -49,7 +49,9 @@ node scripts/pack.mjs
 
 Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die JSON-Dateien gültig sind, und erzeugt dann:
 
-- `dist/vikitor-addon-v1.0.0.zip` – die Erweiterung, `manifest.json` liegt im Wurzelverzeichnis der ZIP (so verlangt es der Chrome Web Store),
+- `dist/VIKITOR-Addon/` – fertiger Ordner zum Laden in Chrome,
+- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/addon/): enthält genau den Ordner `VIKITOR-Addon`,
+- `dist/store/vikitor-addon-v1.0.0-store.zip` – für den Chrome Web Store, `manifest.json` liegt im Wurzelverzeichnis der ZIP,
 - `dist/skills/<name>.zip` – je ein Skill-Ordner,
 - `dist/web/addon/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).
 
@@ -70,7 +72,7 @@ Alle Texte, Vorlagen, Quizfragen, Prüfregeln, Anleitungen und Skill-Beschreibun
 
 Es gibt zwei Wege:
 
-1. **Mit neuer Version im Store:** `content.json` bzw. `links.json` ändern, Version im Manifest erhöhen, `node scripts/pack.mjs`, ZIP hochladen.
+1. **Mit neuer Version im Store:** `content.json` bzw. `links.json` ändern, Version im Manifest erhöhen, `node scripts/pack.mjs`, die Store-ZIP aus `dist/store/` hochladen.
 2. **Ohne neue Store-Version:** Die Erweiterung ruft höchstens alle zwölf Stunden `https://vikitor.de/addon/content.json` ab. Ist die Datei vorhanden und gültig, gilt sie ab dem nächsten Öffnen des Assistenten. Dafür lädst du den Inhalt von `dist/web/addon/` so auf die Website, dass folgende Adressen erreichbar sind:
    - `https://vikitor.de/addon/content.json`
    - `https://vikitor.de/addon/skills/vikitor-mobil-check.zip`
@@ -89,7 +91,7 @@ Leere Felder in `links.json` (Facebook, LinkedIn, YouTube, TikTok) werden nicht 
 
 1. **Entwicklerkonto:** Unter https://chrome.google.com/webstore/devconsole mit dem Google-Konto anmelden, das die Erweiterung verwalten soll, und die einmalige Registrierung abschließen (inklusive Registrierungsgebühr und Bestätigung der Kontaktdaten). Für ein Unternehmen empfiehlt sich ein eigenes Konto oder eine Gruppe.
 2. **Paket bauen:** `node scripts/pack.mjs` ausführen.
-3. **Neues Element:** Im Dashboard auf „Neues Element“ klicken und `dist/vikitor-addon-v1.0.0.zip` hochladen.
+3. **Neues Element:** Im Dashboard auf „Neues Element“ klicken und `dist/store/vikitor-addon-v1.0.0-store.zip` hochladen.
 4. **Store-Eintrag:** Beschreibung (Deutsch), Kategorie (zum Beispiel „Tools“ oder „Developer Tools“), Sprache Deutsch, Store-Icon 128 × 128 px (`src/img/icon-128.png`), mindestens ein Screenshot in 1280 × 800 oder 640 × 400 px und eine kleine Werbekachel in 440 × 280 px. Die Screenshots aus `test/screens/` sind Arbeitsstände; für den Store solltest du sie im passenden Format neu aufnehmen.
 5. **Datenschutz-Tab:**
    - Alleiniger Zweck: „Werkzeugkasten für Vibecoding: Prompts erstellen und prüfen, passenden Funnel finden, Seiten auf technische Grundlagen prüfen.“
