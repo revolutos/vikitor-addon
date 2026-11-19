@@ -1,0 +1,1071 @@
+{
+  "version": "1.0.0",
+  "pitch": {
+    "generator": "Im vollen Framework: über 20 Prompts für jede Phase, Vorlagen für Nischen und ein Projekt-Startpaket.",
+    "quiz": "Die fertige Vorlage dafür gibt es in der Vorlagen-Bibliothek im Mitgliederbereich.",
+    "pagecheck": "Im VS Premium Vibecoding Framework steht für jeden Punkt, wie dein Agent ihn behebt.",
+    "promptcheck": "Im VS Premium Vibecoding Framework findest du über 20 erprobte Prompt-Vorlagen, die all diese Punkte bereits enthalten.",
+    "skills": "17 Skills stecken im vollen Framework."
+  },
+  "tools": {
+    "claude": {
+      "label": "Claude Code",
+      "hint": "Arbeitet direkt in deinem Projektordner und darf Dateien anlegen.",
+      "intro": "Du arbeitest als erfahrener Webentwickler direkt in meinem Projektordner und darfst Dateien anlegen und ändern. Lies zuerst die vorhandenen Dateien, falls es schon welche gibt, damit du die Struktur verstehst, bevor du etwas veränderst.",
+      "stepsTitle": "So gehst du vor",
+      "outro": "Wenn du fertig bist, starte die Seite lokal, prüfe sie auf 390 px Breite und auf dem Desktop und behebe alle Fehler, die du dabei findest. Fasse mir danach in wenigen Sätzen zusammen, was du gebaut hast, welche Dateien du geändert hast und was noch offen ist."
+    },
+    "chatgpt": {
+      "label": "ChatGPT / Codex",
+      "hint": "Erstellt Plan und Texte, die du danach umsetzt oder an Codex gibst.",
+      "intro": "Du bist mein erfahrener Berater für Webseiten, Texte und Funnels. Erstelle zuerst einen klaren Plan und die fertigen Texte, die ich danach selbst umsetzen oder an einen Coding-Agenten wie Codex weitergeben kann. Schreib keinen Code, solange ich nicht ausdrücklich danach frage.",
+      "stepsTitle": "So gehst du vor",
+      "outro": "Prüfe deine Antwort am Ende selbst: Ist alles mobil gedacht, ist nichts erfunden, und hast du alle offenen Fragen gesammelt? Gib mir das Ergebnis gut gegliedert mit kurzen Überschriften zurück."
+    },
+    "lovable": {
+      "label": "Lovable",
+      "hint": "Kurze, schrittweise Anweisungen mit Pause nach jedem Schritt.",
+      "intro": "Arbeite in kleinen, klaren Schritten. Setze zuerst nur Schritt 1 um und zeig mir das Ergebnis, bevor du weitermachst. Halte jede Änderung überschaubar und verändere nichts, worum ich dich nicht gebeten habe.",
+      "stepsTitle": "Schritte (einzeln umsetzen)",
+      "outro": "Prüfe nach jedem Schritt die Vorschau in der Handy-Ansicht und auf dem Desktop. Sag mir kurz, was du geändert hast, und warte auf mein OK, bevor du mit dem nächsten Schritt beginnst."
+    }
+  },
+  "rules": [
+    "Gestalte mobil zuerst: Alles muss auf 390 px Breite gut lesbar und bequem bedienbar sein, erst danach kommt der Desktop.",
+    "Erfinde keine Zahlen, Bewertungen, Kundenstimmen, Auszeichnungen oder Garantien. Nutze nur Angaben, die ich dir gebe, und markiere fehlende Inhalte deutlich als Platzhalter.",
+    "Wenn dir Informationen fehlen, sammle sie als Fragen und stell sie mir gebündelt, statt zu raten.",
+    "Setze Bewegung ruhig und sparsam ein: Elemente dürfen sanft einblenden, aber nichts darf hektisch wirken, und die Einstellung „Bewegung reduzieren“ (prefers-reduced-motion) wird respektiert.",
+    "Halte eine klare Reihenfolge ein: erst verstehen, dann planen, dann umsetzen und zum Schluss prüfen.",
+    "Prüfe dein Ergebnis am Ende selbst, bevor du es mir als fertig meldest."
+  ],
+  "fields": {
+    "funnel": {
+      "label": "Funnel-Typ",
+      "placeholder": "z. B. Webinar-Funnel"
+    },
+    "firma": {
+      "label": "Name oder Firma",
+      "placeholder": "z. B. Praxis am Sonnenweg"
+    },
+    "branche": {
+      "label": "Branche",
+      "placeholder": "z. B. Physiotherapie"
+    },
+    "zielgruppe": {
+      "label": "Zielgruppe",
+      "placeholder": "z. B. Berufstätige mit Rückenschmerzen"
+    },
+    "angebot": {
+      "label": "Angebot",
+      "placeholder": "z. B. Einzeltermine und Rückenkurse"
+    },
+    "region": {
+      "label": "Region",
+      "placeholder": "z. B. Hannover und Umgebung"
+    },
+    "url": {
+      "label": "Adresse der bestehenden Seite",
+      "placeholder": "https://…",
+      "ctx": "Bestehende Seite"
+    },
+    "ziel": {
+      "label": "Ziel",
+      "placeholder": "z. B. mehr Terminanfragen"
+    },
+    "stil": {
+      "label": "Gewünschter Stil",
+      "placeholder": "z. B. ruhig, hell und hochwertig"
+    },
+    "kanal": {
+      "label": "Woher kommen die Besucher?",
+      "placeholder": "z. B. Instagram und Empfehlungen",
+      "ctx": "Herkunft der Besucher"
+    },
+    "freebie": {
+      "label": "Kostenloses Angebot (Freebie)",
+      "placeholder": "z. B. Checkliste „5 Übungen für den Rücken“",
+      "ctx": "Freebie"
+    },
+    "preis": {
+      "label": "Preisbereich",
+      "placeholder": "z. B. 1.500 bis 3.000 Euro"
+    },
+    "problem": {
+      "label": "Was funktioniert nicht?",
+      "placeholder": "Beschreib, was du erwartest und was stattdessen passiert.",
+      "type": "textarea",
+      "ctx": "Problem"
+    },
+    "fehler": {
+      "label": "Fehlermeldung (falls vorhanden)",
+      "placeholder": "Kopiere die Meldung hier hinein.",
+      "type": "textarea",
+      "ctx": "Fehlermeldung"
+    },
+    "technik": {
+      "label": "Technik oder Werkzeug",
+      "placeholder": "z. B. Next.js-Projekt oder Lovable-Projekt",
+      "ctx": "Technik"
+    }
+  },
+  "templates": [
+    {
+      "id": "website",
+      "title": "Website neu bauen",
+      "short": "Eine vollständige Website mit mehreren Seiten von Grund auf.",
+      "fields": [
+        "firma",
+        "branche",
+        "zielgruppe",
+        "angebot",
+        "region",
+        "ziel",
+        "stil"
+      ],
+      "goal": "Baue eine neue, moderne Website für {{firma|mein Unternehmen}}, die Besucher schnell überzeugt und zu einer klaren Handlung führt.",
+      "steps": [
+        "Fasse zuerst in drei Sätzen zusammen, wie du mein Angebot und meine Zielgruppe verstehst, und stell mir deine offenen Fragen.",
+        "Schlage mir eine Seitenstruktur vor (zum Beispiel Startseite, Leistungen, Über mich, Kontakt, Impressum und Datenschutz) und begründe sie kurz.",
+        "Lege für jede Seite die Abschnitte in einer sinnvollen Reihenfolge fest: Nutzen, Angebot, Ablauf, Vertrauen, häufige Fragen und Kontakt.",
+        "Schreib klare, verständliche Texte, die {{zielgruppe|meine Zielgruppe}} direkt ansprechen, ohne Fachchinesisch.",
+        "Setze das Design[[ im Stil „{{stil}}“]] um, mit gut lesbarer Schrift, ausreichend Abstand und einem eindeutigen Hauptknopf pro Abschnitt.",
+        "Achte auf saubere Grundlagen: aussagekräftige Seitentitel, Beschreibungen, genau eine H1 pro Seite und Alternativtexte für Bilder.",
+        "Baue den Kontaktweg so, dass er auf dem Handy mit wenigen Fingertipps funktioniert."
+      ]
+    },
+    {
+      "id": "onepager",
+      "title": "Onepager",
+      "short": "Eine einzige, gut gegliederte Seite für ein klares Angebot.",
+      "fields": [
+        "firma",
+        "angebot",
+        "zielgruppe",
+        "ziel",
+        "stil"
+      ],
+      "goal": "Baue einen Onepager für {{firma|mein Angebot}}, der das Angebot auf einer einzigen Seite verständlich erklärt und zu einer klaren Handlung führt.",
+      "steps": [
+        "Stell mir zuerst deine offenen Fragen und fasse kurz zusammen, was du verstanden hast.",
+        "Gliedere die Seite in diese Reihenfolge: starke Überschrift mit Nutzen, Problem der Zielgruppe, Lösung und Angebot, Ablauf in wenigen Schritten, Vertrauen (nur echte Angaben), häufige Fragen, Abschluss mit Handlungsaufforderung.",
+        "Schreib die Überschrift so, dass {{zielgruppe|meine Zielgruppe}} sofort erkennt, dass die Seite für sie gemacht ist.",
+        "Setze einen einzigen, eindeutigen Hauptknopf ein, der mehrfach auf der Seite wiederkehrt.",
+        "Gestalte die Seite[[ im Stil „{{stil}}“]] mit ruhigem Rhythmus und genügend Weißraum.",
+        "Füge eine feste, schlanke Navigation mit Sprungmarken zu den wichtigsten Abschnitten hinzu."
+      ]
+    },
+    {
+      "id": "leadpage",
+      "title": "Leadpage",
+      "short": "Eine Seite, die Kontakte für ein kostenloses Angebot einsammelt.",
+      "fields": [
+        "firma",
+        "freebie",
+        "zielgruppe",
+        "kanal",
+        "ziel"
+      ],
+      "goal": "Baue eine Leadpage, auf der sich Interessenten für „{{freebie|mein kostenloses Angebot}}“ eintragen, damit {{firma|ich}} daraus echte Kontakte gewinne.",
+      "steps": [
+        "Stell mir zuerst deine offenen Fragen, besonders zum Inhalt des Freebies und zum nächsten Schritt danach.",
+        "Formuliere eine Überschrift, die den konkreten Nutzen des Freebies für {{zielgruppe|meine Zielgruppe}} in einem Satz zeigt.",
+        "Zeige in drei bis fünf Punkten, was die Person bekommt und warum es ihr hilft.",
+        "Baue ein kurzes Formular mit so wenigen Feldern wie möglich und einem Hinweis zum Datenschutz.",
+        "Lege eine Danke-Seite an, die erklärt, wie es weitergeht, und einen sinnvollen nächsten Schritt anbietet.",
+        "Bedenke, dass die Besucher über {{kanal}} kommen, und passe Ton und Einstieg daran an.",
+        "Verzichte auf Ablenkungen: keine Hauptnavigation, keine Links, die von der Eintragung wegführen."
+      ]
+    },
+    {
+      "id": "relaunch",
+      "title": "Relaunch einer alten Website",
+      "short": "Eine bestehende Website modern, schnell und mobil neu aufsetzen.",
+      "fields": [
+        "firma",
+        "url",
+        "branche",
+        "zielgruppe",
+        "ziel",
+        "stil"
+      ],
+      "goal": "Plane und baue den Relaunch der bestehenden Website von {{firma|meinem Unternehmen}}, damit sie modern, schnell und auf dem Handy überzeugend wird.",
+      "steps": [
+        "Sieh dir die alte Website[[ unter {{url}}]] an und liste auf, welche Inhalte, Seiten und Funktionen es heute gibt.",
+        "Bewerte ehrlich, was gut ist und erhalten bleiben soll und was den Besuchern im Weg steht.",
+        "Schlage eine neue, schlankere Struktur vor und zeige mir, welche alte Seite auf welche neue Seite weitergeleitet wird, damit keine Adresse ins Leere läuft.",
+        "Übernimm vorhandene Texte nur, wenn sie gut sind, und verbessere sie ansonsten verständlich für {{zielgruppe|meine Zielgruppe}}.",
+        "Setze das neue Design[[ im Stil „{{stil}}“]] um und achte auf schnelle Ladezeiten und gut lesbare Schrift.",
+        "Prüfe zum Schluss Titel, Beschreibungen, Überschriften und Weiterleitungen, damit die Seite bei Google nicht an Sichtbarkeit verliert."
+      ]
+    },
+    {
+      "id": "mobil",
+      "title": "Mobil-Prüfung",
+      "short": "Eine Seite auf 390 px Breite prüfen und gezielt reparieren.",
+      "fields": [
+        "url",
+        "technik",
+        "problem"
+      ],
+      "goal": "Prüfe meine Seite gründlich auf dem Handy (390 px Breite) und behebe alle Darstellungs- und Bedienprobleme.",
+      "steps": [
+        "Öffne die Seite[[ {{url}}]] in einer Breite von 390 px und gehe sie von oben bis unten durch.",
+        "Prüfe besonders gründlich das beschriebene Problem, falls ich eines genannt habe.",
+        "Suche nach waagerechtem Scrollen, abgeschnittenen Texten, zu kleiner Schrift, zu kleinen Knöpfen, überlappenden Elementen und Bildern, die über den Rand ragen.",
+        "Liste jedes Problem mit Abschnitt und Ursache auf, bevor du etwas änderst.",
+        "Behebe die Probleme eins nach dem anderen, ohne das Desktop-Layout zu beschädigen.",
+        "Prüfe danach zusätzlich 360 px, 768 px und die Desktop-Breite."
+      ]
+    },
+    {
+      "id": "seo",
+      "title": "SEO und KI-Sichtbarkeit",
+      "short": "Grundlagen für Google und KI-Suchen sauber aufsetzen.",
+      "fields": [
+        "firma",
+        "url",
+        "branche",
+        "region",
+        "zielgruppe"
+      ],
+      "goal": "Verbessere die Sichtbarkeit von {{firma|meiner Website}} bei Google und in KI-Suchen wie ChatGPT, ohne Tricks und mit sauberen Grundlagen.",
+      "steps": [
+        "Prüfe die Seite[[ {{url}}]] und liste für jede Unterseite Titel, Beschreibung und Überschriften auf.",
+        "Schreib für jede Seite einen eindeutigen Titel (etwa 30 bis 60 Zeichen) und eine Beschreibung (etwa 70 bis 160 Zeichen)[[, passend zu {{branche}}]][[ in {{region}}]].",
+        "Sorge für genau eine H1 pro Seite und eine logische Reihenfolge der Zwischenüberschriften.",
+        "Ergänze passende Strukturdaten als JSON-LD, zum Beispiel für das Unternehmen, und nutze nur echte Angaben.",
+        "Lege eine Datei llms.txt an, die in einfachen Worten erklärt, wer wir sind, was wir anbieten und welche Seiten wichtig sind.",
+        "Prüfe, ob es eine sitemap.xml und eine robots.txt gibt, und lege sie an, falls sie fehlen.",
+        "Ergänze fehlende Alternativtexte für Bilder und ein Vorschaubild für das Teilen in sozialen Netzwerken."
+      ]
+    },
+    {
+      "id": "texte",
+      "title": "Texte überarbeiten",
+      "short": "Bestehende Texte klarer, persönlicher und überzeugender machen.",
+      "fields": [
+        "firma",
+        "url",
+        "zielgruppe",
+        "angebot",
+        "stil"
+      ],
+      "goal": "Überarbeite die Texte von {{firma|meiner Website}}, damit {{zielgruppe|meine Zielgruppe}} sofort versteht, was ich anbiete und warum es ihr hilft.",
+      "steps": [
+        "Lies die vorhandenen Texte[[ unter {{url}}]] und fasse in drei Sätzen zusammen, welche Botschaft heute ankommt.",
+        "Benenne die größten Schwächen: zu allgemein, zu lang, zu viel „wir“ statt „du“ oder „Sie“, fehlender Nutzen.",
+        "Schreib die Überschriften so um, dass sie einen konkreten Nutzen versprechen, ohne zu übertreiben.",
+        "Formuliere das Angebot[[ „{{angebot}}“]] verständlich und in der Sprache der Zielgruppe.",
+        "Halte den Ton[[ „{{stil}}“]] durchgehend ein.",
+        "Zeig mir jede Änderung als Vorher und Nachher, damit ich vergleichen kann."
+      ]
+    },
+    {
+      "id": "design",
+      "title": "Design auffrischen",
+      "short": "Ein älteres Design modern und ruhig wirken lassen.",
+      "fields": [
+        "firma",
+        "url",
+        "stil",
+        "zielgruppe"
+      ],
+      "goal": "Frische das Design von {{firma|meiner Website}} auf, damit es modern, ruhig und hochwertig wirkt, ohne die Inhalte zu verlieren.",
+      "steps": [
+        "Sieh dir die Seite[[ {{url}}]] an und beschreibe in wenigen Sätzen, was heute altmodisch oder unruhig wirkt.",
+        "Schlage ein kleines, festes Gestaltungssystem vor: zwei Schriften, wenige Farben, feste Abstände und einheitliche Knöpfe.",
+        "Setze das neue Design[[ im Stil „{{stil}}“]] um und achte auf ausreichend Kontrast und gut lesbare Schriftgrößen.",
+        "Vereinheitliche Karten, Knöpfe und Abschnitte, damit die Seite wie aus einem Guss wirkt.",
+        "Ergänze dezente Hover-Effekte und ein sanftes Einblenden der Abschnitte.",
+        "Verändere keine Texte und keine Inhalte, sofern ich es nicht ausdrücklich möchte."
+      ]
+    },
+    {
+      "id": "funnel",
+      "title": "Funnel planen",
+      "short": "Einen Verkaufsweg Seite für Seite durchdenken.",
+      "fields": [
+        "funnel",
+        "firma",
+        "angebot",
+        "preis",
+        "zielgruppe",
+        "kanal",
+        "ziel"
+      ],
+      "goal": "Plane einen Funnel für {{firma|mein Angebot}}, der Interessenten Schritt für Schritt zu {{ziel|einer Anfrage}} führt.",
+      "steps": [
+        "Stell mir zuerst deine offenen Fragen zum Angebot, zum Preis und zum nächsten Schritt nach dem Kauf oder der Anfrage.",
+        "Plane den Funnel als {{funnel|passenden Funnel-Typ, den du mir vorschlägst}} und begründe die Wahl mit meinem Angebot[[ ({{angebot}})]] und dem Preisbereich[[ ({{preis}})]].",
+        "Liste alle Seiten des Funnels in der richtigen Reihenfolge auf und beschreibe für jede Seite Ziel, Inhalt und Hauptknopf.",
+        "Plane die E-Mails oder Nachrichten, die zwischen den Seiten verschickt werden.",
+        "Beachte, dass die Besucher über {{kanal}} kommen, und passe den Einstieg daran an.",
+        "Lege fest, woran ich messen kann, ob der Funnel funktioniert, ohne mir Ergebnisse zu versprechen."
+      ]
+    },
+    {
+      "id": "debug",
+      "title": "Fehler finden (Debug)",
+      "short": "Einen Fehler ruhig eingrenzen und sauber beheben.",
+      "fields": [
+        "technik",
+        "problem",
+        "fehler",
+        "url"
+      ],
+      "goal": "Finde die Ursache für einen Fehler in meinem Projekt und behebe ihn, ohne an anderer Stelle etwas kaputtzumachen.",
+      "steps": [
+        "Wiederhole den Fehler zuerst selbst und beschreibe, unter welchen Bedingungen er auftritt.",
+        "Nenne mir die zwei bis drei wahrscheinlichsten Ursachen und prüfe sie nacheinander, bevor du Code änderst.",
+        "Behebe nur die tatsächliche Ursache mit der kleinstmöglichen Änderung und erkläre mir in einfachen Worten, was falsch war.",
+        "Prüfe danach, ob der Fehler wirklich weg ist und ob alle anderen Funktionen weiterhin laufen."
+      ]
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "angebot",
+        "q": "Was verkaufst du?",
+        "options": [
+          {
+            "label": "Eine Dienstleistung vor Ort oder im Einzelgespräch, zum Beispiel Handwerk, Praxis oder Beratung",
+            "s": {
+              "erstgespraech": 3,
+              "quiz": 1,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Ein Coaching, einen Kurs oder ein Online-Programm",
+            "s": {
+              "webinar": 2,
+              "workshop": 2,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Ein Produkt oder eine Software",
+            "s": {
+              "leadpage": 2,
+              "quiz": 2
+            }
+          },
+          {
+            "label": "Ich suche vor allem neue Mitarbeiterinnen und Mitarbeiter",
+            "s": {
+              "recruiting": 6
+            }
+          }
+        ]
+      },
+      {
+        "id": "preis",
+        "q": "In welchem Preisbereich liegt dein Hauptangebot?",
+        "options": [
+          {
+            "label": "Unter 100 Euro",
+            "s": {
+              "leadpage": 3,
+              "quiz": 1
+            }
+          },
+          {
+            "label": "100 bis 1.000 Euro",
+            "s": {
+              "workshop": 2,
+              "leadpage": 1,
+              "webinar": 1,
+              "quiz": 1
+            }
+          },
+          {
+            "label": "1.000 bis 5.000 Euro",
+            "s": {
+              "webinar": 3,
+              "erstgespraech": 2
+            }
+          },
+          {
+            "label": "Über 5.000 Euro",
+            "s": {
+              "erstgespraech": 3,
+              "webinar": 1,
+              "workshop": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "gewinnung",
+        "q": "Wie gewinnst du heute Kunden?",
+        "options": [
+          {
+            "label": "Vor allem über Empfehlungen",
+            "s": {
+              "erstgespraech": 2,
+              "workshop": 1
+            }
+          },
+          {
+            "label": "Über eigene Beiträge in sozialen Netzwerken",
+            "s": {
+              "leadpage": 2,
+              "webinar": 1,
+              "quiz": 1
+            }
+          },
+          {
+            "label": "Über bezahlte Werbeanzeigen",
+            "s": {
+              "quiz": 2,
+              "leadpage": 1,
+              "webinar": 1
+            }
+          },
+          {
+            "label": "Noch kaum planbar",
+            "s": {
+              "leadpage": 2,
+              "erstgespraech": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "bekanntheit",
+        "q": "Wie gut kennen dich deine Interessenten schon?",
+        "options": [
+          {
+            "label": "Kaum, die meisten hören zum ersten Mal von mir",
+            "s": {
+              "quiz": 3,
+              "leadpage": 2
+            }
+          },
+          {
+            "label": "Etwas, viele folgen mir schon eine Weile",
+            "s": {
+              "webinar": 2,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Gut, sie vertrauen mir bereits",
+            "s": {
+              "workshop": 2,
+              "erstgespraech": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "liste",
+        "q": "Hast du eine E-Mail-Liste oder eine Community?",
+        "options": [
+          {
+            "label": "Noch nicht",
+            "s": {
+              "leadpage": 2,
+              "quiz": 2
+            }
+          },
+          {
+            "label": "Ja, eine kleine Liste oder Gruppe",
+            "s": {
+              "webinar": 1,
+              "workshop": 1,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Ja, eine aktive Community",
+            "s": {
+              "workshop": 3,
+              "webinar": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "zeit",
+        "q": "Wie viel Zeit hast du für Inhalte?",
+        "options": [
+          {
+            "label": "Kaum Zeit, es soll möglichst von allein laufen",
+            "s": {
+              "quiz": 3,
+              "erstgespraech": 1,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Ein paar Stunden im Monat",
+            "s": {
+              "leadpage": 2,
+              "quiz": 1
+            }
+          },
+          {
+            "label": "Genug, und ich zeige mich gern live",
+            "s": {
+              "webinar": 3,
+              "workshop": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "ziel",
+        "q": "Was ist dein wichtigstes Ziel?",
+        "options": [
+          {
+            "label": "Termine für Erstgespräche",
+            "s": {
+              "erstgespraech": 4
+            }
+          },
+          {
+            "label": "Direkte Verkäufe",
+            "s": {
+              "webinar": 2,
+              "workshop": 2,
+              "leadpage": 1
+            }
+          },
+          {
+            "label": "Bewerbungen",
+            "s": {
+              "recruiting": 20
+            }
+          },
+          {
+            "label": "Anmeldungen und neue Kontakte",
+            "s": {
+              "leadpage": 2,
+              "webinar": 2,
+              "workshop": 1
+            }
+          }
+        ]
+      }
+    ],
+    "order": [
+      "erstgespraech",
+      "webinar",
+      "workshop",
+      "leadpage",
+      "quiz",
+      "recruiting"
+    ],
+    "funnels": {
+      "leadpage": {
+        "name": "Leadpage mit Freebie",
+        "why": "Du brauchst zuerst Menschen, die dich kennenlernen wollen. Ein kostenloses, wirklich nützliches Freebie senkt die Hürde, und du baust damit eine eigene Kontaktliste auf, die dir keine Plattform wegnehmen kann.",
+        "pages": [
+          "Leadpage mit Freebie-Angebot und kurzem Eintragungsformular",
+          "Danke-Seite mit einem klaren nächsten Schritt",
+          "E-Mail mit dem Freebie",
+          "Kurze E-Mail-Folge, die Vertrauen aufbaut und dein Angebot vorstellt"
+        ],
+        "template": "leadpage",
+        "prefill": {
+          "ziel": "neue Kontakte für meine E-Mail-Liste gewinnen"
+        }
+      },
+      "webinar": {
+        "name": "Webinar-Funnel",
+        "why": "Dein Angebot braucht Erklärung und Vertrauen, bevor jemand kauft. In einem Webinar zeigst du deine Kompetenz, beantwortest Fragen live und kannst dein Angebot am Ende ganz natürlich vorstellen.",
+        "pages": [
+          "Anmeldeseite für das Webinar",
+          "Bestätigungsseite mit Kalendereintrag",
+          "Erinnerungen per E-Mail vor dem Termin",
+          "Das Webinar selbst, live oder als Aufzeichnung",
+          "Angebotsseite",
+          "Nachfass-E-Mails mit Aufzeichnung und Angebot"
+        ],
+        "template": "funnel",
+        "prefill": {
+          "ziel": "Anmeldungen für ein Webinar und anschließende Verkäufe"
+        }
+      },
+      "workshop": {
+        "name": "Workshop-Funnel",
+        "why": "Deine Interessenten kennen und schätzen dich bereits. Ein kleiner, bezahlter oder kostenloser Workshop gibt ihnen ein echtes Erfolgserlebnis mit dir und ist der natürliche Einstieg in dein größeres Angebot.",
+        "pages": [
+          "Workshop-Seite mit Ablauf, Inhalten und Termin",
+          "Anmeldung oder Ticketkauf",
+          "Bestätigung mit Vorbereitung",
+          "Der Workshop selbst",
+          "Angebot für den nächsten Schritt"
+        ],
+        "template": "funnel",
+        "prefill": {
+          "ziel": "Teilnehmer für einen Workshop und danach Kunden für mein Hauptangebot"
+        }
+      },
+      "erstgespraech": {
+        "name": "Erstgespräch-Funnel",
+        "why": "Dein Angebot ist erklärungsbedürftig oder hochpreisig, und am Ende entscheidet das persönliche Gespräch. Der Funnel sorgt dafür, dass du mit gut vorbereiteten, passenden Menschen sprichst statt mit zufälligen Anfragen.",
+        "pages": [
+          "Seite mit klarem Nutzen und Einladung zum Gespräch",
+          "Kurzer Fragebogen zur Vorqualifizierung",
+          "Terminbuchung",
+          "Bestätigung mit Vorbereitung auf das Gespräch",
+          "Erinnerung vor dem Termin"
+        ],
+        "template": "funnel",
+        "prefill": {
+          "ziel": "qualifizierte Termine für Erstgespräche"
+        }
+      },
+      "quiz": {
+        "name": "Quiz-Funnel",
+        "why": "Viele deiner Besucher kennen dich noch nicht und haben wenig Zeit. Ein kurzes Quiz macht neugierig, liefert ein persönliches Ergebnis und gewinnt dabei Kontakte, ohne dass du laufend neue Inhalte erstellen musst.",
+        "pages": [
+          "Einstiegsseite mit einer neugierig machenden Frage",
+          "Das Quiz mit wenigen, einfachen Fragen",
+          "Kontaktabfrage vor dem Ergebnis",
+          "Ergebnisseite mit persönlicher Empfehlung",
+          "Folge-E-Mails passend zum Ergebnis"
+        ],
+        "template": "funnel",
+        "prefill": {
+          "ziel": "neue Kontakte über ein Quiz mit persönlichem Ergebnis"
+        }
+      },
+      "recruiting": {
+        "name": "Recruiting-Funnel",
+        "why": "Du suchst Menschen für dein Team. Gute Bewerberinnen und Bewerber haben oft schon einen Job und wenig Zeit, deshalb muss der Weg zur Bewerbung kurz, ehrlich und auf dem Handy in wenigen Minuten machbar sein.",
+        "pages": [
+          "Karriereseite mit echten Einblicken in Team und Alltag",
+          "Kurzbewerbung in wenigen Schritten, ohne Pflicht zum Lebenslauf",
+          "Danke-Seite mit den nächsten Schritten",
+          "Schnelle, verbindliche Rückmeldung"
+        ],
+        "template": "funnel",
+        "prefill": {
+          "ziel": "Bewerbungen von passenden Mitarbeiterinnen und Mitarbeitern",
+          "angebot": "eine offene Stelle in meinem Team"
+        }
+      }
+    }
+  },
+  "promptChecks": [
+    {
+      "id": "ziel",
+      "label": "Ziel genannt",
+      "pattern": "(ziel|damit|erreichen|zweck|soll am ende|möchte|will ich|baue|erstelle|plane|schreib)",
+      "hint": "Schreib in einem Satz, was am Ende fertig sein soll.",
+      "add": "Ziel: Am Ende soll Folgendes fertig sein: (bitte in einem Satz ergänzen)."
+    },
+    {
+      "id": "zielgruppe",
+      "label": "Zielgruppe beschrieben",
+      "pattern": "(zielgruppe|kunden|kundinnen|besucher|leser|interessenten|für menschen|für unternehmen|für selbstständige|für eltern|für frauen|für männer)",
+      "hint": "Sag, für wen die Seite oder der Text gedacht ist.",
+      "add": "Zielgruppe: Die Seite richtet sich an (bitte ergänzen: wer, welche Situation, welches Problem)."
+    },
+    {
+      "id": "werkzeug",
+      "label": "Werkzeug und Umfang klar",
+      "pattern": "(claude|lovable|chatgpt|codex|next\\.?js|react|html|wordpress|projektordner|onepager|unterseite|seiten|abschnitt|umfang)",
+      "hint": "Nenne das Werkzeug oder die Technik und wie groß das Ergebnis werden soll.",
+      "add": "Umfang: Arbeite nur an den genannten Seiten und Abschnitten und frag nach, bevor du den Umfang erweiterst."
+    },
+    {
+      "id": "mobil",
+      "label": "Mobil erwähnt",
+      "pattern": "(mobil|handy|smartphone|390|responsive)",
+      "hint": "Die meisten Besucher kommen über das Handy. Fordere ausdrücklich eine mobile Prüfung.",
+      "add": "Gestalte mobil zuerst: Alles muss auf 390 px Breite gut lesbar und bedienbar sein."
+    },
+    {
+      "id": "erfunden",
+      "label": "Keine erfundenen Angaben",
+      "pattern": "(erfind|nichts erfinden|keine fake|nur echte|keine ausgedachten|keine erfundenen)",
+      "hint": "KI-Werkzeuge ergänzen gern Zahlen, Bewertungen und Kundenstimmen. Verbiete das ausdrücklich.",
+      "add": "Erfinde keine Zahlen, Bewertungen, Kundenstimmen oder Garantien. Nutze nur Angaben, die ich dir gebe."
+    },
+    {
+      "id": "schritte",
+      "label": "Reihenfolge oder Schritte",
+      "pattern": "(schritt|zuerst|danach|anschließend|reihenfolge|erstens|\\n\\s*1[.)])",
+      "hint": "Gib eine Reihenfolge vor, damit der Agent nicht alles auf einmal ändert.",
+      "add": "Geh in dieser Reihenfolge vor: erst verstehen und Fragen stellen, dann planen, dann umsetzen und zum Schluss prüfen."
+    },
+    {
+      "id": "pruefen",
+      "label": "Prüfauftrag am Ende",
+      "pattern": "(prüf|teste|kontrollier|check)",
+      "hint": "Bitte den Agenten, sein Ergebnis selbst zu prüfen, bevor er „fertig“ meldet.",
+      "add": "Prüfe dein Ergebnis am Ende selbst auf dem Handy und auf dem Desktop und nenne mir alles, was noch offen ist."
+    },
+    {
+      "id": "fragen",
+      "label": "Fehlende Infos als Fragen",
+      "pattern": "(frag mich|stell mir|rückfrage|offene fragen|wenn dir .* fehl|falls .* unklar)",
+      "hint": "Erlaube dem Agenten, Fragen zu stellen, statt zu raten.",
+      "add": "Wenn dir Informationen fehlen, stell mir deine Fragen gebündelt, bevor du anfängst."
+    }
+  ],
+  "guides": [
+    {
+      "id": "cc-mac",
+      "title": "Claude Code auf dem Mac installieren",
+      "blocks": [
+        {
+          "p": "Claude Code ist der Coding-Agent von Anthropic. Er arbeitet im Terminal direkt in deinem Projektordner, liest Dateien, legt neue an und führt Befehle aus. Du brauchst dafür ein kostenpflichtiges Claude-Konto (zum Beispiel Pro oder Max) oder ein Konto in der Anthropic Console, denn der kostenlose Claude-Tarif enthält Claude Code nicht. Voraussetzung ist macOS 13 oder neuer."
+        },
+        {
+          "steps": [
+            "Öffne das Terminal: Drück Cmd + Leertaste, tippe „Terminal“ und bestätige mit Enter.",
+            "Kopiere den offiziellen Installationsbefehl unten, füge ihn im Terminal ein und drück Enter. Während des Downloads zeigt der Befehl keinen Fortschritt an, das ist normal.",
+            "Schließe das Terminal danach und öffne ein neues Fenster, damit der Befehl „claude“ gefunden wird.",
+            "Prüfe die Installation mit „claude --version“. Wenn eine Versionsnummer erscheint, hat alles geklappt.",
+            "Wechsle in deinen Projektordner und starte Claude Code mit „claude“. Beim ersten Start meldest du dich über den Browser an."
+          ]
+        },
+        {
+          "code": "curl -fsSL https://claude.ai/install.sh | bash",
+          "label": "Installation (offizieller Befehl)"
+        },
+        {
+          "code": "claude --version",
+          "label": "Installation prüfen"
+        },
+        {
+          "code": "cd ~/Projekte/meine-website\nclaude",
+          "label": "Im Projektordner starten"
+        },
+        {
+          "p": "Alternativ kannst du Claude Code mit Homebrew installieren. Diese Variante aktualisiert sich nicht von selbst, deshalb musst du später gelegentlich „brew upgrade claude-code“ ausführen. Die Installation über den offiziellen Befehl oben aktualisiert sich dagegen automatisch im Hintergrund."
+        },
+        {
+          "code": "brew install --cask claude-code",
+          "label": "Alternative mit Homebrew"
+        },
+        {
+          "note": "Wenn das Terminal „command not found: claude“ meldet, öffne ein neues Terminal-Fenster. Hilft das nicht, findest du in der offiziellen Dokumentation unter code.claude.com den Abschnitt zur Fehlerbehebung. Mit „claude doctor“ bekommst du außerdem eine Diagnose deiner Installation."
+        }
+      ]
+    },
+    {
+      "id": "cc-win",
+      "title": "Claude Code unter Windows installieren",
+      "blocks": [
+        {
+          "p": "Claude Code läuft unter Windows 10 (ab Version 1809) und Windows 11. Du brauchst ein kostenpflichtiges Claude-Konto (zum Beispiel Pro oder Max) oder ein Konto in der Anthropic Console. Administratorrechte sind für die Installation nicht nötig."
+        },
+        {
+          "steps": [
+            "Öffne PowerShell: Klick auf Start, tippe „PowerShell“ und öffne „Windows PowerShell“. Du erkennst PowerShell daran, dass die Zeile mit „PS C:\\“ beginnt.",
+            "Kopiere den PowerShell-Befehl unten, füge ihn mit Rechtsklick ein und drück Enter.",
+            "Schließe das Fenster und öffne ein neues, damit Windows den Befehl „claude“ findet.",
+            "Prüfe die Installation mit „claude --version“.",
+            "Wechsle in deinen Projektordner und starte Claude Code mit „claude“. Die Anmeldung erfolgt beim ersten Start über den Browser."
+          ]
+        },
+        {
+          "code": "irm https://claude.ai/install.ps1 | iex",
+          "label": "Installation in PowerShell"
+        },
+        {
+          "code": "curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd",
+          "label": "Alternative in der Eingabeaufforderung (CMD)"
+        },
+        {
+          "code": "winget install Anthropic.ClaudeCode",
+          "label": "Alternative mit WinGet (aktualisiert sich nicht automatisch)"
+        },
+        {
+          "code": "cd C:\\Users\\DeinName\\Projekte\\meine-website\nclaude",
+          "label": "Im Projektordner starten"
+        },
+        {
+          "p": "Empfehlenswert ist zusätzlich „Git for Windows“ (git-scm.com). Damit kann Claude Code die Bash nutzen, außerdem brauchst du Git ohnehin für GitHub. Ohne Git for Windows verwendet Claude Code stattdessen PowerShell."
+        },
+        {
+          "note": "Meldet Windows „'irm' wird nicht erkannt“, bist du in der Eingabeaufforderung (CMD) statt in PowerShell. Nutze dann den CMD-Befehl oder öffne PowerShell."
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "title": "Erste Schritte im Terminal",
+      "blocks": [
+        {
+          "p": "Das Terminal sieht anfangs ungewohnt aus, aber für Vibecoding brauchst du nur eine Handvoll Befehle. Du befindest dich immer in einem bestimmten Ordner, und alle Befehle beziehen sich auf diesen Ordner."
+        },
+        {
+          "steps": [
+            "Mit „pwd“ (Mac) beziehungsweise „cd“ ohne Angabe (Windows) siehst du, in welchem Ordner du gerade bist.",
+            "Mit „ls“ (Mac) beziehungsweise „dir“ (Windows) listest du auf, was im aktuellen Ordner liegt.",
+            "Mit „mkdir“ legst du einen neuen Ordner an.",
+            "Mit „cd Ordnername“ wechselst du in einen Ordner, mit „cd ..“ gehst du eine Ebene zurück.",
+            "Tipp: Wenn du die ersten Buchstaben eines Ordners tippst und die Tab-Taste drückst, ergänzt das Terminal den Namen."
+          ]
+        },
+        {
+          "code": "pwd\nls\nmkdir -p ~/Projekte/meine-website\ncd ~/Projekte/meine-website",
+          "label": "Mac: Ordner anlegen und hineinwechseln"
+        },
+        {
+          "code": "cd\ndir\nmkdir %USERPROFILE%\\Projekte\\meine-website\ncd %USERPROFILE%\\Projekte\\meine-website",
+          "label": "Windows (CMD): Ordner anlegen und hineinwechseln"
+        },
+        {
+          "code": "mkdir $HOME\\Projekte\\meine-website\ncd $HOME\\Projekte\\meine-website",
+          "label": "Windows (PowerShell): Ordner anlegen und hineinwechseln"
+        },
+        {
+          "note": "Auf dem Mac kannst du einen Ordner aus dem Finder ins Terminal ziehen, dann wird sein vollständiger Pfad eingefügt. Das spart Tipparbeit nach „cd “."
+        }
+      ]
+    },
+    {
+      "id": "claudemd",
+      "title": "CLAUDE.md und Skills verstehen",
+      "blocks": [
+        {
+          "p": "Die Datei CLAUDE.md ist das Gedächtnis deines Projekts. Claude Code liest sie zu Beginn jeder Sitzung. Dort schreibst du hinein, was immer gelten soll: worum es im Projekt geht, welche Technik verwendet wird, welche Regeln für Design und Texte gelten und wie getestet wird. So musst du nicht jedes Mal alles neu erklären."
+        },
+        {
+          "steps": [
+            "Lege im Hauptordner deines Projekts eine Datei namens CLAUDE.md an oder lass sie in Claude Code mit dem Befehl „/init“ vorbereiten.",
+            "Schreib kurze, klare Regeln hinein, zum Beispiel „Mobil zuerst, 390 px“ oder „Keine erfundenen Kundenstimmen“.",
+            "Halte die Datei aktuell: Wenn dir etwas immer wieder auffällt, ergänze eine Regel.",
+            "Eine persönliche CLAUDE.md für alle Projekte kannst du zusätzlich im Ordner ~/.claude/ ablegen."
+          ]
+        },
+        {
+          "code": "# Projekt: Website Praxis am Sonnenweg\n\n## Regeln\n- Mobil zuerst (390 px), danach Desktop.\n- Keine erfundenen Zahlen, Bewertungen oder Kundenstimmen.\n- Fehlende Infos als Fragen sammeln.\n- Vor jeder Fertigmeldung im Browser prüfen.",
+          "label": "Beispiel für eine CLAUDE.md"
+        },
+        {
+          "p": "Skills sind wiederverwendbare Anleitungen für bestimmte Aufgaben. Ein Skill ist ein Ordner mit einer Datei SKILL.md, die oben einen Namen und eine Beschreibung enthält. Claude Code erkennt anhand der Beschreibung, wann der Skill passt, und du kannst ihn auch gezielt mit seinem Namen aufrufen. Persönliche Skills liegen im Ordner ~/.claude/skills/, projektbezogene im Ordner .claude/skills/ deines Projekts."
+        },
+        {
+          "note": "Im Bereich „Gratis-Skills“ dieses Assistenten findest du drei fertige Skills zum Ausprobieren."
+        }
+      ]
+    },
+    {
+      "id": "lovable-github",
+      "title": "Lovable mit GitHub verbinden",
+      "blocks": [
+        {
+          "p": "Wenn du dein Lovable-Projekt mit GitHub verbindest, liegt dein Code zusätzlich in einem eigenen Repository. Das ist eine Sicherung, und du kannst das Projekt später auch mit Claude Code oder Codex weiterbearbeiten. Die Synchronisierung läuft in beide Richtungen."
+        },
+        {
+          "steps": [
+            "Öffne in Lovable die Projekteinstellungen und dort den Bereich „Git“ beziehungsweise „GitHub“.",
+            "Füge dein GitHub-Konto hinzu („Add account“) und erlaube der Lovable-App in GitHub den Zugriff, entweder auf alle oder nur auf ausgewählte Repositories.",
+            "Klick im Projekt auf „Connect“ neben deinem GitHub-Konto.",
+            "Lovable legt automatisch ein neues, standardmäßig privates Repository an und beginnt mit der Synchronisierung.",
+            "Ab jetzt landen Änderungen aus Lovable in GitHub, und Änderungen, die du in den aktiven Zweig (meist „main“) pushst, erscheinen wieder in Lovable."
+          ]
+        },
+        {
+          "note": "Wichtig: Lovable legt bei der Verbindung immer ein neues Repository an und kann kein bestehendes übernehmen. Wenn du das Repository löschst, bricht die Verbindung ab. Die Bezeichnungen der Menüs können sich mit Updates leicht ändern."
+        }
+      ]
+    },
+    {
+      "id": "chatgpt-codex",
+      "title": "ChatGPT und Codex für Vibecoding",
+      "blocks": [
+        {
+          "p": "ChatGPT eignet sich hervorragend zum Denken, Planen und Schreiben: Positionierung, Seitenstruktur, Texte, E-Mails und Fragen an deine Zielgruppe. Codex ist der Coding-Agent von OpenAI. Er arbeitet ähnlich wie Claude Code direkt an deinem Code und ist unter anderem als Kommandozeilen-Werkzeug, als Erweiterung für Code-Editoren, in der Cloud und in der ChatGPT-Oberfläche verfügbar."
+        },
+        {
+          "steps": [
+            "Nutze ChatGPT für Plan und Texte: Wähle im Prompt-Generator das Werkzeug „ChatGPT / Codex“, dann ist der Prompt auf Plan und Texte ausgelegt.",
+            "Für Codex im Terminal installierst du das Werkzeug mit dem offiziellen Befehl (siehe unten) und startest es im Projektordner mit „codex“.",
+            "Beim ersten Start meldest du dich mit deinem ChatGPT-Konto oder einer anderen angebotenen Methode an.",
+            "Gib Codex wie Claude Code klare Aufträge mit Ziel, Reihenfolge und Prüfauftrag."
+          ]
+        },
+        {
+          "code": "curl -fsSL https://chatgpt.com/codex/install.sh | sh",
+          "label": "Codex CLI auf Mac und Linux (offizieller Befehl)"
+        },
+        {
+          "code": "cd ~/Projekte/meine-website\ncodex",
+          "label": "Codex im Projektordner starten"
+        },
+        {
+          "note": "Für Windows und weitere Installationswege findest du die aktuellen Befehle in der offiziellen Codex-Dokumentation von OpenAI. Welche Tarife Codex enthalten, steht ebenfalls dort, weil sich das gelegentlich ändert."
+        }
+      ]
+    },
+    {
+      "id": "repo",
+      "title": "Grundlagen: Was ist ein Repository?",
+      "blocks": [
+        {
+          "p": "Ein Repository (kurz „Repo“) ist ein Projektordner, dessen Änderungen mit Git aufgezeichnet werden. Jede gespeicherte Änderung heißt „Commit“ und bekommt eine kurze Beschreibung. So kannst du jederzeit nachsehen, was sich geändert hat, und zu einem früheren Stand zurückkehren, wenn etwas schiefgeht."
+        },
+        {
+          "p": "Liegt das Repository zusätzlich auf GitHub, hast du eine Sicherung in der Cloud. Außerdem können Dienste wie Vercel dein Projekt direkt aus GitHub veröffentlichen, und bei jeder Änderung wird die Seite automatisch neu gebaut."
+        },
+        {
+          "steps": [
+            "Lokales Repository: der Ordner auf deinem Rechner.",
+            "Entferntes Repository (Remote): die Kopie auf GitHub.",
+            "Commit: ein gespeicherter Zwischenstand mit Beschreibung.",
+            "Push: Commits von deinem Rechner nach GitHub hochladen.",
+            "Branch (Zweig): eine Parallelversion, in der du gefahrlos etwas ausprobieren kannst."
+          ]
+        },
+        {
+          "note": "Ein Repository auf GitHub kann öffentlich oder privat sein. Für Kundenprojekte und alles mit geheimen Schlüsseln ist „privat“ die richtige Wahl."
+        }
+      ]
+    },
+    {
+      "id": "git5",
+      "title": "Git in 5 Befehlen",
+      "blocks": [
+        {
+          "p": "Für den Alltag reichen fünf Befehle. Sie funktionieren auf dem Mac und unter Windows gleich, vorausgesetzt Git ist installiert (auf dem Mac fragt das System beim ersten Aufruf von „git“ nach den Entwicklerwerkzeugen, unter Windows installierst du „Git for Windows“)."
+        },
+        {
+          "code": "git clone https://github.com/deinname/dein-projekt.git",
+          "label": "1. Projekt von GitHub herunterladen"
+        },
+        {
+          "code": "git status",
+          "label": "2. Nachsehen, was sich geändert hat"
+        },
+        {
+          "code": "git add .",
+          "label": "3. Alle Änderungen für den nächsten Commit vormerken"
+        },
+        {
+          "code": "git commit -m \"Kontaktformular mobil verbessert\"",
+          "label": "4. Zwischenstand mit Beschreibung speichern"
+        },
+        {
+          "code": "git push",
+          "label": "5. Änderungen zu GitHub hochladen"
+        },
+        {
+          "note": "Du kannst Claude Code auch einfach bitten: „Mach einen Commit mit einer passenden Beschreibung und pushe ihn.“ Prüfe aber vorher mit „git status“, dass keine Dateien mit geheimen Schlüsseln dabei sind."
+        }
+      ]
+    },
+    {
+      "id": "vercel",
+      "title": "Deploy mit Vercel",
+      "blocks": [
+        {
+          "p": "Vercel veröffentlicht Webprojekte, zum Beispiel mit Next.js, React oder reinem HTML, mit wenigen Klicks. Der einfachste Weg führt über GitHub: Jede Änderung, die du pushst, wird automatisch veröffentlicht."
+        },
+        {
+          "steps": [
+            "Lege ein Konto auf vercel.com an und melde dich am besten direkt mit GitHub an.",
+            "Klick auf „Add New“ und dann auf „Project“ und wähle dein Repository aus der Liste.",
+            "Vercel erkennt das Framework in der Regel selbst. Trage bei Bedarf unter „Environment Variables“ deine Umgebungsvariablen ein.",
+            "Klick auf „Deploy“. Nach kurzer Zeit bekommst du eine Adresse, unter der die Seite erreichbar ist.",
+            "Ab jetzt baut Vercel bei jedem Push in den Hauptzweig automatisch eine neue Version. Für andere Zweige entstehen Vorschau-Adressen."
+          ]
+        },
+        {
+          "code": "npm i -g vercel\nvercel\nvercel --prod",
+          "label": "Alternative über die Vercel-Kommandozeile (benötigt Node.js)"
+        },
+        {
+          "note": "Prüfe nach jedem Deploy die echte Adresse auf dem Handy. Was lokal funktioniert, kann online an fehlenden Umgebungsvariablen scheitern."
+        }
+      ]
+    },
+    {
+      "id": "domain",
+      "title": "Eigene Domain verbinden",
+      "blocks": [
+        {
+          "p": "Damit deine Seite unter deiner eigenen Adresse erreichbar ist, verbindest du die Domain mit dem Hosting-Dienst. Am Beispiel von Vercel geht das so; bei anderen Anbietern ist der Ablauf sehr ähnlich."
+        },
+        {
+          "steps": [
+            "Öffne in Vercel dein Projekt, dann „Settings“ und „Domains“, und trage deine Domain ein, zum Beispiel deine-firma.de und www.deine-firma.de.",
+            "Vercel zeigt dir anschließend genau an, welche DNS-Einträge du setzen musst. Übernimm diese Werte exakt, denn sie können sich je nach Projekt unterscheiden.",
+            "Melde dich bei dem Anbieter an, bei dem du die Domain gekauft hast, und öffne dort die DNS-Verwaltung.",
+            "Lege die angezeigten Einträge an oder ändere die bestehenden. Für die Hauptdomain ist das meist ein A-Eintrag, für „www“ ein CNAME-Eintrag.",
+            "Warte, bis Vercel die Domain als gültig anzeigt. Das dauert oft nur Minuten, kann aber auch einige Stunden brauchen. Das SSL-Zertifikat für „https“ richtet Vercel danach selbst ein."
+          ]
+        },
+        {
+          "note": "Lösche keine E-Mail-Einträge (MX-Einträge) bei deinem Domain-Anbieter, sonst funktioniert dein Postfach nicht mehr."
+        }
+      ]
+    },
+    {
+      "id": "secrets",
+      "title": "Umgebungsvariablen und geheime Schlüssel",
+      "blocks": [
+        {
+          "p": "API-Schlüssel, Passwörter und Zugangsdaten gehören niemals direkt in den Code und niemals in ein GitHub-Repository. Stattdessen legst du sie als Umgebungsvariablen ab: lokal in einer Datei .env.local und online in den Einstellungen deines Hosting-Dienstes."
+        },
+        {
+          "steps": [
+            "Lege im Projektordner eine Datei .env.local an und trage dort die Schlüssel ein.",
+            "Prüfe, dass .env.local und .env in der Datei .gitignore stehen, damit Git sie nie hochlädt.",
+            "Trage dieselben Variablen in Vercel unter „Settings“ und „Environment Variables“ ein.",
+            "Achtung bei Next.js: Variablen, die mit NEXT_PUBLIC_ beginnen, landen im Browser und sind für alle sichtbar. Geheime Schlüssel bekommen dieses Präfix nie.",
+            "Wenn ein Schlüssel doch einmal öffentlich geworden ist, lösche ihn beim Anbieter sofort und erstelle einen neuen. Ein späteres Entfernen aus GitHub reicht nicht."
+          ]
+        },
+        {
+          "code": "# .env.local (wird nicht hochgeladen)\nRESEND_API_KEY=dein-geheimer-schluessel",
+          "label": "Beispiel .env.local"
+        },
+        {
+          "code": ".env\n.env.local\n.env*.local",
+          "label": "Einträge für die .gitignore"
+        },
+        {
+          "note": "Kopiere geheime Schlüssel nicht in einen Chat mit einer KI. Sag dem Agenten stattdessen, wie die Variable heißt, und trag den Wert selbst ein."
+        }
+      ]
+    },
+    {
+      "id": "fehler7",
+      "title": "Die 7 häufigsten Vibecoding-Fehler",
+      "blocks": [
+        {
+          "steps": [
+            "Ohne Ziel starten: Wer nur „Mach mir eine Website“ schreibt, bekommt etwas Beliebiges. Nenne Ziel, Zielgruppe und Angebot.",
+            "Alles auf einmal wollen: Große Aufträge in einem Rutsch führen zu Chaos. Arbeite in kleinen Schritten und prüfe nach jedem Schritt.",
+            "Erst am Desktop prüfen: Die meisten Besucher kommen über das Handy. Prüfe immer zuerst auf 390 px Breite.",
+            "Erfundene Inhalte übernehmen: KI ergänzt gern Zahlen, Bewertungen und Kundenstimmen. Verbiete das und lies jeden Text gegen.",
+            "Keine Sicherung: Ohne Git und GitHub ist ein misslungener Schritt schwer rückgängig zu machen. Mach regelmäßig Commits.",
+            "Geheime Schlüssel im Code: API-Schlüssel gehören in Umgebungsvariablen, nicht in Dateien, die hochgeladen werden.",
+            "Fehlermeldungen umschreiben statt kopieren: Gib dem Agenten die Fehlermeldung im genauen Wortlaut, dann findet er die Ursache viel schneller."
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "vikitor-mobil-check",
+      "title": "Mobil-Check",
+      "desc": "Prüft eine Seite systematisch auf 390 px Breite, findet abgeschnittene Texte, waagerechtes Scrollen, zu kleine Knöpfe und Überlappungen und repariert sie, ohne den Desktop zu beschädigen.",
+      "call": "Nutze den Skill vikitor-mobil-check für die Startseite."
+    },
+    {
+      "id": "vikitor-seo-basis",
+      "title": "SEO-Basis",
+      "desc": "Setzt die Grundlagen für Google und KI-Suchen: Titel, Beschreibungen, Überschriften, Strukturdaten, llms.txt, Sitemap und robots.txt, alles mit echten Angaben.",
+      "call": "Nutze den Skill vikitor-seo-basis für das ganze Projekt."
+    },
+    {
+      "id": "vikitor-launch-check",
+      "title": "Launch-Check",
+      "desc": "Geht vor dem Livegang eine Prüfliste durch: Links, Formulare, Hinweise zu Rechtstexten und Cookie-Banner, Bilder, Ladezeit und die Darstellung auf dem Handy.",
+      "call": "Nutze den Skill vikitor-launch-check, bevor wir live gehen."
+    }
+  ]
+}

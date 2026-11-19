@@ -1,0 +1,206 @@
+{
+  "date": "2026-11-19T01:33:21.166Z",
+  "results": [
+    {
+      "name": "Erweiterung geladen, Service Worker läuft",
+      "pass": true,
+      "info": "hbnkkbhmophiiodoackmcbajdcebfpem"
+    },
+    {
+      "name": "Willkommensansicht wird nach Installation geöffnet",
+      "pass": true,
+      "info": "chrome-extension://hbnkkbhmophiiodoackmcbajdcebfpem/app.html?view=tab&welcome=1"
+    },
+    {
+      "name": "tab: Ansicht „start“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „generator“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „quiz“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „promptcheck“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „pagecheck“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „skills“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „guides“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „saved“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "tab: Ansicht „about“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „start“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „generator“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „quiz“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „promptcheck“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „pagecheck“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „skills“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „guides“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „saved“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "panel: Ansicht „about“ ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Panel: ausklappbares Menü öffnet sich",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Panel: Menüpunkt navigiert",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Generator: 30 Kombinationen (Vorlage × Werkzeug) ohne leere Texte, undefined oder {{",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Generator: Eingabe erscheint live in der Vorschau",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Generator: Einfügen ist im Tab ohne KI-Seite deaktiviert",
+      "pass": true,
+      "info": "In Claude / ChatGPT / Lovable einfügen"
+    },
+    {
+      "name": "Merkliste: gemerkter Prompt erscheint",
+      "pass": true,
+      "info": "1 Einträge"
+    },
+    {
+      "name": "Merkliste: Löschen funktioniert",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Quiz (immer erste Antwort) führt zu einem Ergebnis",
+      "pass": true,
+      "info": "Erstgespräch-Funnel, 5 Seiten"
+    },
+    {
+      "name": "Quiz (Ziel Bewerbungen) führt zu einem Ergebnis",
+      "pass": true,
+      "info": "Recruiting-Funnel, 4 Seiten"
+    },
+    {
+      "name": "Quiz (Live und Community) führt zu einem Ergebnis",
+      "pass": true,
+      "info": "Webinar-Funnel, 6 Seiten"
+    },
+    {
+      "name": "Quiz: Start-Prompt wird in den Generator übernommen",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Prompt-Check-Ergebnis ohne Layoutfehler",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Prompt-Check: bewertet und ergänzt fehlende Vorgaben",
+      "pass": true,
+      "info": "0 von 9 Punkten erfüllt → 9 von 9 Punkten erfüllt"
+    },
+    {
+      "name": "Seiten-Check auf https://vikitor.de liefert Ergebnis",
+      "pass": true,
+      "info": "Wert 90/100, 10 Punkte, https://vikitor.de/"
+    },
+    {
+      "name": "Generator erkennt chatgpt.com als aktiven Tab",
+      "pass": true,
+      "info": "In ChatGPT einfügen"
+    },
+    {
+      "name": "Generator erkennt Claude (nachgebaute Seite) als Ziel",
+      "pass": true,
+      "info": "In Claude einfügen"
+    },
+    {
+      "name": "Einfügen in Claude-Eingabefeld (nachgebaut) funktioniert",
+      "pass": true,
+      "info": "# Auftrag: Website neu bauen     Du arbeitest als "
+    },
+    {
+      "name": "Generator erkennt Lovable (nachgebaute Seite) als Ziel",
+      "pass": true,
+      "info": "In Lovable einfügen"
+    },
+    {
+      "name": "Einfügen in Lovable-Eingabefeld (nachgebaut) funktioniert",
+      "pass": true,
+      "info": "# Auftrag: Website neu bauen  Du arbeitest als erf"
+    },
+    {
+      "name": "Keine Konsolenfehler in der Erweiterung (außer 404 der noch nicht gehosteten content.json)",
+      "pass": true,
+      "info": "0× erwarteter 404 für https://vikitor.de/addon/content.json"
+    }
+  ],
+  "consoleIssues": []
+}

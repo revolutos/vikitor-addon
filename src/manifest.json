@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "VIKITOR Vibecoding Assistent (Free)",
+  "short_name": "VIKITOR",
+  "version": "1.0.0",
+  "description": "Kostenloser Vibecoding-Werkzeugkasten von Viktor Siemens: Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check, Skills und Anleitungen.",
+  "default_locale": "de",
+  "icons": {
+    "16": "img/icon-16.png",
+    "32": "img/icon-32.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "action": {
+    "default_title": "VIKITOR Vibecoding Assistent öffnen",
+    "default_icon": {
+      "16": "img/icon-16.png",
+      "32": "img/icon-32.png",
+      "48": "img/icon-48.png",
+      "128": "img/icon-128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "app.html?view=panel"
+  },
+  "options_page": "app.html?view=tab",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["sidePanel", "storage", "activeTab", "scripting", "contextMenus"],
+  "host_permissions": [
+    "https://claude.ai/*",
+    "https://chatgpt.com/*",
+    "https://lovable.dev/*",
+    "https://vikitor.de/*"
+  ],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*", "https://chatgpt.com/*", "https://lovable.dev/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
