@@ -1,4 +1,22 @@
-# VIKITOR Vibecoding Assistent (Free)
+<p align="center"><img src=".github/assets/banner.png" alt="VIKITOR Browser-Addon – dein KI-Werkzeugkasten" width="100%"></p>
+
+# VIKITOR Vibecoding Assistent – dein KI-Werkzeugkasten im Browser
+
+**Kostenloses Browser-Addon von Viktor Siemens (VIKITOR)** für Chrome, Edge und Brave. Saubere Prompts, der passende Funnel, geprüfte Seiten und Anleitungen, immer griffbereit neben Claude, ChatGPT und Lovable.
+
+**➜ [Kostenlos herunterladen](https://vikitor.de/downloads/addons/)** · [Updates](https://vikitor.de/updates/) · [Premium-Code kaufen](https://vikitor.de/shop/)
+
+## Funktionen
+
+| Werkzeuge | Premium | Lernen | Mehr |
+|---|---|---|---|
+| Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check | Funnel-Vorlagen, Funnel-Hack | Gratis-Skills, Anleitungen, Merkliste | Neu von VIKITOR (News, Ratgeber, Updates, Events), Downloads, Shop |
+
+**Premium** (gleicher Freischaltcode wie VS MAC OS): fertige Funnel-Baupläne als Auftrag an die KI und der **Funnel-Hack**, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt.
+
+---
+
+## Entwicklung
 
 Kostenlose Chrome-Erweiterung von Viktor Siemens (Marke VIKITOR, https://vikitor.de) für Leads und Webinar-Teilnehmer. Der Assistent öffnet sich als Seitenleiste neben jeder Webseite und zusätzlich als große Ansicht in einem eigenen Tab.
 
@@ -6,7 +24,7 @@ Kostenlose Chrome-Erweiterung von Viktor Siemens (Marke VIKITOR, https://vikitor
 
 Technik: Manifest V3, reines HTML, CSS und JavaScript (ES-Module) ohne Build-Schritt.
 
-## Ordnerstruktur
+### Ordnerstruktur
 
 ```
 vikitor-addon/
@@ -31,7 +49,7 @@ vikitor-addon/
 └── README.md
 ```
 
-## Installation zum Testen (entpackte Erweiterung)
+### Installation zum Testen (entpackte Erweiterung)
 
 1. Öffne in Chrome die Adresse `chrome://extensions`.
 2. Schalte oben rechts den **Entwicklermodus** ein.
@@ -43,7 +61,7 @@ vikitor-addon/
 
 Nach Änderungen am Code klickst du in `chrome://extensions` beim Assistenten auf das Neu-laden-Symbol.
 
-## Paket bauen
+### Paket bauen
 
 ```bash
 node scripts/pack.mjs
@@ -59,7 +77,7 @@ Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die
 
 Die Versionsnummer kommt aus `src/manifest.json`. Für jede neue Store-Version musst du sie erhöhen.
 
-## Tests
+### Tests
 
 ```bash
 node test/logic.mjs     # Generator (10 Vorlagen × 3 Werkzeuge), alle Quiz-Pfade, Prompt-Check, Bewertung, Inhaltsregeln
@@ -68,7 +86,7 @@ node test/browser.mjs   # lädt die Erweiterung in Chrome, klickt alle Ansichten
 
 Der Browser-Test nutzt `puppeteer-core` (Pfad per Umgebungsvariable `PUPPETEER_CORE` änderbar) und Google Chrome (`CHROME_PATH`). Mit `HEADFUL=1` läuft er sichtbar.
 
-## Inhalte aktualisieren
+### Inhalte aktualisieren
 
 Alle Texte, Vorlagen, Quizfragen, Prüfregeln, Anleitungen und Skill-Beschreibungen stehen in `src/data/content.json`, alle Links in `src/data/links.json`.
 
@@ -89,7 +107,7 @@ Platzhalter in Vorlagen: `{{feld}}` (Zeile entfällt, wenn leer), `{{feld|Ersatz
 
 Leere Felder in `links.json` (Facebook, LinkedIn, YouTube, TikTok) werden nicht angezeigt. Sobald du dort eine Adresse einträgst, erscheint der Link automatisch im Footer und in „Über Viktor“.
 
-## Einreichung im Chrome Web Store (Schritt für Schritt)
+### Einreichung im Chrome Web Store (Schritt für Schritt)
 
 1. **Entwicklerkonto:** Unter https://chrome.google.com/webstore/devconsole mit dem Google-Konto anmelden, das die Erweiterung verwalten soll, und die einmalige Registrierung abschließen (inklusive Registrierungsgebühr und Bestätigung der Kontaktdaten). Für ein Unternehmen empfiehlt sich ein eigenes Konto oder eine Gruppe.
 2. **Paket bauen:** `node scripts/pack.mjs` ausführen.
@@ -105,7 +123,7 @@ Leere Felder in `links.json` (Facebook, LinkedIn, YouTube, TikTok) werden nicht 
 7. **Zur Überprüfung einreichen.** Die Prüfung dauert in der Regel einige Tage, bei Host-Berechtigungen manchmal länger. Nach der Freigabe bekommst du den Store-Link.
 8. **Updates:** Version in `src/manifest.json` erhöhen, neu packen, im Dashboard unter „Paket“ die neue ZIP hochladen und erneut einreichen.
 
-## Inhaltsregeln
+### Inhaltsregeln
 
 - Keine erfundenen Zahlen, Kundenstimmen, Garantien oder Einkommensversprechen.
 - Über Viktor nur die freigegebenen Fakten aus der Ansicht „Über Viktor“.
@@ -113,3 +131,28 @@ Leere Felder in `links.json` (Facebook, LinkedIn, YouTube, TikTok) werden nicht 
 - Anrede „du“, vollständige Sätze.
 
 Anbieter: REVOLUTOS LTD. Datenschutzkontakt: https://vikitor.de/datenschutz/
+
+---
+
+## Über den Macher
+
+<img src=".github/assets/viktor-siemens.jpg" width="88" align="left" alt="Viktor Siemens" style="border-radius:50%;margin-right:16px">
+
+**Viktor Siemens** · Nr. 1 Vibecoder Deutschlands · KI-Experte für Premium-Webseiten & Funnels
+Gründer von REVOLUTOS · 250+ Kunden · Top 100 Unternehmer 2024 (ERFOLG Magazin)
+**100 % KI. 0 % KI-Slop.**
+
+<br clear="left">
+
+| | |
+|---|---|
+| 🌐 Webseite | [vikitor.de](https://vikitor.de) |
+| 🎓 Kostenloses Live-Webinar „Vibecoding 3.0“ | [Platz sichern](https://vikitor.de/#platz) |
+| ⬇️ Downloads (VS MAC OS, Browser-Addon, Skills) | [vikitor.de/downloads](https://vikitor.de/downloads/) |
+| 🛒 Premium-Freischaltcode, Framework, Shop | [vikitor.de/shop](https://vikitor.de/shop/) |
+| 📰 News, Ratgeber, Updates, Events (RSS) | [vikitor.de/news](https://vikitor.de/news/) · [RSS](https://vikitor.de/feed.xml) |
+| 📸 Instagram | [@viktorsiemens.business](https://www.instagram.com/viktorsiemens.business/) |
+| 💼 LinkedIn | [Viktor Siemens](https://www.linkedin.com/in/viktor-siemens/) |
+| 👍 Facebook | [Offizieller Kanal](https://www.facebook.com/viktorsiemens) · [Privat](https://www.facebook.com/viktorsiemens90/) |
+
+© REVOLUTOS LTD · VIKITOR ist ein Projekt der REVOLUTOS LTD. Alle Rechte vorbehalten. Privates Repository, nicht zur Weitergabe.
