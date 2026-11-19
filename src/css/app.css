@@ -439,7 +439,7 @@ body.is-panel .foot { padding: 18px 16px 22px; flex-direction: column; align-ite
 
 /* Abschluss unter der Fußzeile (wie vikitor.de) */
 .sig { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center; min-height: 560px; border-top: 1px solid var(--border); background: radial-gradient(70% 90% at 80% 40%, #17181b 0%, var(--bg) 62%); }
-.sig-photo { position: absolute; inset: 0 0 0 auto; z-index: -1; width: 48%; }
+.sig-photo { position: absolute; inset: 0 0 0 auto; z-index: -1; width: 48%; overflow: hidden; }
 .sig-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 12%; filter: grayscale(1) contrast(1.06); opacity: 0; transform: scale(1.04); transition: opacity 1100ms ease-out, transform 1500ms cubic-bezier(.2,.7,.2,1); }
 .sig-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 70%, transparent) 24%, transparent 58%), linear-gradient(0deg, var(--bg) 0%, transparent 30%), linear-gradient(180deg, var(--bg) 0%, transparent 14%); }
 .sig.is-in .sig-photo img { opacity: 1; transform: none; }
