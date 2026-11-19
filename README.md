@@ -155,4 +155,4 @@ Gründer von REVOLUTOS · 250+ Kunden · Top 100 Unternehmer 2024 (ERFOLG Magazi
 | 💼 LinkedIn | [Viktor Siemens](https://www.linkedin.com/in/viktor-siemens/) |
 | 👍 Facebook | [Offizieller Kanal](https://www.facebook.com/viktorsiemens) · [Privat](https://www.facebook.com/viktorsiemens90/) |
 
-© REVOLUTOS LTD · VIKITOR ist ein Projekt der REVOLUTOS LTD. Alle Rechte vorbehalten. Privates Repository, nicht zur Weitergabe.
+© REVOLUTOS LTD · VIKITOR ist ein Projekt der REVOLUTOS LTD. Alle Rechte vorbehalten. Der Quellcode ist zum Ansehen und Lernen öffentlich; Weiterverbreitung, Wiederverkauf oder Veröffentlichung als eigenes Addon nur mit schriftlicher Genehmigung.
