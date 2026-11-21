@@ -3,7 +3,12 @@
 // (beim Scrollen zusammengesetzt), Bild des sichtbaren Bereichs und die Seitenstruktur. Alles bleibt lokal (IndexedDB).
 // Start nur per Klick in der App; sichtbarer Hinweis über das Symbol („REC“) und in der App.
 import { putStep, allSteps, clearSteps } from "./recdb.js";
-import { collectFunnelData } from "./funnel.js";
+import { inPageAnalyze, inPageMobileFacts } from "./engine/page.js";
+import { inPageDesign, inPageMobileType } from "./engine/design.js";
+import { SIGNATURES, inPageTech, inPagePerf, buildTech } from "./engine/tech.js";
+
+// wie in der Engine (scan.mjs): nur die im Seitenkontext nötigen Signatur-Felder übergeben
+const SIGS_FOR_PAGE = SIGNATURES.map(({ name, html, inline, meta, global, dom, cookie }) => ({ name, html, inline, meta, global, dom, cookie }));
 
 const KEY = "recState";
 const MAX_STEPS = 30;
@@ -160,19 +165,68 @@ export async function captureFullPage(tab) {
   };
 }
 
+// Kopie von inPagePopups aus vs-funnel-scan/lib/scan.mjs (dort nicht exportiert)
+function inPagePopups() {
+  const out = [];
+  for (const el of document.querySelectorAll("body *")) {
+    if (out.length >= 8) break;
+    const cs = getComputedStyle(el);
+    const isDlg = el.tagName === "DIALOG" ? el.open : el.getAttribute("role") === "dialog" || el.getAttribute("aria-modal") === "true";
+    if (!isDlg && cs.position !== "fixed") continue;
+    const r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 60 || cs.display === "none" || cs.visibility === "hidden" || +cs.opacity < 0.05) continue;
+    const area = (r.width * r.height) / (innerWidth * innerHeight);
+    const sig = (el.id || "") + " " + (typeof el.className === "string" ? el.className : "") + " " + (el.innerText || "").slice(0, 200);
+    const cookie = /cookie|consent/i.test(sig);
+    if (!isDlg && area < 0.12 && !cookie) continue;
+    out.push({ kind: cookie ? "cookie" : el.querySelector("form, input[type=email]") ? "formular-popup" : area > 0.5 ? "overlay" : "fixiert", area: +area.toFixed(2), hasForm: !!el.querySelector("form, input[type=email]") });
+  }
+  return out;
+}
+
+// Netzwerk-Ersatz für das CDP-Log der Engine: Resource-Timing-API der Seite (fremde Quellen oft ohne Bytes)
+function inPageNetwork() {
+  const TYPE = { script: "Script", link: "Stylesheet", css: "Stylesheet", img: "Image", image: "Image", fetch: "Fetch", xmlhttprequest: "XHR", video: "Media", audio: "Media", iframe: "Document", beacon: "Ping", other: "Other" };
+  const nav = performance.getEntriesByType("navigation")[0];
+  const res = performance.getEntriesByType("resource").slice(0, 1500).map((r) => ({
+    url: r.name,
+    type: /\.(woff2?|ttf|otf)(\?|$)/i.test(r.name) ? "Font" : TYPE[r.initiatorType] || "Other",
+    bytes: r.transferSize || r.encodedBodySize || 0,
+    failed: false
+  }));
+  const doc = { url: location.href, type: "Document", bytes: nav ? nav.transferSize || nav.encodedBodySize || 0 : 0, failed: false };
+  const status = nav && typeof nav.responseStatus === "number" && nav.responseStatus > 0 ? nav.responseStatus : null;
+  return { network: [doc, ...res], mainDocument: { url: location.href, status, headers: {} } };
+}
+
 async function captureStep(tab) {
+  const warnings = [];
+  const perf = await inject(tab.id, inPagePerf).catch(() => null);
+  const popups = await inject(tab.id, inPagePopups).catch(() => []);
   const shotData = await captureFullPage(tab);
-  const struktur = await inject(tab.id, collectFunnelData).catch(() => null);
+  if (shotData.truncated) warnings.push(`Screenshot auf ${MAX_CSS_HEIGHT}px Seitenhöhe gekürzt (Seite ${shotData.pageHeight}px)`);
+  const page = await inject(tab.id, inPageAnalyze);
+  if (!page) throw new Error("Seitenanalyse lieferte nichts");
+  const design = await inject(tab.id, inPageDesign).catch((e) => (warnings.push("Design-Messung: " + e.message), null));
+  const techIn = await inject(tab.id, inPageTech, [SIGS_FOR_PAGE]).catch(() => null);
+  const net = await inject(tab.id, inPageNetwork).catch(() => ({ network: [], mainDocument: null }));
+  const device = shotData.viewport.width < 768 ? "mobile" : "desktop";
+  // Mobil-Werte nur, wenn tatsächlich schmal aufgenommen wurde (keine Emulation im Browser des Nutzers)
+  const mobileType = device === "mobile" ? await inject(tab.id, inPageMobileType).catch(() => null) : null;
+  const mobileFacts = device === "mobile" ? await inject(tab.id, inPageMobileFacts).catch(() => null) : null;
+  const tech = buildTech({ pageUrl: page.url, network: net.network, inPage: techIn, perf, mainDocument: net.mainDocument, consent: null });
+  tech.performance.note = "grob gemessen im Browser des Nutzers während der Aufnahme (ohne Drosselung); Seitengewicht aus der Resource-Timing-API, fremde Quellen oft ohne Bytes; Server-Header im Browser nicht lesbar";
   return {
-    url: tab.url,
-    title: tab.title || (struktur && struktur.titel) || "",
+    url: page.url || tab.url,
+    title: page.title || tab.title || "",
     capturedAt: new Date().toISOString(),
+    device,
     viewport: shotData.viewport,
     pageHeight: shotData.pageHeight,
     truncated: shotData.truncated,
     full: shotData.full,
     fold: shotData.fold,
-    struktur
+    page, design, mobileType, mobileFacts, tech, popups, warnings
   };
 }
 

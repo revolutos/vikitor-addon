@@ -46,7 +46,7 @@ export function recordingCard(ctx) {
       const n = s.count || 0;
       if (n) {
         status.append(h("b", {}, "Aufnahme beendet"), ` · ${n} ${n === 1 ? "Seite" : "Seiten"}`);
-        note.textContent = "Das ZIP enthält den Ordner funnelhack/ mit funnel.json, je Schritt einem Ordner mit Screenshots und einer Übersicht (index.html). In VS MAC OS oder VS WIN OS importierst du es über „Aufnahme importieren“.";
+        note.textContent = "Das ZIP enthält den Ordner funnelhack/ im Format der VS-Scan-Engine: funnel.json, design-tokens.css, eine Übersicht (index.html) und je Schritt Screenshots, Seitenanalyse, Texte (nur zur Analyse), Design-Werte und Technik. In VS MAC OS oder VS WIN OS importierst du es über „Aufnahme importieren“.";
         actions.append(zipBtn, resetBtn);
       } else {
         note.textContent = "Öffne die erste Seite des Funnels im aktiven Tab und starte die Aufnahme. Der Browser fragt einmal nach dem Zugriff auf Webseiten; er gilt nur während der Aufnahme. Alles bleibt auf deinem Rechner.";

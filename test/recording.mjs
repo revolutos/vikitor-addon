@@ -24,7 +24,7 @@ main{padding:80px 24px}section{height:700px;border-bottom:4px solid #c00;padding
 <body><header>Test-Funnel</header><main>${body}</main></body></html>`;
 const PAGES = {
   "/start": page("Start – Test-Funnel", `<h1>Hero</h1>${[1, 2, 3, 4].map((i) => `<section><h2>Sektion ${i}</h2><p>Nutzen und Beweise für das Testangebot, Abschnitt ${i}.</p></section>`).join("")}<a class="cta" id="go" href="/optin">Jetzt eintragen</a>`),
-  "/optin": page("Opt-in – Test-Funnel", `<h1>Trag dich ein</h1><form action="/danke"><input name="email" placeholder="E-Mail"><a class="cta" id="go" href="/danke">Absenden</a></form>`),
+  "/optin": page("Opt-in – Test-Funnel", `<h1>Trag dich ein</h1><form action="/danke" method="get"><label>Vorname <input name="vorname" autocomplete="given-name"></label><label>E-Mail <input type="email" name="email" required></label><button type="submit">Gratis anfordern</button></form><p><a class="cta" id="go" href="/danke">Weiter ohne Formular</a></p>`),
   "/danke": page("Danke – Test-Funnel", `<h1>Danke!</h1><p>Bitte bestätige deine E-Mail.</p>`)
 };
 const server = http.createServer((req, res) => {
@@ -111,19 +111,66 @@ try {
   if (process.env.KEEP_ZIP) fs.copyFileSync(zipPath, process.env.KEEP_ZIP);
   const listing = execFileSync("unzip", ["-Z1", zipPath]).toString().trim().split("\n");
   ok("ZIP lässt sich entpacken (unzip -t)", /No errors/.test(execFileSync("unzip", ["-t", zipPath]).toString()));
-  const want = ["funnelhack/funnel.json", "funnelhack/index.html", "funnelhack/steps/01-start/desktop.png", "funnelhack/steps/01-start/above-the-fold.png", "funnelhack/steps/02-optin/desktop.png", "funnelhack/steps/03-danke/desktop.png"];
+  const want = ["funnelhack/funnel.json", "funnelhack/index.html", "funnelhack/design-tokens.css"];
+  for (const id of ["01-start", "02-optin", "03-danke"]) for (const f of ["desktop.png", "above-the-fold-desktop.png", "page.json", "text.md", "design.json", "tech.json"]) want.push(`funnelhack/steps/${id}/${f}`);
   const missing = want.filter((f) => !listing.includes(f));
-  ok("ZIP-Struktur funnelhack/ (funnel.json, steps/NN-slug/, index.html)", missing.length === 0, missing.length ? "fehlt: " + missing.join(", ") : `${listing.length} Dateien`);
-  const fj = JSON.parse(execFileSync("unzip", ["-p", zipPath, "funnelhack/funnel.json"]).toString());
-  ok("funnel.json: drei Schritte in Reihenfolge mit Übergängen", fj.steps.length === 3 && fj.steps.map((s) => new URL(s.url).pathname).join(",") === "/start,/optin,/danke" && fj.transitions.length === 2 && /immer eigen/.test(fj.rules));
+  ok("ZIP-Struktur wie Scan-Engine (funnel.json, design-tokens.css, index.html, steps/NN-slug/ mit Screenshots, page/text/design/tech)", missing.length === 0, missing.length ? "fehlt: " + missing.join(", ") : `${listing.length} Dateien`);
+  const read = (f) => execFileSync("unzip", ["-p", zipPath, "funnelhack/" + f]).toString();
+  const fj = JSON.parse(read("funnel.json"));
+
+  // Schema-Prüfung gegen ~/Developer/vs-funnel-scan/SCHEMA.md (schemaVersion 1)
+  const errs = [];
+  const need = (obj, keys, where) => { for (const k of keys) if (!obj || !(k in obj)) errs.push(`${where}: ${k} fehlt`); };
+  need(fj, ["schemaVersion", "tool", "startUrl", "createdAt", "finishedAt", "durationSec", "chrome", "options", "rules", "steps", "transitions", "optin", "stop", "design", "tech", "warnings"], "funnel.json");
+  if (fj.schemaVersion !== 1) errs.push("funnel.json: schemaVersion ≠ 1");
+  need(fj.options, ["maxSteps", "optin", "mailbox", "video", "videoFormat", "videoMaxSec", "mailWaitSec"], "options");
+  if (fj.options.video !== false || fj.options.videoFormat !== null) errs.push("options: Video muss aus/null sein (Addon nimmt kein Video auf)");
+  need(fj.stop, ["reason", "message", "step"], "stop");
+  if (!["checkout", "max-steps", "no-next", "optin-skipped", "optin-manual", "optin-failed", "captcha", "aborted", "error"].includes(fj.stop.reason)) errs.push("stop.reason unbekannt");
+  need(fj.tech, ["builder", "frameworks", "checkout", "tracking", "consent", "email", "other", "hosting", "lcpMedian", "totalMegabytes"], "funnel.tech");
+  need(fj.design, ["roles", "palette", "typography", "spacing", "radii", "shadows", "button", "motion"], "funnel.design");
+  const KINDS = ["landing", "landing-optin", "optin", "danke", "bestaetigung", "upsell", "sales", "angebot", "checkout", "popup", "inhalt"];
+  for (const st of fj.steps) {
+    need(st, ["index", "id", "dir", "url", "title", "kind", "kindLabel", "via", "from", "viaLabel", "files", "summary", "design", "tech", "warnings"], st.id);
+    if (!KINDS.includes(st.kind)) errs.push(`${st.id}: kind ${st.kind}`);
+    if (!["start", "cta", "form-submit", "email-confirm", "click", "popup"].includes(st.via)) errs.push(`${st.id}: via ${st.via}`);
+    need(st.files, ["desktop", "mobile", "aboveTheFold", "video", "page", "text", "design", "tech"], st.id + ".files");
+    need(st.summary, ["sections", "ctaCount", "primaryCta", "forms", "prices", "countdown", "scarcity", "videos", "popups", "exitIntent", "captcha", "documentHeight"], st.id + ".summary");
+    need(st.design, ["bg", "text", "accent", "button", "headingFont", "bodyFont", "h1", "body"], st.id + ".design");
+    need(st.tech, ["builder", "checkout", "tracking", "lcp", "mb"], st.id + ".tech");
+    for (const f of [st.files.desktop, st.files.aboveTheFold.desktop, st.files.page, st.files.text, st.files.design, st.files.tech]) if (f && !listing.includes(`funnelhack/${st.dir}/${f}`)) errs.push(`${st.id}: Datei ${f} fehlt im ZIP`);
+    const pj = JSON.parse(read(`${st.dir}/page.json`));
+    need(pj, ["schemaVersion", "step", "id", "kind", "kindLabel", "via", "capturedAt", "url", "title", "viewport", "document", "meta", "headings", "sections", "ctas", "forms", "prices", "scarcity", "videos", "iframes", "popups", "exitIntent", "payment", "captcha", "media", "consent", "mobile", "note"], st.id + "/page.json");
+    if (pj.id !== st.id || pj.step !== st.index || pj.kind !== st.kind) errs.push(`${st.id}/page.json: id/step/kind passt nicht`);
+    for (const sec of pj.sections || []) need(sec, ["index", "type", "bbox"], st.id + "/sections[]");
+    const dj = JSON.parse(read(`${st.dir}/design.json`));
+    need(dj, ["schemaVersion", "step", "url", "colors", "typography", "spacing", "radii", "shadows", "borders", "buttons", "motion", "viewport", "mobile"], st.id + "/design.json");
+    need(dj.colors, ["roles", "palette", "gradients"], st.id + "/design.colors");
+    const tj = JSON.parse(read(`${st.dir}/tech.json`));
+    need(tj, ["schemaVersion", "step", "url", "builder", "frameworks", "checkout", "tracking", "email", "other", "consent", "hosting", "server", "generator", "performance", "weight", "thirdPartyHosts", "cookieNames"], st.id + "/tech.json");
+    need(tj.weight, ["requests", "bytes", "megabytes", "byType", "failedRequests"], st.id + "/tech.weight");
+    if (!/Nur zur Analyse/.test(read(`${st.dir}/text.md`))) errs.push(`${st.id}/text.md: Analyse-Hinweis fehlt`);
+  }
+  for (const t of fj.transitions) need(t, ["from", "to", "type", "label"], "transition");
+  ok("Alle Dateien entsprechen SCHEMA.md (schemaVersion 1)", errs.length === 0, errs.slice(0, 8).join(" | "));
+  ok("Funnel-Verlauf: drei Schritte, Seitentypen und Übergänge per CTA erkannt",
+    fj.steps.map((x) => new URL(x.url).pathname).join(",") === "/start,/optin,/danke" && fj.steps.map((x) => x.kind).join(",") === "landing,optin,danke" &&
+    fj.transitions.length === 2 && fj.transitions.every((t) => t.type === "cta") && fj.steps[0].summary.primaryCta?.text === "Jetzt eintragen" && fj.rules.some((r) => /IMMER eigen/.test(r)),
+    `${fj.steps.map((x) => x.kind).join(" → ")} · ${fj.transitions.map((t) => t.type + ":" + t.label).join(", ")}`);
+  const p1 = JSON.parse(read("steps/01-start/page.json"));
+  const d1 = JSON.parse(read("steps/01-start/design.json"));
+  const t1 = JSON.parse(read("steps/01-start/tech.json"));
+  const p2 = JSON.parse(read("steps/02-optin/page.json"));
+  ok("Seitenanalyse misst echte Werte (Überschriften, Sektionen, Formular, Design-Rollen, Technik-Gewicht)",
+    p1.headings.some((x) => x.level === 1) && p1.sections.length >= 3 && p2.forms.length === 1 && !!d1.colors.roles.background && d1.typography.h1 && t1.weight.requests >= 1 && t1.performance && t1.consent.choice === null && p1.consent === null,
+    `${p1.sections.length} Sektionen, H1 ${d1.typography.h1?.size}px, BG ${d1.colors.roles.background}, ${t1.weight.requests} Requests`);
   const png = execFileSync("unzip", ["-p", zipPath, "funnelhack/steps/01-start/desktop.png"]);
   const w = png.readUInt32BE(16), hgt = png.readUInt32BE(20);
   ok("Ganzseiten-Screenshot ist aus mehreren Bildern zusammengesetzt (höher als das Fenster)", png.subarray(1, 4).toString() === "PNG" && w === 1280 && hgt > 2500, `${w} × ${hgt} px`);
-  const fold = execFileSync("unzip", ["-p", zipPath, "funnelhack/steps/01-start/above-the-fold.png"]);
+  const fold = execFileSync("unzip", ["-p", zipPath, "funnelhack/steps/01-start/above-the-fold-desktop.png"]);
   ok("Bild des sichtbaren Bereichs (above the fold)", fold.readUInt32BE(20) === 800, `${fold.readUInt32BE(16)} × ${fold.readUInt32BE(20)} px`);
-  // Feste Kopfzeile nur einmal: unterhalb der ersten 800 px darf kein schwarzer Balken (#111) über die volle Breite liegen
   const html = execFileSync("unzip", ["-p", zipPath, "funnelhack/index.html"]).toString();
-  ok("index.html-Übersicht verweist auf alle Schritte", fj.steps.every((s) => html.includes(`${s.dir}/above-the-fold.png`)));
+  ok("index.html: Engine-Übersicht mit allen Schritten, ohne Verweise auf fehlende Dateien", fj.steps.every((s) => html.includes(`${s.dir}/above-the-fold-desktop.png`)) && !/\/null"/.test(html) && /design-tokens|Design/.test(html));
   const scroll = await site.evaluate(() => window.scrollY);
   ok("Seite wird nach der Erfassung zurückgescrollt und Kopfzeile wieder sichtbar", scroll === 0 && await site.evaluate(() => getComputedStyle(document.querySelector("header")).visibility === "visible"));
   ok("Keine Fehler in Erweiterung und Testseiten", issues.length === 0, issues.join(" | "));

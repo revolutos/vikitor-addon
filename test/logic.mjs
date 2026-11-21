@@ -101,7 +101,7 @@ if (links.warteliste) fail("links.json: Warteliste gibt es nicht mehr");
 // 6) Quelltexte der Oberfläche: kein verbotener Name, „Webseite“ statt „Website“, keine Shop-bald- oder Warteliste-Texte
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(new URL(e.name + "/", dir)) : [new URL(e.name, dir)]);
 const texts = walk(root).filter((u) => /\.(js|json|html)$/.test(u.pathname)).map((u) => [u.pathname.split("/src/")[1], fs.readFileSync(u, "utf8")]);
-for (const [name, t] of texts) {
+for (const [name, t] of texts.filter(([n]) => !n.startsWith("js/engine/"))) { // engine/ = unveränderte Kopie der Scan-Engine
   if (/mr\.?\s*lovable/i.test(t)) fail(`${name}: verbotener Name`);
   if (/\bWebsite\b/.test(t)) fail(`${name}: „Website“ statt „Webseite“`);
   if (/Warteliste|Shop · bald|in Kürze im Shop/.test(t)) fail(`${name}: veralteter Shop-Text`);
@@ -122,13 +122,21 @@ console.log(`Version überall ${ver}.`);
 const { funnelPrompt } = await import("../src/js/funnel.js");
 const fp = funnelPrompt({ url: "https://beispiel.de/", titel: "T", beschreibung: "", items: [{ type: "h1", text: "X" }], preise: [], links: [] }, { angebot: "A", zielgruppe: "Z", marke: "" });
 for (const must of ["sehr nah", "Sektionsreihenfolge", "Layout-Muster", "IMMER eigen", "NIE fremde Texte", "Urheber- und Wettbewerbsrecht"]) if (!fp.includes(must)) fail(`Funnel-Hack-Prompt: „${must}“ fehlt`);
-const { slugOf, funnelJson, indexHtml } = await import("../src/js/recexport.js");
-const SLUGS = [["https://a.de/", 1, "01-start"], ["https://a.de/webinar/anmeldung?x=1", 2, "02-anmeldung"], ["https://a.de/Danke-Seite.html", 3, "03-danke-seite"], ["https://a.de/größe-ü", 12, "12-grosse-u"]];
+const { slugOf, stepId, buildFunnel, indexHtml, RULES } = await import("../src/js/recexport.js");
+const SLUGS = [["https://a.de/", 1, "01-start"], ["https://a.de/webinar/anmeldung?x=1", 2, "02-anmeldung"], ["https://a.de/Danke-Seite.html", 3, "03-danke-seite"], ["https://a.de/größe-ü", 12, "12-groesse-ue"]];
 for (const [u, n, want] of SLUGS) if (slugOf(u, n) !== want) fail(`slugOf(${u}) = ${slugOf(u, n)}, erwartet ${want}`);
-const fj = funnelJson({ startUrl: "https://a.de/", started: "2026-11-21T10:00:00Z" }, [{ url: "https://a.de/", title: "Start", viewport: { width: 1280, height: 800, dpr: 2 } }, { url: "https://a.de/danke", title: "<Danke>", viewport: { width: 390, height: 800, dpr: 3 } }]);
-if (fj.format !== "vikitor-funnelhack" || fj.steps[1].dir !== "steps/02-danke" || fj.steps[1].device !== "mobile" || fj.transitions.length !== 1) fail("funnel.json: Aufbau falsch");
-if (!/immer eigen/.test(fj.rules)) fail("funnel.json: Regel fehlt");
-if (indexHtml(fj).includes("<Danke>")) fail("index.html: Titel nicht maskiert");
+if (stepId("https://a.de/x", 2, "https://a.de/x#y") !== "02-nach-absenden") fail("stepId: gleiche Seite → nach-absenden (wie Engine)");
+const rawSteps = [
+  { url: "https://a.de/", title: "Start", capturedAt: "2026-11-21T10:00:00Z", device: "desktop", viewport: { width: 1280, height: 800, dpr: 2 }, pageHeight: 3000,
+    page: { url: "https://a.de/", title: "Start", headings: [{ level: 1, text: "Hero", y: 0 }], sections: [{ type: "hero" }], ctas: [{ text: "Los", href: "https://a.de/optin" }], forms: [], prices: [], scarcity: { countdowns: [], keywords: [] }, videos: [], popups: [], exitIntent: false, captcha: null, document: { width: 1280, height: 3000 }, textBlocks: [{ s: 0, tag: "h1", t: "Hero" }] } },
+  { url: "https://a.de/optin", title: "<Danke>", capturedAt: "2026-11-21T10:01:00Z", device: "mobile", viewport: { width: 390, height: 800, dpr: 3 }, pageHeight: 2000, page: null }
+];
+const built = buildFunnel({ startUrl: "https://a.de/", started: "2026-11-21T10:00:00Z", ended: "2026-11-21T10:02:00Z" }, rawSteps, { version: "1.5.0" });
+const F = built.funnel;
+if (F.schemaVersion !== 1 || F.steps.length !== 2 || F.steps[1].dir !== "steps/02-optin" || F.steps[1].via !== "cta" || F.steps[1].viaLabel !== "Los" || F.transitions[0].type !== "cta") fail("funnel.json: Aufbau falsch");
+if (F.steps[0].summary.primaryCta?.text !== "Los" || F.steps[1].files.desktop !== null || F.steps[1].files.mobile !== "mobile.png") fail("funnel.json: primaryCta/Dateien falsch");
+if (F.durationSec !== 120 || F.options.video !== false || F.stop.reason !== "aborted" || !RULES.some((r) => /IMMER eigen/.test(r))) fail("funnel.json: Kopf falsch");
+if (indexHtml(F, built.css).includes("<Danke>") || /\/null"/.test(indexHtml(F, built.css))) fail("index.html: Titel nicht maskiert oder Verweis auf fehlende Datei");
 const { makeZip, crc32 } = await import("../src/js/zip.js");
 if (crc32(new TextEncoder().encode("123456789")) !== 0xcbf43926) fail("CRC32 falsch");
 const zb = Buffer.from(await (await makeZip([{ name: "funnelhack/funnel.json", data: "{}" }, { name: "funnelhack/ä.txt", data: new Uint8Array([1, 2, 3]) }])).arrayBuffer());
