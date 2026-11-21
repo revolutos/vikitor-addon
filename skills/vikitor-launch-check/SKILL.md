@@ -1,6 +1,6 @@
 ---
 name: vikitor-launch-check
-description: Geht vor dem Livegang einer Website eine vollständige Prüfliste durch: Links, Formulare, Hinweise zu Rechtstexten (Impressum, Datenschutz) und Cookie-Banner, Bilder, Ladezeit, Handy-Darstellung, Titel und Weiterleitungen. Verwenden, wenn eine Seite veröffentlicht, gelauncht oder „live geschaltet“ werden soll.
+description: Geht vor dem Livegang einer Webseite eine vollständige Prüfliste durch: Links, Formulare, Hinweise zu Rechtstexten (Impressum, Datenschutz) und Cookie-Banner, Bilder, Ladezeit, Handy-Darstellung, Titel und Weiterleitungen. Verwenden, wenn eine Seite veröffentlicht, gelauncht oder „live geschaltet“ werden soll.
 ---
 
 # Launch-Check

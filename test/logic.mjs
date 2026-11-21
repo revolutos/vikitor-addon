@@ -11,7 +11,7 @@ const links = JSON.parse(fs.readFileSync(new URL("data/links.json", root), "utf8
 let fails = 0;
 const fail = (m) => { fails++; console.log("FEHLER:", m); };
 
-// 1) Generator: 10 Vorlagen × 3 Werkzeuge, leer und voll ausgefüllt
+// 1) Generator: 10 Vorlagen × 4 Werkzeuge (Claude Code, Codex, ChatGPT, Lovable), leer und voll ausgefüllt
 const full = {};
 for (const k of Object.keys(content.fields)) full[k] = k === "problem" ? "Das Menü öffnet sich nicht.\nNur auf dem iPhone." : `Test ${k}`;
 let gen = 0;
@@ -25,6 +25,28 @@ for (const t of content.templates) for (const tool of Object.keys(content.tools)
   for (const f of t.fields) if (!content.fields[f]) fail(`${t.id}: Feld ${f} nicht definiert`);
 }
 console.log(`Generator: ${gen} Prompts erzeugt.`);
+if (gen !== 80) fail(`Erwartet 80 Prompts (10 × 4 × 2), erzeugt ${gen}`);
+
+// 1b) Werkzeuge: Codex arbeitet wie Claude Code im Projektordner (mit AGENTS.md), ChatGPT bleibt Planer und Texter
+const TOOLS = ["claude", "codex", "chatgpt", "lovable"];
+if (JSON.stringify(Object.keys(content.tools)) !== JSON.stringify(TOOLS)) fail(`Werkzeuge müssen ${TOOLS.join(", ")} sein, gefunden ${Object.keys(content.tools).join(", ")}`);
+if (content.tools.codex?.label !== "Codex") fail("Codex braucht das Label „Codex“");
+if (content.tools.chatgpt?.label !== "ChatGPT") fail("ChatGPT braucht das Label „ChatGPT“ (ohne Codex)");
+for (const t of content.templates) {
+  const cx = buildPrompt(content, t.id, "codex", full);
+  const cc = buildPrompt(content, t.id, "claude", full);
+  const gpt = buildPrompt(content, t.id, "chatgpt", full);
+  if (!/Projektordner/.test(cx) || !/AGENTS\.md/.test(cx) || !/Dateien anlegen/.test(cx)) fail(`${t.id}/codex: kein Arbeitsauftrag im Projektordner mit AGENTS.md`);
+  if (!/starte die Seite lokal/.test(cx)) fail(`${t.id}/codex: Prüfauftrag fehlt`);
+  if (/Schreib keinen Code/.test(cx)) fail(`${t.id}/codex: darf nicht „Schreib keinen Code“ enthalten`);
+  if (!/Schreib keinen Code/.test(gpt) || /Projektordner/.test(gpt)) fail(`${t.id}/chatgpt: muss Plan und Texte ohne Code bleiben`);
+  if (cx.split("## Abschluss")[0].split("## So gehst du vor")[1] !== cc.split("## Abschluss")[0].split("## So gehst du vor")[1]) fail(`${t.id}/codex: Schritte und Regeln weichen von Claude Code ab`);
+}
+const cxGuide = content.guides.find((g) => g.id === "chatgpt-codex");
+const cxText = JSON.stringify(cxGuide || {});
+if (!/AGENTS\.md/.test(cxText) || !/~\/\.codex\/skills/.test(cxText) || !/\/skills/.test(cxText)) fail("Codex-Anleitung: AGENTS.md, ~/.codex/skills oder /skills fehlt");
+const skillsView = fs.readFileSync(new URL("js/views/skills.js", root), "utf8");
+if (!/~\/\.codex\/skills/.test(skillsView) || !/\/skills/.test(skillsView)) fail("Gratis-Skills: Anleitung für Codex fehlt");
 
 // 2) Quiz: alle Antwortkombinationen
 const qs = content.quiz.questions;
@@ -65,9 +87,35 @@ if (s1.score !== 100) fail("Perfekte Seite ergibt nicht 100");
 const all = JSON.stringify(content) + JSON.stringify(links);
 if (/mr\.?\s*lovable/i.test(all)) fail("Verbotener Name gefunden");
 if (/whatsapp|wa\.me/i.test(all)) fail("WhatsApp-Bezug gefunden");
-const EXPECT = { instagram: "https://www.instagram.com/viktorsiemens.business/", facebook: "https://www.facebook.com/viktorsiemens", facebookPrivat: "https://www.facebook.com/viktorsiemens90/", linkedin: "https://www.linkedin.com/in/viktor-siemens/" };
+const EXPECT = {
+  instagram: "https://www.instagram.com/viktorsiemens.business/", facebook: "https://www.facebook.com/viktorsiemens", facebookPrivat: "https://www.facebook.com/viktorsiemens90/", linkedin: "https://www.linkedin.com/in/viktor-siemens/",
+  youtube: "https://www.youtube.com/@viktorsiemens?sub_confirmation=1",
+  webinar: "https://vikitor.de/live/", masterclass: "https://vikitor.de/angebot/vibecoding-masterclass/", blueprint: "https://vikitor.de/blueprint/",
+  kostenlos: "https://vikitor.de/kostenlos/", shop: "https://vikitor.de/shop/", news: "https://vikitor.de/news/"
+};
 for (const [k, u] of Object.entries(EXPECT)) if (links[k]?.url !== u) fail(`${k}: falsche oder fehlende Adresse`);
-for (const k of ["youtube", "tiktok"]) if (links[k].url) fail(`${k} darf nicht befüllt sein (keine geprüfte Adresse)`);
+for (const [k, v] of Object.entries(links)) if (!v || !v.url) fail(`links.json: leerer Eintrag ${k}`);
+if (links.warteliste) fail("links.json: Warteliste gibt es nicht mehr");
+
+// 6) Quelltexte der Oberfläche: kein verbotener Name, „Webseite“ statt „Website“, keine Shop-bald- oder Warteliste-Texte
+const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(new URL(e.name + "/", dir)) : [new URL(e.name, dir)]);
+const texts = walk(root).filter((u) => /\.(js|json|html)$/.test(u.pathname)).map((u) => [u.pathname.split("/src/")[1], fs.readFileSync(u, "utf8")]);
+for (const [name, t] of texts) {
+  if (/mr\.?\s*lovable/i.test(t)) fail(`${name}: verbotener Name`);
+  if (/\bWebsite\b/.test(t)) fail(`${name}: „Website“ statt „Webseite“`);
+  if (/Warteliste|Shop · bald|in Kürze im Shop/.test(t)) fail(`${name}: veralteter Shop-Text`);
+}
+
+// 7) Einheitliche Version: Manifest, package.json, content.json, Footer-Fallback, README
+const ver = JSON.parse(fs.readFileSync(new URL("manifest.json", root), "utf8")).version;
+const pkg = JSON.parse(fs.readFileSync(new URL("../package.json", root), "utf8")).version;
+const appJs = fs.readFileSync(new URL("js/app.js", root), "utf8");
+const readme = fs.readFileSync(new URL("../README.md", root), "utf8");
+if (pkg !== ver) fail(`package.json ${pkg} ≠ Manifest ${ver}`);
+if (content.version !== ver) fail(`content.json ${content.version} ≠ Manifest ${ver}`);
+if (!appJs.includes(`|| "${ver}"`)) fail("Footer-Fallback in app.js passt nicht zur Version");
+if (!readme.includes(`v${ver}`)) fail("README nennt die aktuelle Version nicht");
+console.log(`Version überall ${ver}.`);
 
 console.log(fails ? `\n${fails} Fehler` : "\nAlle Logik-Tests bestanden.");
 process.exit(fails ? 1 : 0);

@@ -11,7 +11,7 @@ const isArr = (a) => Array.isArray(a) && a.length > 0;
 const VALID = {
   version: isStr,
   pitch: (p) => isObj(p) && Object.values(p).every((v) => typeof v === "string"),
-  tools: (t) => isObj(t) && ["claude", "chatgpt", "lovable"].every((k) => isObj(t[k]) && isStr(t[k].label) && isStr(t[k].intro) && isStr(t[k].outro) && isStr(t[k].stepsTitle)),
+  tools: (t) => isObj(t) && ["claude", "codex", "chatgpt", "lovable"].every((k) => isObj(t[k]) && isStr(t[k].label) && isStr(t[k].intro) && isStr(t[k].outro) && isStr(t[k].stepsTitle)),
   rules: (r) => isArr(r) && r.every(isStr),
   fields: (f) => isObj(f) && Object.values(f).every((x) => isObj(x) && isStr(x.label)),
   templates: (t) => isArr(t) && t.every((x) => isObj(x) && isStr(x.id) && isStr(x.title) && isStr(x.goal) && isArr(x.steps) && Array.isArray(x.fields)),
@@ -53,6 +53,22 @@ export async function loadContent() {
   return content;
 }
 
+// Links zu vikitor.de bekommen einheitliche UTM-Parameter (Quelle: Addon); technische Adressen bleiben unverändert.
+const NO_UTM = new Set(["skillsBase", "contentUpdate", "datenschutz"]);
+
+export function withUtm(url, content) {
+  try {
+    const u = new URL(url);
+    if (!u.hostname.endsWith("vikitor.de")) return url;
+    u.searchParams.set("utm_source", "vikitor-addon");
+    u.searchParams.set("utm_medium", "addon");
+    if (content) u.searchParams.set("utm_content", content);
+    return u.toString();
+  } catch (_) { return url; }
+}
+
 export async function loadLinks() {
-  return (await fetch("data/links.json")).json();
+  const links = await (await fetch("data/links.json")).json();
+  for (const [k, v] of Object.entries(links)) if (v && v.url && !NO_UTM.has(k)) v.url = withUtm(v.url, k);
+  return links;
 }

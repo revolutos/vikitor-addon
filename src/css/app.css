@@ -263,11 +263,12 @@ body.is-panel .form-grid { grid-template-columns: 1fr; }
 }
 .chip:hover { color: var(--text); border-color: color-mix(in srgb, var(--signal) 45%, var(--border)); }
 .chip.is-on { color: var(--text); border-color: var(--signal); background: rgba(200, 255, 61, 0.07); }
-.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
+.seg { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
 .seg button { padding: 8px 6px; border: 0; border-radius: 8px; background: transparent; color: var(--text-subtle); font-size: 13.5px; font-weight: 600; white-space: nowrap; transition: color 150ms ease-out, background-color 150ms ease-out; }
 .seg button:hover { color: var(--text); }
 .seg button.is-on { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--border), inset 0 -2px 0 var(--signal); }
 body.is-panel .seg button { font-size: 12.5px; padding: 8px 2px; }
+@media (max-width: 380px) { .seg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* Codebox / Vorschau */
 .codebox { border: 1px solid var(--border); border-radius: 14px; background: var(--panel); overflow: hidden; }

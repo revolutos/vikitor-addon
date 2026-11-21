@@ -50,8 +50,8 @@ ${ohneKopf(v.md)}
 
   const show = (v) => {
     detail.textContent = "";
-    const angebot = h("textarea", { class: "textarea", rows: 2, placeholder: "Dein Angebot (was, für wen, Preis, Ergebnis)" }); angebot.value = b.angebot;
-    const ziel = h("textarea", { class: "textarea", rows: 2, placeholder: "Deine Zielgruppe" }); ziel.value = b.zielgruppe;
+    const angebot = h("textarea", { class: "textarea", id: "vl-angebot", rows: 2, placeholder: "Was, für wen, Preis, Ergebnis" }); angebot.value = b.angebot;
+    const ziel = h("textarea", { class: "textarea", id: "vl-zielgruppe", rows: 2, placeholder: "Wen willst du erreichen?" }); ziel.value = b.zielgruppe;
     const save = () => { b.angebot = angebot.value; b.zielgruppe = ziel.value; set("vorlagenBrief", b); };
     angebot.addEventListener("input", save); ziel.addEventListener("input", save);
     detail.append(
@@ -60,7 +60,9 @@ ${ohneKopf(v.md)}
         h("span", { class: "overline" }, katName(v.kategorie)),
         h("h2", { class: "h2" }, v.titel),
         h("p", { class: "subtle" }, v.kurz),
-        h("label", { class: "small" }, "Dein Briefing (wird in den Auftrag übernommen)"), angebot, ziel,
+        h("p", { class: "small" }, "Dein Briefing (wird in den Auftrag übernommen)"),
+        h("div", { class: "field" }, h("label", { for: "vl-angebot" }, "Dein Angebot"), angebot),
+        h("div", { class: "field" }, h("label", { for: "vl-zielgruppe" }, "Deine Zielgruppe"), ziel),
         promptActions(ctx, () => prompt(v))),
       h("div", { class: "card" }, mdBlock(v.md)));
     list.hidden = true; filters.hidden = true;
@@ -75,14 +77,14 @@ ${ohneKopf(v.md)}
     }
     if (!list.children.length) list.append(h("p", { class: "small subtle" }, vorlagen.length ? "Keine Vorlage in diesem Bereich." : "Die Vorlagen konnten gerade nicht geladen werden."));
   };
-  const filters = h("div", { class: "feed-filter" }, KAT.map(([id, label]) => h("button", { type: "button", class: filter === id ? "is-on" : "",
-    onclick: (e) => { filter = id; filters.querySelectorAll("button").forEach((x) => x.classList.toggle("is-on", x === e.currentTarget)); draw(); } }, label)));
+  const filters = h("div", { class: "feed-filter", role: "group", "aria-label": "Vorlagen filtern" }, KAT.map(([id, label]) => h("button", { type: "button", class: filter === id ? "is-on" : "", "aria-pressed": String(filter === id),
+    onclick: (e) => { filter = id; filters.querySelectorAll("button").forEach((x) => { x.classList.toggle("is-on", x === e.currentTarget); x.setAttribute("aria-pressed", String(x === e.currentTarget)); }); draw(); } }, label)));
   draw();
   return [
     h("header", { class: "vhead" },
       h("span", { class: "overline" }, "Premium · Vorlagen"),
       h("h1", {}, h("span", { class: "hl nowrap" }, "Funnel-Vorlagen.")),
-      h("p", {}, `${vorlagen.length} fertige Baupläne für Funnels, Leadpages, Webseiten, Shops und Mitgliederbereiche. Vorlage wählen, Briefing ergänzen und als Auftrag in Claude, ChatGPT oder Lovable einfügen.`)),
+      h("p", {}, `${vorlagen.length} fertige Baupläne für Funnels, Leadpages, Webseiten, Shops und Mitgliederbereiche. Vorlage wählen, Briefing ergänzen und als Auftrag in Claude Code, Codex, ChatGPT oder Lovable geben.`)),
     filters, list, detail
   ];
 }

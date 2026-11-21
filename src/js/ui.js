@@ -49,6 +49,7 @@ const P = {
   instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/>',
   facebook: '<path d="M15 8h-2a2 2 0 0 0-2 2v11M8 13h6"/><rect x="3" y="3" width="18" height="18" rx="5"/>',
   linkedin: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>',
+  youtube: '<rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="m10 9 5 3-5 3Z"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
 };
@@ -126,7 +127,7 @@ export function codebox(label, text, extra) {
 }
 
 // Social-Icons (Instagram als Favorit hervorgehoben)
-const SOCIAL = [["instagram", "instagram", "Instagram (@viktorsiemens.business)"], ["facebook", "facebook", "Facebook (offizieller Kanal)"], ["facebookPrivat", "facebook", "Facebook (privates Profil)"], ["linkedin", "linkedin", "LinkedIn"]];
+const SOCIAL = [["instagram", "instagram", "Instagram (@viktorsiemens.business)"], ["youtube", "youtube", "YouTube (@viktorsiemens, abonnieren)"], ["facebook", "facebook", "Facebook (offizieller Kanal)"], ["facebookPrivat", "facebook", "Facebook (privates Profil)"], ["linkedin", "linkedin", "LinkedIn"]];
 export function socialRow(links) {
   return h("ul", { class: "social", "aria-label": "Viktor Siemens in sozialen Netzwerken" },
     SOCIAL.filter(([k]) => links[k] && links[k].url).map(([k, ic, label]) =>

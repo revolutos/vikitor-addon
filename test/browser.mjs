@@ -88,13 +88,20 @@ try {
     });
   }
 
+  // Jedes Eingabefeld braucht einen zugänglichen Namen (label, aria-label oder aria-labelledby)
+  async function labelIssues(page) {
+    return page.evaluate(() => Array.from(document.querySelectorAll("#content input, #content textarea, #content select"))
+      .filter((el) => el.type !== "hidden" && !el.getAttribute("aria-label") && !el.getAttribute("aria-labelledby") && !(el.id && document.querySelector(`label[for="${el.id}"]`)) && !el.closest("label"))
+      .map((el) => `Feld ohne Beschriftung: ${el.tagName.toLowerCase()}${el.id ? "#" + el.id : ""} (${el.placeholder || ""})`));
+  }
+
   async function shootViews(page, prefix) {
     await page.bringToFront();
     for (const v of VIEWS) {
       await page.evaluate((id) => { location.hash = id; }, v);
       await sleep(900);
       if (v === "guides") { await page.evaluate(() => { document.querySelectorAll(".acc-btn")[0].click(); document.querySelectorAll(".acc-btn")[3].click(); }); await sleep(600); }
-      const issues = await layoutIssues(page);
+      const issues = [...await layoutIssues(page), ...await labelIssues(page)];
       ok(`${prefix}: Ansicht „${v}“ ohne Layoutfehler`, issues.length === 0, issues.join("; "));
       await page.screenshot({ path: path.join(SHOTS, `${prefix}-${v}.png`), fullPage: true });
     }
@@ -127,7 +134,7 @@ try {
     const chips = Array.from(document.querySelectorAll(".chips .chip"));
     for (let i = 0; i < chips.length; i++) {
       document.querySelectorAll(".chips .chip")[i].click();
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < document.querySelectorAll(".seg button").length; j++) {
         document.querySelectorAll(".seg button")[j].click();
         const txt = document.querySelector(".codebox pre").textContent;
         out.push({ tpl: document.querySelectorAll(".chips .chip")[i].textContent, tool: document.querySelectorAll(".seg button")[j].textContent, len: txt.length, bad: /undefined|\{\{|null/.test(txt) });
@@ -136,7 +143,38 @@ try {
     return out;
   });
   const genBad = genCheck.filter((g) => g.bad || g.len < 400);
-  ok(`Generator: ${genCheck.length} Kombinationen (Vorlage × Werkzeug) ohne leere Texte, undefined oder {{`, genCheck.length === 30 && genBad.length === 0, genBad.map((g) => `${g.tpl}/${g.tool}`).join(", "));
+  ok(`Generator: ${genCheck.length} Kombinationen (Vorlage × Werkzeug) ohne leere Texte, undefined oder {{`, genCheck.length === 40 && genBad.length === 0, genBad.map((g) => `${g.tpl}/${g.tool}`).join(", "));
+  // Codex: eigenes Werkzeug, Auftrag im Projektordner mit AGENTS.md; ChatGPT bleibt Planer
+  const tools = await tab.evaluate(() => {
+    const seg = Array.from(document.querySelectorAll(".seg button"));
+    const pick = (label) => { seg.find((b) => b.textContent === label)?.click(); return document.querySelector(".codebox pre").textContent; };
+    return { labels: seg.map((b) => b.textContent), codex: pick("Codex"), chatgpt: pick("ChatGPT"), back: pick("Claude Code") && true };
+  });
+  ok("Generator: Werkzeuge Claude Code, Codex, ChatGPT, Lovable", tools.labels.join(",") === "Claude Code,Codex,ChatGPT,Lovable", tools.labels.join(", "));
+  ok("Generator: Codex-Prompt arbeitet im Projektordner mit AGENTS.md", /Projektordner/.test(tools.codex) && /AGENTS\.md/.test(tools.codex) && !/Schreib keinen Code/.test(tools.codex));
+  ok("Generator: ChatGPT-Prompt bleibt Plan und Texte", /Schreib keinen Code/.test(tools.chatgpt));
+  await tab.evaluate(() => { location.hash = "skills"; });
+  await sleep(600);
+  ok("Gratis-Skills: Anleitung für Claude Code und Codex", await tab.evaluate(() => /~\/\.claude\/skills/.test(document.body.innerText) && /~\/\.codex\/skills/.test(document.body.innerText) && /\/skills/.test(document.body.innerText)));
+  await tab.evaluate(() => { location.hash = "shop"; });
+  await sleep(600);
+  const shop = await tab.evaluate(() => ({ text: document.getElementById("content").innerText, hrefs: Array.from(document.querySelectorAll("#content a")).map((a) => a.href) }));
+  ok("Shop: Masterclass als Premium-Angebot, keine Warteliste", /Vibecoding 3\.0 Masterclass/.test(shop.text) && !/Warteliste|bald/.test(shop.text) && shop.hrefs.some((u) => u.startsWith("https://vikitor.de/angebot/vibecoding-masterclass/?utm_source=vikitor-addon")), shop.hrefs.length + " Links");
+  await tab.evaluate(() => { location.hash = "vorlagen"; });
+  await sleep(700);
+  const gate = await tab.evaluate(() => ({ text: document.getElementById("content").innerText, mc: !!document.querySelector('#content a[href^="https://vikitor.de/angebot/vibecoding-masterclass/"]') }));
+  ok("Premium-Bereich: Weg über Masterclass und WhatsApp statt „in Kürze im Shop“", gate.mc && /Masterclass enthalten/.test(gate.text) && /per WhatsApp/.test(gate.text) && !/in Kürze/.test(gate.text));
+  // Funnel-Hack-Felder mit (vorgetäuschter) lokaler Lizenz: nur Oberfläche, kein Serveraufruf
+  await tab.evaluate(() => chrome.storage.local.set({ premiumLicense: "test-nur-oberflaeche" }));
+  await tab.evaluate(() => { location.hash = "funnelhack"; });
+  await sleep(700);
+  const fhLabels = await labelIssues(tab);
+  const fhCount = await tab.evaluate(() => document.querySelectorAll("#content textarea").length);
+  ok("Funnel-Hack: alle Briefing-Felder beschriftet", fhCount === 3 && fhLabels.length === 0, fhLabels.join("; ") || `${fhCount} Felder`);
+  await tab.evaluate(() => chrome.storage.local.set({ premiumLicense: null }));
+  await tab.evaluate(() => { location.hash = "generator"; });
+  await sleep(700);
+
   // Eingabe → Vorschau
   await tab.evaluate(() => { document.querySelectorAll(".chips .chip")[0].click(); });
   await tab.type("#f-firma", "Praxis am Sonnenweg");

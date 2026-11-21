@@ -2,17 +2,17 @@
 
 # VIKITOR Vibecoding Assistent – dein KI-Werkzeugkasten im Browser
 
-**Kostenloses Browser-Addon von Viktor Siemens (VIKITOR)** für Chrome, Edge und Brave. Saubere Prompts, der passende Funnel, geprüfte Seiten und Anleitungen, immer griffbereit neben Claude, ChatGPT und Lovable.
+**Kostenloses Browser-Addon von Viktor Siemens (VIKITOR)** für Chrome, Edge und Brave. Saubere Prompts, der passende Funnel, geprüfte Seiten und Anleitungen, immer griffbereit neben Claude Code, Codex, ChatGPT und Lovable. Aktuelle Version: **v1.4.0**.
 
-**➜ [Kostenlos herunterladen](https://vikitor.de/downloads/addons/)** · [Updates](https://vikitor.de/updates/) · [Premium-Code kaufen](https://vikitor.de/shop/)
+**➜ [Kostenlos herunterladen](https://vikitor.de/downloads/addons/)** · [Updates](https://vikitor.de/updates/) · [Vibecoding Masterclass (inkl. Premium)](https://vikitor.de/angebot/vibecoding-masterclass/)
 
 ## Funktionen
 
 | Werkzeuge | Premium | Lernen | Mehr |
 |---|---|---|---|
-| Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check | Funnel-Vorlagen, Funnel-Hack | Gratis-Skills, Anleitungen, Merkliste | Neu von VIKITOR (News, Ratgeber, Updates, Events), Downloads, Shop |
+| Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check | Funnel-Vorlagen, Funnel-Hack | Gratis-Skills, Anleitungen, Merkliste | Neu von VIKITOR (News, Ratgeber, Updates, Events), Downloads, Masterclass & Shop |
 
-**Premium** (gleicher Freischaltcode wie VS MAC OS): fertige Funnel-Baupläne als Auftrag an die KI und der **Funnel-Hack**, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt.
+**Premium** (gleicher Freischaltcode wie VS MAC OS, enthalten in der Vibecoding 3.0 Masterclass, Code persönlich per WhatsApp): fertige Funnel-Baupläne als Auftrag an die KI und der **Funnel-Hack**, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt.
 
 ---
 
@@ -20,7 +20,9 @@
 
 Kostenlose Chrome-Erweiterung von Viktor Siemens (Marke VIKITOR, https://vikitor.de) für Leads und Webinar-Teilnehmer. Der Assistent öffnet sich als Seitenleiste neben jeder Webseite und zusätzlich als große Ansicht in einem eigenen Tab.
 
-**Funktionen:** Start mit Webinar-Hinweis, Prompt-Generator (10 Vorlagen × Claude Code, ChatGPT/Codex, Lovable), Funnel-Quiz (7 Fragen, 6 Funnel-Typen), Prompt-Check (regelbasiert, ohne Server), Seiten-Check (Schnellcheck auf Knopfdruck), drei Gratis-Skills für Claude Code, Anleitungen, Merkliste und „Über Viktor“.
+**Funktionen:** Start mit Live-Call-Hinweis, Prompt-Generator (10 Vorlagen × 4 Werkzeuge: Claude Code, Codex, ChatGPT, Lovable), Funnel-Quiz (7 Fragen, 6 Funnel-Typen), Prompt-Check (regelbasiert, ohne Server), Seiten-Check (Schnellcheck auf Knopfdruck), drei Gratis-Skills für Claude Code und Codex, Anleitungen, Merkliste, Masterclass & Shop und „Über Viktor“.
+
+**Werkzeuge im Generator:** Claude Code und Codex bekommen denselben Arbeitsauftrag im Projektordner (Codex liest zusätzlich die `AGENTS.md`, Skills liegen unter `~/.codex/skills`, Aufruf über `/skills` oder im Auftrag). ChatGPT im Browser bleibt Planer und Texter ohne Code, Lovable arbeitet in kleinen Schritten.
 
 Technik: Manifest V3, reines HTML, CSS und JavaScript (ES-Module) ohne Build-Schritt.
 
@@ -39,9 +41,11 @@ vikitor-addon/
 │   ├── data/links.json     ← alle Links an einer Stelle
 │   ├── img/                ← Icons, Foto (s/w), Signatur
 │   └── _locales/de/
-├── skills/                 ← drei Claude-Code-Skills (je Ordner mit SKILL.md)
+├── skills/                 ← drei Skills für Claude Code und Codex (je Ordner mit SKILL.md)
+├── store/                  ← Chrome-Web-Store-Unterlagen (LISTING.md, EINREICHEN.md, Screenshots, Kachel)
 ├── scripts/
 │   ├── pack.mjs            ← erzeugt die ZIP-Dateien in dist/
+│   ├── store-assets.mjs    ← erzeugt Store-Screenshots (1280 × 800) und Kachel (440 × 280) nach store/
 │   └── icons.mjs           ← erzeugt die Icons neu (Puppeteer)
 ├── test/                   ← logic.mjs (Node), browser.mjs (Chrome), screens/ (Screenshots)
 ├── dist/                   ← Ergebnis von pack.mjs
@@ -70,17 +74,17 @@ node scripts/pack.mjs
 Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die JSON-Dateien gültig sind, und erzeugt dann:
 
 - `dist/VIKITOR-Addon-v<version>/` – fertiger Ordner zum Laden in Chrome,
-- `dist/vikitor-addon-v1.0.0.zip` – für Leads (vikitor.de/downloads/addons/): enthält genau den Ordner `VIKITOR-Addon-v<version>`,
-- `dist/store/vikitor-addon-v1.0.0-store.zip` – für den Chrome Web Store, `manifest.json` liegt im Wurzelverzeichnis der ZIP,
+- `dist/vikitor-addon-v<version>.zip` – für Leads (vikitor.de/downloads/addons/): enthält genau den Ordner `VIKITOR-Addon-v<version>`,
+- `dist/store/vikitor-addon-v<version>-store.zip` – für den Chrome Web Store, `manifest.json` liegt im Wurzelverzeichnis der ZIP, ohne `key` (wird geprüft), dazu die Unterlagen aus `store/`,
 - `dist/skills/<name>.zip` – je ein Skill-Ordner,
 - `dist/web/downloads/addons/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).
 
-Die Versionsnummer kommt aus `src/manifest.json`. Für jede neue Store-Version musst du sie erhöhen.
+Die Versionsnummer kommt aus `src/manifest.json` (aktuell 1.4.0). Für jede neue Store-Version musst du sie erhöhen; `package.json`, `content.json`, der Footer-Fallback in `src/js/app.js` und diese README müssen dieselbe Version nennen (prüft `test/logic.mjs`).
 
 ### Tests
 
 ```bash
-node test/logic.mjs     # Generator (10 Vorlagen × 3 Werkzeuge), alle Quiz-Pfade, Prompt-Check, Bewertung, Inhaltsregeln
+node test/logic.mjs     # Generator (10 Vorlagen × 4 Werkzeuge, Codex wie Claude Code), alle Quiz-Pfade, Prompt-Check, Bewertung, Links, Inhaltsregeln, einheitliche Version
 PREMIUM_CODE=<Code> node test/browser.mjs   # ohne PREMIUM_CODE werden die Premium-Tests übersprungen; lädt die Erweiterung in Chrome, klickt alle Ansichten durch, Screenshots nach test/screens/
 ```
 
@@ -105,27 +109,20 @@ Wichtig für die Online-Datei: Sie muss dasselbe Schema haben wie die gebündelt
 
 Platzhalter in Vorlagen: `{{feld}}` (Zeile entfällt, wenn leer), `{{feld|Ersatztext}}` und optionale Satzteile `[[ … ]]`, die einzeln entfallen, wenn ein Platzhalter darin leer ist.
 
-Leere Felder in `links.json` (Facebook, LinkedIn, YouTube, TikTok) werden nicht angezeigt. Sobald du dort eine Adresse einträgst, erscheint der Link automatisch im Footer und in „Über Viktor“.
+Leere Einträge gibt es in `links.json` nicht mehr (der Logik-Test prüft das). Links zu vikitor.de bekommen beim Laden automatisch `utm_source=vikitor-addon&utm_medium=addon&utm_content=<Schlüssel>`; ausgenommen sind die technischen Adressen (Skills, content.json) und der Datenschutz-Link.
 
-### Einreichung im Chrome Web Store (Schritt für Schritt)
+### Einreichung im Chrome Web Store
 
-1. **Entwicklerkonto:** Unter https://chrome.google.com/webstore/devconsole mit dem Google-Konto anmelden, das die Erweiterung verwalten soll, und die einmalige Registrierung abschließen (inklusive Registrierungsgebühr und Bestätigung der Kontaktdaten). Für ein Unternehmen empfiehlt sich ein eigenes Konto oder eine Gruppe.
-2. **Paket bauen:** `node scripts/pack.mjs` ausführen.
-3. **Neues Element:** Im Dashboard auf „Neues Element“ klicken und `dist/store/vikitor-addon-v1.0.0-store.zip` hochladen.
-4. **Store-Eintrag:** Beschreibung (Deutsch), Kategorie (zum Beispiel „Tools“ oder „Developer Tools“), Sprache Deutsch, Store-Icon 128 × 128 px (`src/img/icon-128.png`), mindestens ein Screenshot in 1280 × 800 oder 640 × 400 px und eine kleine Werbekachel in 440 × 280 px. Die Screenshots aus `test/screens/` sind Arbeitsstände; für den Store solltest du sie im passenden Format neu aufnehmen.
-5. **Datenschutz-Tab:**
-   - Alleiniger Zweck: „Werkzeugkasten für Vibecoding: Prompts erstellen und prüfen, passenden Funnel finden, Seiten auf technische Grundlagen prüfen.“
-   - Begründung jeder Berechtigung: siehe Tabelle in `PRIVACY.md`.
-   - Remote-Code: „Nein“. Die Erweiterung lädt nur eine JSON-Datei mit Texten, keinen ausführbaren Code.
-   - Datennutzung: Es werden keine Nutzerdaten erhoben; die entsprechenden Erklärungen bestätigen.
-   - URL der Datenschutzerklärung: https://vikitor.de/datenschutz/ (den Inhalt von `PRIVACY.md` dort ergänzen oder als eigene Seite veröffentlichen).
-6. **Vertrieb:** Öffentlich oder „Nicht gelistet“ (nur per Link auffindbar, praktisch für Webinar-Teilnehmer), Regionen auswählen.
-7. **Zur Überprüfung einreichen.** Die Prüfung dauert in der Regel einige Tage, bei Host-Berechtigungen manchmal länger. Nach der Freigabe bekommst du den Store-Link.
-8. **Updates:** Version in `src/manifest.json` erhöhen, neu packen, im Dashboard unter „Paket“ die neue ZIP hochladen und erneut einreichen.
+Alle Unterlagen liegen in `store/` und landen beim Packen zusammen mit der Store-ZIP in `dist/store/`:
+
+- `store/LISTING.md` – Name, Kurzbeschreibung, ausführliche Beschreibung, Kategorie, Sprache, Begründung jeder Berechtigung, Datenschutz-Angaben (passend zu `PRIVACY.md`), Datenschutz-URL https://vikitor.de/addon/datenschutz/
+- `store/EINREICHEN.md` – Schritt für Schritt als „Nicht gelistet“, inklusive Unterschied Entwicklermodus-Variante (fester `key`, feste ID) und Store-Variante (eigene ID von Google)
+- `store/screenshots/` (1280 × 800), `store/kachel-440x280.png`, `store/icon-128.png` – neu erzeugen mit `node scripts/store-assets.mjs`
 
 ### Inhaltsregeln
 
-- Keine erfundenen Zahlen, Kundenstimmen, Garantien oder Einkommensversprechen.
+- Keine erfundenen Zahlen, Kundenstimmen oder Garantien.
+- Ergebnisversprechen (zum Beispiel „von 0 auf 5-stellige Monatsumsätze“) sind als erreichbares Ziel erlaubt, nie als Garantie, und immer mit Hinweis auf einen Disclaimer.
 - Über Viktor nur die freigegebenen Fakten aus der Ansicht „Über Viktor“.
 - Der Pitch steht immer dezent am Ende eines Ergebnisses; alles funktioniert vollständig ohne Kauf.
 - Anrede „du“, vollständige Sätze.
@@ -147,11 +144,14 @@ Gründer von REVOLUTOS · 250+ Kunden · Top 100 Unternehmer 2024 (ERFOLG Magazi
 | | |
 |---|---|
 | 🌐 Webseite | [vikitor.de](https://vikitor.de) |
-| 🎓 Kostenloses Live-Webinar „Vibecoding 3.0“ | [Platz sichern](https://vikitor.de/#platz) |
+| 🎓 Kostenloser Live-Call „Vibecoding 3.0“ | [Platz sichern](https://vikitor.de/live/) |
+| 🚀 Vibecoding 3.0 Masterclass | [vikitor.de/angebot/vibecoding-masterclass](https://vikitor.de/angebot/vibecoding-masterclass/) |
+| 🎁 Gratis: Business Blueprint · Werkzeug-Bundle | [Blueprint](https://vikitor.de/blueprint/) · [Bundle](https://vikitor.de/kostenlos/) |
 | ⬇️ Downloads (VS MAC OS, Browser-Addon, Skills) | [vikitor.de/downloads](https://vikitor.de/downloads/) |
-| 🛒 Premium-Freischaltcode, Framework, Shop | [vikitor.de/shop](https://vikitor.de/shop/) |
+| 🛒 Shop | [vikitor.de/shop](https://vikitor.de/shop/) |
 | 📰 News, Ratgeber, Updates, Events (RSS) | [vikitor.de/news](https://vikitor.de/news/) · [RSS](https://vikitor.de/feed.xml) |
 | 📸 Instagram | [@viktorsiemens.business](https://www.instagram.com/viktorsiemens.business/) |
+| ▶️ YouTube | [@viktorsiemens](https://www.youtube.com/@viktorsiemens?sub_confirmation=1) |
 | 💼 LinkedIn | [Viktor Siemens](https://www.linkedin.com/in/viktor-siemens/) |
 | 👍 Facebook | [Offizieller Kanal](https://www.facebook.com/viktorsiemens) · [Privat](https://www.facebook.com/viktorsiemens90/) |
 

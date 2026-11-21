@@ -1,7 +1,8 @@
 // Packt die Erweiterung:
 // - dist/VIKITOR-Addon/                     fertiger Ordner zum Laden in Chrome (Entpackte Erweiterung laden)
 // - dist/vikitor-addon-v<version>.zip       für Leads: enthält genau einen Ordner „VIKITOR-Addon“ mit manifest.json
-// - dist/store/vikitor-addon-v<version>-store.zip  für den Chrome Web Store (manifest.json im Wurzelverzeichnis)
+// - dist/store/vikitor-addon-v<version>-store.zip  für den Chrome Web Store (manifest.json im Wurzelverzeichnis, ohne key)
+//   plus die Store-Unterlagen aus store/ (LISTING.md, EINREICHEN.md, Screenshots, Kachel, Symbol)
 // und jeden Skill nach dist/skills/<name>.zip.
 // Benötigt nur Node und das unter macOS vorhandene Programm „zip“.
 import { execFileSync } from "node:child_process";
@@ -48,10 +49,17 @@ fs.cpSync(src, storeDir, { recursive: true, filter: (f) => !f.endsWith(".DS_Stor
 const sm = JSON.parse(fs.readFileSync(path.join(storeDir, "manifest.json"), "utf8"));
 delete sm.key;
 fs.writeFileSync(path.join(storeDir, "manifest.json"), JSON.stringify(sm, null, 2) + "\n");
-for (const f of fs.readdirSync(path.join(dist, "store"))) fs.rmSync(path.join(dist, "store", f));
+for (const f of fs.readdirSync(path.join(dist, "store"))) fs.rmSync(path.join(dist, "store", f), { recursive: true, force: true });
 execFileSync("zip", ["-r", "-X", "-q", storePath, ".", "-x", "*.DS_Store", "-x", "__MACOSX/*"], { cwd: storeDir, stdio: "inherit" });
 fs.rmSync(storeDir, { recursive: true, force: true });
-console.log("Erweiterung (Chrome Web Store):", path.relative(root, storePath));
+if (JSON.parse(execFileSync("unzip", ["-p", storePath, "manifest.json"]).toString()).key) { console.error("Store-ZIP enthält einen key!"); process.exit(1); }
+console.log("Erweiterung (Chrome Web Store, ohne key):", path.relative(root, storePath));
+// Store-Unterlagen (Texte, Anleitung, Screenshots, Kachel, Symbol) aus store/ dazulegen
+const storeDocs = path.join(root, "store");
+if (fs.existsSync(storeDocs)) {
+  fs.cpSync(storeDocs, path.join(dist, "store"), { recursive: true, filter: (f) => !f.endsWith(".DS_Store") });
+  console.log("Store-Unterlagen:", path.relative(root, path.join(dist, "store")), "(LISTING.md, EINREICHEN.md, Bilder)");
+}
 
 const skillsDir = path.join(root, "skills");
 for (const name of fs.readdirSync(skillsDir)) {

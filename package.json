@@ -1,6 +1,6 @@
 {
   "name": "vikitor-addon",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "private": true,
   "type": "module",
   "description": "VIKITOR Vibecoding Assistent (Free) – Chrome-Erweiterung",
@@ -8,6 +8,7 @@
     "test": "node test/logic.mjs && node test/browser.mjs",
     "test:logic": "node test/logic.mjs",
     "icons": "node scripts/icons.mjs",
-    "pack": "node scripts/pack.mjs"
+    "pack": "node scripts/pack.mjs",
+    "store-assets": "node scripts/store-assets.mjs"
   }
 }

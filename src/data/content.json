@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.4.0",
   "pitch": {
     "generator": "Im vollen Framework: über 20 Prompts für jede Phase, Vorlagen für Nischen und ein Projekt-Startpaket.",
     "quiz": "Die fertige Vorlage dafür gibt es in der Vorlagen-Bibliothek im Mitgliederbereich.",
@@ -15,10 +15,17 @@
       "stepsTitle": "So gehst du vor",
       "outro": "Wenn du fertig bist, starte die Seite lokal, prüfe sie auf 390 px Breite und auf dem Desktop und behebe alle Fehler, die du dabei findest. Fasse mir danach in wenigen Sätzen zusammen, was du gebaut hast, welche Dateien du geändert hast und was noch offen ist."
     },
+    "codex": {
+      "label": "Codex",
+      "hint": "Der Coding-Agent von OpenAI: arbeitet wie Claude Code direkt in deinem Projektordner, liest die AGENTS.md und darf Dateien anlegen.",
+      "intro": "Du arbeitest als erfahrener Webentwickler direkt in meinem Projektordner und darfst Dateien anlegen und ändern. Lies zuerst die AGENTS.md, falls es eine gibt, und die vorhandenen Dateien, damit du Regeln und Struktur verstehst, bevor du etwas veränderst.",
+      "stepsTitle": "So gehst du vor",
+      "outro": "Wenn du fertig bist, starte die Seite lokal, prüfe sie auf 390 px Breite und auf dem Desktop und behebe alle Fehler, die du dabei findest. Fasse mir danach in wenigen Sätzen zusammen, was du gebaut hast, welche Dateien du geändert hast und was noch offen ist. Wenn dir dabei eine Regel auffällt, die in diesem Projekt immer gelten sollte, schlag mir vor, sie in die AGENTS.md aufzunehmen."
+    },
     "chatgpt": {
-      "label": "ChatGPT / Codex",
-      "hint": "Erstellt Plan und Texte, die du danach umsetzt oder an Codex gibst.",
-      "intro": "Du bist mein erfahrener Berater für Webseiten, Texte und Funnels. Erstelle zuerst einen klaren Plan und die fertigen Texte, die ich danach selbst umsetzen oder an einen Coding-Agenten wie Codex weitergeben kann. Schreib keinen Code, solange ich nicht ausdrücklich danach frage.",
+      "label": "ChatGPT",
+      "hint": "Im Browser auf chatgpt.com: erstellt Plan und Texte, die du danach selbst umsetzt oder an Claude Code oder Codex gibst.",
+      "intro": "Du bist mein erfahrener Berater für Webseiten, Texte und Funnels. Erstelle zuerst einen klaren Plan und die fertigen Texte, die ich danach selbst umsetzen oder an einen Coding-Agenten wie Claude Code oder Codex weitergeben kann. Schreib keinen Code, solange ich nicht ausdrücklich danach frage.",
       "stepsTitle": "So gehst du vor",
       "outro": "Prüfe deine Antwort am Ende selbst: Ist alles mobil gedacht, ist nichts erfunden, und hast du alle offenen Fragen gesammelt? Gib mir das Ergebnis gut gegliedert mit kurzen Überschriften zurück."
     },
@@ -825,7 +832,7 @@
     },
     {
       "id": "claudemd",
-      "title": "CLAUDE.md und Skills verstehen",
+      "title": "CLAUDE.md, AGENTS.md und Skills",
       "blocks": [
         {
           "p": "Die Datei CLAUDE.md ist das Gedächtnis deines Projekts. Claude Code liest sie zu Beginn jeder Sitzung. Dort schreibst du hinein, was immer gelten soll: worum es im Projekt geht, welche Technik verwendet wird, welche Regeln für Design und Texte gelten und wie getestet wird. So musst du nicht jedes Mal alles neu erklären."
@@ -847,6 +854,9 @@
         },
         {
           "note": "Im Bereich „Gratis-Skills“ dieses Assistenten findest du drei fertige Skills zum Ausprobieren."
+        },
+        {
+          "p": "Arbeitest du mit Codex statt mit Claude Code, heißt die Datei AGENTS.md und liegt ebenfalls im Hauptordner deines Projekts. Inhalt und Aufbau sind gleich. Persönliche Skills für Codex liegen im Ordner ~/.codex/skills/."
         }
       ]
     },
@@ -876,14 +886,15 @@
       "title": "ChatGPT und Codex für Vibecoding",
       "blocks": [
         {
-          "p": "ChatGPT eignet sich hervorragend zum Denken, Planen und Schreiben: Positionierung, Seitenstruktur, Texte, E-Mails und Fragen an deine Zielgruppe. Codex ist der Coding-Agent von OpenAI. Er arbeitet ähnlich wie Claude Code direkt an deinem Code und ist unter anderem als Kommandozeilen-Werkzeug, als Erweiterung für Code-Editoren, in der Cloud und in der ChatGPT-Oberfläche verfügbar."
+          "p": "ChatGPT im Browser eignet sich hervorragend zum Denken, Planen und Schreiben: Positionierung, Seitenstruktur, Texte, E-Mails und Fragen an deine Zielgruppe. Codex ist der Coding-Agent von OpenAI. Er arbeitet wie Claude Code direkt in deinem Projektordner, liest dort die Datei AGENTS.md mit deinen Regeln und kann Skills nutzen. Codex gibt es unter anderem als Kommandozeilen-Werkzeug, als Erweiterung für Code-Editoren und in der ChatGPT-Oberfläche."
         },
         {
           "steps": [
-            "Nutze ChatGPT für Plan und Texte: Wähle im Prompt-Generator das Werkzeug „ChatGPT / Codex“, dann ist der Prompt auf Plan und Texte ausgelegt.",
+            "Nutze ChatGPT für Plan und Texte: Wähle im Prompt-Generator das Werkzeug „ChatGPT“, dann ist der Prompt auf Plan und Texte ausgelegt und enthält keinen Code.",
+            "Nutze Codex zum Bauen: Wähle im Prompt-Generator das Werkzeug „Codex“, dann ist der Prompt wie bei Claude Code ein Arbeitsauftrag im Projektordner mit Umsetzung und Prüfung.",
             "Für Codex im Terminal installierst du das Werkzeug mit dem offiziellen Befehl (siehe unten) und startest es im Projektordner mit „codex“.",
             "Beim ersten Start meldest du dich mit deinem ChatGPT-Konto oder einer anderen angebotenen Methode an.",
-            "Gib Codex wie Claude Code klare Aufträge mit Ziel, Reihenfolge und Prüfauftrag."
+            "Lege im Hauptordner deines Projekts eine Datei AGENTS.md mit deinen Regeln an. Sie ist für Codex das, was die CLAUDE.md für Claude Code ist."
           ]
         },
         {
@@ -895,7 +906,14 @@
           "label": "Codex im Projektordner starten"
         },
         {
+          "code": "# Projekt: Webseite Praxis am Sonnenweg\n\n## Regeln\n- Mobil zuerst (390 px), danach Desktop.\n- Keine erfundenen Zahlen, Bewertungen oder Kundenstimmen.\n- Fehlende Infos als Fragen sammeln.\n- Vor jeder Fertigmeldung im Browser prüfen.",
+          "label": "Beispiel für eine AGENTS.md"
+        },
+        {
           "note": "Für Windows und weitere Installationswege findest du die aktuellen Befehle in der offiziellen Codex-Dokumentation von OpenAI. Welche Tarife Codex enthalten, steht ebenfalls dort, weil sich das gelegentlich ändert."
+        },
+        {
+          "p": "Skills funktionieren auch in Codex: Ein Skill ist ein Ordner mit einer Datei SKILL.md. Persönliche Skills legst du in den Ordner ~/.codex/skills/. Du rufst sie über den Befehl „/skills“ auf oder nennst den Skill einfach in deinem Auftrag. Die drei Gratis-Skills dieses Assistenten laufen in Claude Code und in Codex."
         }
       ]
     },

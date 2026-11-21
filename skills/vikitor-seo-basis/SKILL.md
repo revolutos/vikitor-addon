@@ -1,11 +1,11 @@
 ---
 name: vikitor-seo-basis
-description: Setzt die technischen SEO- und KI-Sichtbarkeits-Grundlagen einer Website sauber auf: Seitentitel, Meta-Beschreibungen, Überschriften-Struktur, Strukturdaten (JSON-LD), llms.txt, sitemap.xml, robots.txt, Alternativtexte und Vorschaubilder. Verwenden, wenn eine Seite für Google oder KI-Suchen vorbereitet oder SEO-Grundlagen geprüft werden sollen.
+description: Setzt die technischen SEO- und KI-Sichtbarkeits-Grundlagen einer Webseite sauber auf: Seitentitel, Meta-Beschreibungen, Überschriften-Struktur, Strukturdaten (JSON-LD), llms.txt, sitemap.xml, robots.txt, Alternativtexte und Vorschaubilder. Verwenden, wenn eine Seite für Google oder KI-Suchen vorbereitet oder SEO-Grundlagen geprüft werden sollen.
 ---
 
 # SEO-Basis
 
-Du sorgst dafür, dass Suchmaschinen und KI-Systeme die Website richtig verstehen. Es geht um saubere Grundlagen, nicht um Tricks. Du versprichst keine Rankings.
+Du sorgst dafür, dass Suchmaschinen und KI-Systeme die Webseite richtig verstehen. Es geht um saubere Grundlagen, nicht um Tricks. Du versprichst keine Rankings.
 
 ## Grundregeln
 

@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-19T05:20:14.441Z",
+  "date": "2026-11-21T02:23:03.297Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
@@ -167,9 +167,44 @@
       "info": ""
     },
     {
-      "name": "Generator: 30 Kombinationen (Vorlage × Werkzeug) ohne leere Texte, undefined oder {{",
+      "name": "Generator: 40 Kombinationen (Vorlage × Werkzeug) ohne leere Texte, undefined oder {{",
       "pass": true,
       "info": ""
+    },
+    {
+      "name": "Generator: Werkzeuge Claude Code, Codex, ChatGPT, Lovable",
+      "pass": true,
+      "info": "Claude Code, Codex, ChatGPT, Lovable"
+    },
+    {
+      "name": "Generator: Codex-Prompt arbeitet im Projektordner mit AGENTS.md",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Generator: ChatGPT-Prompt bleibt Plan und Texte",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Gratis-Skills: Anleitung für Claude Code und Codex",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Shop: Masterclass als Premium-Angebot, keine Warteliste",
+      "pass": true,
+      "info": "5 Links"
+    },
+    {
+      "name": "Premium-Bereich: Weg über Masterclass und WhatsApp statt „in Kürze im Shop“",
+      "pass": true,
+      "info": ""
+    },
+    {
+      "name": "Funnel-Hack: alle Briefing-Felder beschriftet",
+      "pass": true,
+      "info": "3 Felder"
     },
     {
       "name": "Generator: Eingabe erscheint live in der Vorschau",
@@ -222,46 +257,6 @@
       "info": "0 von 9 Punkten erfüllt → 9 von 9 Punkten erfüllt"
     },
     {
-      "name": "Vorlagen gesperrt bis zur Freischaltung",
-      "pass": true,
-      "info": ""
-    },
-    {
-      "name": "Falscher Code wird abgelehnt",
-      "pass": true,
-      "info": ""
-    },
-    {
-      "name": "Richtiger Code schaltet frei, Funnel-Vorlagen erscheinen",
-      "pass": true,
-      "info": "4 Funnel-Vorlagen"
-    },
-    {
-      "name": "Vorlage öffnet mit Bauplan und Kopieren-Button",
-      "pass": true,
-      "info": ""
-    },
-    {
-      "name": "Vorlagen ohne Layoutfehler (freigeschaltet)",
-      "pass": true,
-      "info": ""
-    },
-    {
-      "name": "Funnel-Hack nach Freischaltung offen",
-      "pass": true,
-      "info": ""
-    },
-    {
-      "name": "Funnel-Hack erfasst eine echte Seite",
-      "pass": true,
-      "info": "172 Elemente, 12 Folgeseiten"
-    },
-    {
-      "name": "Funnel-Hack-Auftrag enthält Regeln, Briefing und Struktur",
-      "pass": true,
-      "info": "16823 Zeichen"
-    },
-    {
       "name": "Seiten-Check auf https://vikitor.de liefert Ergebnis",
       "pass": true,
       "info": "Wert 90/100, 10 Punkte, https://vikitor.de/"
@@ -294,10 +289,8 @@
     {
       "name": "Keine Konsolenfehler in der Erweiterung (außer 404 der noch nicht gehosteten content.json)",
       "pass": true,
-      "info": "1× erwarteter 404 für https://vikitor.de/downloads/addons/content.json"
+      "info": "0× erwarteter 404 für https://vikitor.de/downloads/addons/content.json"
     }
   ],
-  "consoleIssues": [
-    "[tab] error: Failed to load resource: the server responded with a status of 401 () https://vikitor.de/api/vsmacos/freischalten/"
-  ]
+  "consoleIssues": []
 }
