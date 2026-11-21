@@ -68,7 +68,7 @@ function footer() {
     homeLink("foot-brand"),
     linkList(ctx.links),
     socialRow(ctx.links),
-    h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.4.0"} · kostenlos`));
+    h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.5.0"} · kostenlos`));
 }
 
 /** Abschluss unter der Fußzeile: Positionierung mit Foto, Unterschrift und Live-Call-CTA (wie auf vikitor.de) */

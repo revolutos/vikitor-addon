@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "VIKITOR Vibecoding Assistent (Free)",
   "short_name": "VIKITOR",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Gratis Vibecoding-Werkzeugkasten von Viktor Siemens: Prompts für Claude Code, Codex, ChatGPT und Lovable, Funnel-Quiz und Checks.",
   "default_locale": "de",
   "icons": {
@@ -42,8 +42,7 @@
     "https://vikitor.de/*"
   ],
   "optional_host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "<all_urls>"
   ],
   "content_scripts": [
     {

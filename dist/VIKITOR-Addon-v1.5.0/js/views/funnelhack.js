@@ -3,6 +3,7 @@ import { get, set } from "../store.js";
 import { getActiveTab, runFunnelCapture } from "../browser.js";
 import { funnelPrompt } from "../funnel.js";
 import { isUnlocked, premiumGate, promptActions } from "../premium.js";
+import { recordingCard } from "./recording.js";
 
 // Premium: Funnel-Hack. Erfasst die Struktur der offenen Seite und baut daraus einen Auftrag an die KI,
 // der das Erfolgsmuster analysiert und mit eigenen Texten auf das eigene Angebot überträgt.
@@ -36,7 +37,7 @@ export async function viewFunnelHack(ctx) {
         h("p", { class: "small subtle" }, `${n("h1") + n("h2") + n("h3")} Überschriften · ${n("text") + n("punkt")} Textabschnitte · ${n("cta")} Buttons · ${n("formular")} Formulare · ${data.preise.length} Preise · ${data.links.length} Folgeseiten`)),
       h("div", { class: "card stack-s" },
         h("span", { class: "overline" }, "Dein Auftrag an die KI"),
-        h("p", { class: "small subtle" }, "Enthält Regeln (keine fremden Texte, Bilder oder Marken, nichts erfinden), dein Briefing und die erfasste Struktur."),
+        h("p", { class: "small subtle" }, "Enthält die Regeln (sehr nah modellieren, aber Texte, Bilder und Marke immer eigen, nichts erfinden), dein Briefing und die erfasste Struktur."),
         promptActions(ctx, () => funnelPrompt(data, b))),
       h("p", { class: "small subtle" }, "Tipp: Erfasse auch die Folgeseiten (Danke-Seite, Angebot) und gib sie nacheinander in denselben Chat oder dieselbe Sitzung in Claude Code oder Codex. In VS MAC OS legt der Funnel-Hack daraus direkt ein Projekt mit Aufgaben an."));
   });
@@ -44,7 +45,7 @@ export async function viewFunnelHack(ctx) {
     h("header", { class: "vhead" },
       h("span", { class: "overline" }, "Premium · Funnel-Hack"),
       h("h1", {}, h("span", { class: "hl nowrap" }, "Funnel-Hack.")),
-      h("p", {}, "Öffne eine erfolgreiche Seite oder einen Funnel. Der Assistent erfasst Aufbau, Überschriften, Texte, Buttons, Formulare und Preise und baut daraus einen Auftrag, der das Erfolgsmuster auf dein Angebot überträgt.")),
+      h("p", {}, "Öffne eine erfolgreiche Seite oder einen Funnel. Der Assistent erfasst Aufbau, Überschriften, Texte, Buttons, Formulare und Preise und baut daraus einen Auftrag, der das Erfolgsmuster auf dein Angebot überträgt. Oder du schneidest den ganzen Funnel mit, während du selbst durchklickst.")),
     h("div", { class: "card stack-s" },
       h("span", { class: "overline" }, "1 · Dein Briefing"),
       field("angebot", "Dein Angebot", "Was, für wen, Preis, Ergebnis"),
@@ -54,6 +55,7 @@ export async function viewFunnelHack(ctx) {
       h("span", { class: "overline" }, "2 · Vorbild erfassen"),
       btn, note),
     out,
-    h("p", { class: "small subtle" }, "Fair übernehmen: Strategie, Aufbau und Psychologie ja. Fremde Texte, Bilder, Logos und Markennamen nie.")
+    recordingCard(ctx),
+    h("p", { class: "small subtle" }, "Sehr nah modellieren: Seitenablauf, Sektionsreihenfolge, Layout-Muster und Design-Werte ja. Texte, Bilder, Logos, Markennamen, Kundenstimmen und Zahlen immer eigen, nie 1:1 übernehmen.")
   ];
 }

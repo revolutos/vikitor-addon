@@ -49,7 +49,8 @@ export function funnelPrompt(d, b) {
 Du bist erfahrener Funnel-Stratege und Werbetexter. Unten steht die erfasste Struktur einer erfolgreichen Seite (Vorbild). Analysiere das Erfolgsmuster und übertrage es auf MEIN Angebot.
 
 ## Regeln
-- Übernimm Strategie, Aufbau, Dramaturgie und Psychologie. Übernimm NIE fremde Texte, Bilder, Logos, Markennamen, Kundenstimmen oder Zahlen. Alle Texte für mich neu und eigenständig schreiben.
+- Modelliere das Vorbild sehr nah: gleicher Seitenablauf, gleiche Sektionsreihenfolge, gleiche Layout-Muster und ähnliche Design-Werte (Abstände, Schriftgrößen, Farbstimmung), dazu Strategie, Dramaturgie und Psychologie.
+- Texte, Bilder, Logos, Markennamen, Kundenstimmen und Zahlen sind IMMER eigen. Übernimm NIE fremde Texte oder Inhalte 1:1 (Urheber- und Wettbewerbsrecht). Alle Texte für mich neu und eigenständig schreiben, Design-Werte in meine Marke übersetzen.
 - Erfinde keine Fakten, Zahlen, Bewertungen oder Versprechen. Was fehlt, sammelst du als offene Frage.
 - Starke Ergebnisversprechen sind erlaubt (z. B. „von 0 auf 5-stellige Monatsumsätze“), als erreichbares Ziel formuliert, nie als Garantie, mit Hinweis auf einen Disclaimer. Schreib auf Deutsch, klar und konkret.
 
@@ -60,7 +61,7 @@ Du bist erfahrener Funnel-Stratege und Werbetexter. Unten steht die erfasste Str
 
 ## Liefere in dieser Reihenfolge
 1. **Analyse des Vorbilds:** Ziel der Seite, Sektionen in Reihenfolge (Typ, Zweck, Kernaussage, Handlungsaufruf), Werbetext-Strategie (Hook, Versprechen, Problem, Einwände, Belege, Dringlichkeit), Positionierung, Zielgruppe, Angebot und Preisstruktur, vermutete Funnel-Schritte, Stärken und Schwächen.
-2. **Adaption für mein Angebot:** Seitenplan und Sektionen in Reihenfolge mit neuen, eigenständigen Textentwürfen (Überschrift, Unterzeile, Kernaussagen, Button-Texte). Was ich bewusst besser oder anders mache.
+2. **Modellieren für mein Angebot:** Seitenplan 1:1 in derselben Reihenfolge, Layout-Muster je Sektion, Design-Werte als Ausgangspunkt in meiner Marke, mit neuen, eigenständigen Textentwürfen (Überschrift, Unterzeile, Kernaussagen, Button-Texte). Was ich bewusst besser oder anders mache.
 3. **Offene Fragen** an mich.
 4. **Umsetzung Schritt für Schritt** als nummerierte, prüfbare Aufgaben.
 

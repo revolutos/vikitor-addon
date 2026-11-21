@@ -8,12 +8,12 @@ Kurzanleitung für Viktor. Alle Texte und Bilder liegen in diesem Ordner (`LISTI
 - **Prüfung dauert einige Tage:** Nach dem Einreichen prüft Google die Erweiterung. Das dauert meist einige Tage, wegen der Zugriffe auf claude.ai, chatgpt.com, lovable.dev und vikitor.de manchmal länger.
 - **Zwei Varianten, zwei IDs:**
   - Die **Entwicklermodus-Variante** (ZIP von vikitor.de, „Entpackte Erweiterung laden“) enthält im Manifest den festen `key`. Dadurch hat sie immer die ID `ikpkjjkcgofnlehojjehhmobdgkdpknb`, auch bei neuen Versionen, und die Merkliste bleibt erhalten.
-  - Die **Store-Variante** (`vikitor-addon-v1.4.0-store.zip`) enthält keinen `key`, weil der Store ihn nicht erlaubt. Google vergibt beim ersten Hochladen eine eigene, neue ID. Diese bleibt dann für alle Store-Updates gleich und Updates kommen automatisch. Beide Varianten sind für den Browser unterschiedliche Erweiterungen; wer wechselt, nimmt seine Merkliste nicht mit.
+  - Die **Store-Variante** (`vikitor-addon-v1.5.0-store.zip`) enthält keinen `key`, weil der Store ihn nicht erlaubt. Google vergibt beim ersten Hochladen eine eigene, neue ID. Diese bleibt dann für alle Store-Updates gleich und Updates kommen automatisch. Beide Varianten sind für den Browser unterschiedliche Erweiterungen; wer wechselt, nimmt seine Merkliste nicht mit.
 
 ## Schritte
 
 1. **Konto:** https://chrome.google.com/webstore/devconsole öffnen, mit dem Google-Konto anmelden, das die Erweiterung dauerhaft verwalten soll, Entwicklervereinbarung akzeptieren, Gebühr bezahlen und die Kontakt-E-Mail bestätigen.
-2. **Hochladen:** „Neues Element“ → `vikitor-addon-v1.4.0-store.zip` aus diesem Ordner hochladen.
+2. **Hochladen:** „Neues Element“ → `vikitor-addon-v1.5.0-store.zip` aus diesem Ordner hochladen.
 3. **Store-Eintrag:** Beschreibung, Kategorie und Sprache aus `LISTING.md` übernehmen. Store-Symbol `icon-128.png`, die fünf Screenshots aus `screenshots/` und die Kachel `kachel-440x280.png` hochladen.
 4. **Datenschutz:** Alleiniger Zweck, Begründungen der Berechtigungen, „Remote-Code: Nein“, Datennutzung und die URL https://vikitor.de/addon/datenschutz/ aus `LISTING.md` eintragen.
 5. **Vertrieb:** Sichtbarkeit **Nicht gelistet** wählen, kostenlos, Regionen auswählen.

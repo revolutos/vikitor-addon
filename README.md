@@ -2,7 +2,7 @@
 
 # VIKITOR Vibecoding Assistent – dein KI-Werkzeugkasten im Browser
 
-**Kostenloses Browser-Addon von Viktor Siemens (VIKITOR)** für Chrome, Edge und Brave. Saubere Prompts, der passende Funnel, geprüfte Seiten und Anleitungen, immer griffbereit neben Claude Code, Codex, ChatGPT und Lovable. Aktuelle Version: **v1.4.0**.
+**Kostenloses Browser-Addon von Viktor Siemens (VIKITOR)** für Chrome, Edge und Brave. Saubere Prompts, der passende Funnel, geprüfte Seiten und Anleitungen, immer griffbereit neben Claude Code, Codex, ChatGPT und Lovable. Aktuelle Version: **v1.5.0**.
 
 **➜ [Kostenlos herunterladen](https://vikitor.de/downloads/addons/)** · [Updates](https://vikitor.de/updates/) · [Vibecoding Masterclass (inkl. Premium)](https://vikitor.de/angebot/vibecoding-masterclass/)
 
@@ -12,7 +12,7 @@
 |---|---|---|---|
 | Prompt-Generator, Funnel-Quiz, Prompt-Check, Seiten-Check | Funnel-Vorlagen, Funnel-Hack | Gratis-Skills, Anleitungen, Merkliste | Neu von VIKITOR (News, Ratgeber, Updates, Events), Downloads, Masterclass & Shop |
 
-**Premium** (gleicher Freischaltcode wie VS MAC OS, enthalten in der Vibecoding 3.0 Masterclass, Code persönlich per WhatsApp): fertige Funnel-Baupläne als Auftrag an die KI und der **Funnel-Hack**, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt.
+**Premium** (gleicher Freischaltcode wie VS MAC OS, enthalten in der Vibecoding 3.0 Masterclass, Code persönlich per WhatsApp): fertige Funnel-Baupläne als Auftrag an die KI und der **Funnel-Hack**, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt. Neu in 1.5.0: **Funnel mitschneiden** – du klickst selbst durch einen Funnel, jede Seite wird als Ganzseiten-Screenshot mit Struktur erfasst und am Ende als ZIP (`funnelhack/` mit `funnel.json`, `steps/NN-slug/`, `index.html`) heruntergeladen, importierbar in VS MAC OS und VS WIN OS. Regel: sehr nah modellieren, aber Texte, Bilder und Marke immer eigen.
 
 ---
 
@@ -79,12 +79,13 @@ Das Skript prüft vorab, ob alle im Manifest genannten Dateien vorhanden und die
 - `dist/skills/<name>.zip` – je ein Skill-Ordner,
 - `dist/web/downloads/addons/` – das Upload-Paket für vikitor.de (siehe „Inhalte aktualisieren“).
 
-Die Versionsnummer kommt aus `src/manifest.json` (aktuell 1.4.0). Für jede neue Store-Version musst du sie erhöhen; `package.json`, `content.json`, der Footer-Fallback in `src/js/app.js` und diese README müssen dieselbe Version nennen (prüft `test/logic.mjs`).
+Die Versionsnummer kommt aus `src/manifest.json` (aktuell 1.5.0). Für jede neue Store-Version musst du sie erhöhen; `package.json`, `content.json`, der Footer-Fallback in `src/js/app.js` und diese README müssen dieselbe Version nennen (prüft `test/logic.mjs`).
 
 ### Tests
 
 ```bash
 node test/logic.mjs     # Generator (10 Vorlagen × 4 Werkzeuge, Codex wie Claude Code), alle Quiz-Pfade, Prompt-Check, Bewertung, Links, Inhaltsregeln, einheitliche Version
+node test/recording.mjs # Funnel-Hack-Aufnahme gegen einen lokalen Test-Funnel (3 Seiten): Start/Stopp, Hinweis, Ganzseiten-Screenshot, ZIP-Format
 PREMIUM_CODE=<Code> node test/browser.mjs   # ohne PREMIUM_CODE werden die Premium-Tests übersprungen; lädt die Erweiterung in Chrome, klickt alle Ansichten durch, Screenshots nach test/screens/
 ```
 

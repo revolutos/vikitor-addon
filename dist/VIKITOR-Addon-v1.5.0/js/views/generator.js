@@ -38,7 +38,10 @@ export function viewGenerator(ctx) {
   const seg = h("div", { class: "seg", role: "radiogroup", "aria-label": "Werkzeug" });
   const renderSeg = () => {
     seg.textContent = "";
-    for (const [id, tool] of Object.entries(C.tools)) seg.append(h("button", {
+    // feste Reihenfolge, egal in welcher Reihenfolge die (ggf. online aktualisierte) content.json die Werkzeuge nennt
+    const ORDER = ["claude", "codex", "chatgpt", "lovable"];
+    const ids = [...ORDER.filter((k) => C.tools[k]), ...Object.keys(C.tools).filter((k) => !ORDER.includes(k))];
+    for (const [id, tool] of ids.map((k) => [k, C.tools[k]])) seg.append(h("button", {
       class: id === st.tool ? "is-on" : "", type: "button", role: "radio", "aria-checked": String(id === st.tool),
       onclick: () => { st.tool = id; renderSeg(); update(); }
     }, tool.label));

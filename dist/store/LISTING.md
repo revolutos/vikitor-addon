@@ -1,6 +1,6 @@
-# Chrome Web Store: Angaben für den Eintrag (Version 1.4.0)
+# Chrome Web Store: Angaben für den Eintrag (Version 1.5.0)
 
-Alle Texte zum Kopieren in das Developer Dashboard. Paket: `vikitor-addon-v1.4.0-store.zip` (ohne `key`).
+Alle Texte zum Kopieren in das Developer Dashboard. Paket: `vikitor-addon-v1.5.0-store.zip` (ohne `key`).
 
 ## Store-Eintrag
 
@@ -30,7 +30,7 @@ Das steckt drin:
 • Anleitungen: Claude Code auf Mac und Windows, Terminal, CLAUDE.md und AGENTS.md, ChatGPT und Codex, Git, GitHub, Vercel, eigene Domain und die häufigsten Fehler.
 • Merkliste und „Neu von VIKITOR“ mit News, Ratgebern, Updates und Live-Terminen.
 
-Premium (mit Freischaltcode, enthalten in der Vibecoding 3.0 Masterclass): fertige Funnel-Vorlagen als Auftrag an die KI und der Funnel-Hack, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt.
+Premium (mit Freischaltcode, enthalten in der Vibecoding 3.0 Masterclass): fertige Funnel-Vorlagen als Auftrag an die KI und der Funnel-Hack, der die Struktur einer erfolgreichen Seite erfasst und das Muster mit eigenen Texten auf dein Angebot überträgt. Neu: Funnel mitschneiden – du klickst selbst durch einen Funnel, der Assistent erfasst jede Seite als Ganzseiten-Screenshot mit Struktur und gibt dir alles als ZIP. Nur nach Klick, mit sichtbarem Aufnahme-Hinweis, alles bleibt lokal.
 
 Datenschutz: kein Konto, keine Anmeldung, kein Tracking. Deine Eingaben bleiben auf deinem Rechner. Details: https://vikitor.de/addon/datenschutz/
 
@@ -61,19 +61,19 @@ Werkzeugkasten für Vibecoding: Prompts für KI-Werkzeuge erstellen, prüfen und
 | Berechtigung | Begründung (zum Kopieren) |
 | --- | --- |
 | `sidePanel` | Der Assistent wird als Seitenleiste neben der geöffneten Webseite angezeigt. |
-| `storage` | Speichert lokal auf dem Gerät die Merkliste, die letzten Eingaben, das Quiz-Ergebnis, einen Zwischenspeicher für Inhalte und Neuigkeiten und bei Premium die Lizenz. Nichts davon wird übertragen. |
-| `activeTab` | Seiten-Check und Funnel-Hack lesen die Seite im aktiven Tab nur, wenn der Nutzer ausdrücklich auf den Knopf klickt. |
+| `storage` | Speichert lokal auf dem Gerät die Merkliste, die letzten Eingaben, das Quiz-Ergebnis, einen Zwischenspeicher für Inhalte und Neuigkeiten, bei Premium die Lizenz und den Status einer Funnel-Hack-Aufnahme. Nichts davon wird übertragen. |
+| `activeTab` | Seiten-Check und Funnel-Hack lesen die Seite im aktiven Tab nur, wenn der Nutzer ausdrücklich auf den Knopf klickt bzw. eine Aufnahme gestartet hat. |
 | `scripting` | Führt den Seiten-Check bzw. die Struktur-Erfassung des Funnel-Hacks auf Knopfdruck im aktiven Tab aus und fügt einen erzeugten Prompt in das Eingabefeld von claude.ai, chatgpt.com oder lovable.dev ein. |
 | `contextMenus` | Menüpunkt „Assistent im großen Fenster öffnen“ am Symbol der Erweiterung. |
 | Host: `claude.ai`, `chatgpt.com`, `lovable.dev` | Ein kleines Inhaltsskript setzt den vom Nutzer erzeugten Prompt auf Knopfdruck in das Eingabefeld. Es liest keine Inhalte dieser Seiten und sendet nichts. |
 | Host: `vikitor.de` | Abruf aktualisierter Texte (content.json) und der Neuigkeiten (feed.json) des Anbieters; bei Premium zusätzlich Freischalten mit Code und Laden der Funnel-Vorlagen. |
-| Optional: `https://*/*`, `http://*/*` | Wird nur angefragt, wenn der Browser für Seiten-Check oder Funnel-Hack auf einer bestimmten Webseite eine zusätzliche Erlaubnis verlangt, und dann nur für genau diese Webseite und mit Zustimmung des Nutzers. |
+| Optional: `<all_urls>` | Zwei Fälle, beide nur nach Klick und mit Zustimmung: (1) Seiten-Check bzw. „Aktuelle Seite erfassen“ fragen nur für genau die geöffnete Webseite nach, falls der Browser es verlangt. (2) Die Funnel-Hack-Aufnahme braucht für `chrome.tabs.captureVisibleTab` den Zugriff `<all_urls>`, weil ein Funnel über mehrere Seiten und Domains (z. B. Checkout) läuft und `activeTab` beim Weiterklicken verfällt. Der Zugriff wird bei „Aufnahme starten“ erbeten und beim Stoppen mit `chrome.permissions.remove` wieder abgegeben. Screenshots und Struktur bleiben lokal (IndexedDB) und werden nur als ZIP vom Nutzer heruntergeladen, nie übertragen. |
 
 **Remote-Code:** Nein. Die Erweiterung lädt nur JSON-Dateien mit Texten, keinen ausführbaren Code. Alle Skripte sind im Paket enthalten.
 
 **Datennutzung** (Häkchen im Formular)
 
-- Erhobene Daten: **keine** der aufgeführten Kategorien ankreuzen. Begründung: Eingaben, Merkliste und Briefings bleiben lokal; Seiten-Check und Funnel-Hack werten nur lokal aus und übertragen nichts. Der Premium-Freischaltcode bzw. die Lizenz ist kein personenbezogenes Datum und dient nur der Prüfung der Berechtigung.
+- Erhobene Daten: **keine** der aufgeführten Kategorien ankreuzen. Begründung: Eingaben, Merkliste und Briefings bleiben lokal; Seiten-Check und Funnel-Hack (auch die Aufnahme mit Screenshots) werten nur lokal aus und übertragen nichts; „Website-Inhalte“ werden also nicht erhoben im Sinne der Richtlinie (nichts verlässt das Gerät, außer als ZIP, das der Nutzer selbst herunterlädt). Der Premium-Freischaltcode bzw. die Lizenz ist kein personenbezogenes Datum und dient nur der Prüfung der Berechtigung.
 - Alle drei Erklärungen bestätigen:
   - Ich verkaufe oder übertrage Nutzerdaten nicht an Dritte, außer in den zulässigen Anwendungsfällen.
   - Ich verwende oder übertrage Nutzerdaten nicht für Zwecke, die nicht mit dem alleinigen Zweck meines Artikels zusammenhängen.
@@ -81,7 +81,7 @@ Werkzeugkasten für Vibecoding: Prompts für KI-Werkzeuge erstellen, prüfen und
 
 **URL der Datenschutzerklärung:** https://vikitor.de/addon/datenschutz/
 
-Hinweis: Der Inhalt dieser Seite sollte `PRIVACY.md` (Stand 1.4.0) entsprechen, insbesondere die vier Verbindungen zu vikitor.de (zwei automatisch, zwei nur bei Premium).
+Hinweis: Der Inhalt dieser Seite sollte `PRIVACY.md` (Stand 1.5.0) entsprechen, insbesondere die vier Verbindungen zu vikitor.de (zwei automatisch, zwei nur bei Premium) und den Abschnitt „Funnel-Hack-Aufnahme“.
 
 ## Vertrieb
 

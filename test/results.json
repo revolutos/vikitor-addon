@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-21T02:23:03.297Z",
+  "date": "2026-11-21T03:00:19.477Z",
   "results": [
     {
       "name": "Erweiterung geladen, Service Worker läuft",
@@ -292,5 +292,7 @@
       "info": "0× erwarteter 404 für https://vikitor.de/downloads/addons/content.json"
     }
   ],
-  "consoleIssues": []
+  "consoleIssues": [
+    "[vikitor.de] pageerror: Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+  ]
 }

@@ -1,6 +1,6 @@
 # Datenschutzhinweise: VIKITOR Vibecoding Assistent (Free)
 
-Stand: November 2026 (Version 1.4.0)
+Stand: November 2026 (Version 1.5.0)
 
 Anbieter der Erweiterung ist die REVOLUTOS LTD. Kontaktdaten und die vollständige Datenschutzerklärung findest du unter https://vikitor.de/datenschutz/.
 
@@ -16,7 +16,7 @@ Die Erweiterung speichert mit `chrome.storage.local` ausschließlich auf deinem 
 - deine letzten Eingaben im Prompt-Generator und im Prompt-Check, damit du beim nächsten Öffnen weitermachen kannst,
 - dein letztes Ergebnis im Funnel-Quiz,
 - eine zwischengespeicherte Kopie der aktualisierten Inhalte und der Neuigkeiten (siehe unten), den Zeitpunkt des letzten Abrufs und welche Neuigkeiten du schon gesehen hast,
-- nur bei Premium: die Lizenz, eine zwischengespeicherte Kopie der Funnel-Vorlagen und dein Briefing für Funnel-Vorlagen und Funnel-Hack (Angebot, Zielgruppe, Marke).
+- nur bei Premium: die Lizenz, eine zwischengespeicherte Kopie der Funnel-Vorlagen, dein Briefing für Funnel-Vorlagen und Funnel-Hack (Angebot, Zielgruppe, Marke) und, solange du sie nicht verwirfst, eine Funnel-Hack-Aufnahme (Screenshots und Seitenstruktur, in der lokalen Datenbank IndexedDB der Erweiterung).
 
 Diese Daten werden nicht übertragen (Ausnahme: die Lizenz, siehe „Premium“). Du kannst sie jederzeit löschen, indem du Einträge in der Merkliste entfernst oder die Erweiterung deinstallierst.
 
@@ -51,11 +51,12 @@ Falls dein Browser (Chrome, Edge oder Brave) für eine Webseite eine zusätzlich
 | --- | --- |
 | `sidePanel` | Anzeige des Assistenten als Seitenleiste |
 | `storage` | lokale Speicherung von Merkliste, letzten Eingaben, Quiz-Ergebnis, Zwischenspeicher und (bei Premium) Lizenz |
-| `activeTab`, `scripting` | Seiten-Check und Funnel-Hack auf Knopfdruck, Einfügen von Prompts |
+| `activeTab`, `scripting` | Seiten-Check und Funnel-Hack auf Knopfdruck (auch Scrollen und Struktur-Erfassung während einer Aufnahme), Einfügen von Prompts |
 | `contextMenus` | Menüpunkt „Assistent im großen Fenster öffnen“ am Symbol |
 | Zugriff auf claude.ai, chatgpt.com, lovable.dev | Einfügen von Prompts in das Eingabefeld |
 | Zugriff auf vikitor.de | Abruf der aktualisierten Inhalte (content.json) und der Neuigkeiten (feed.json); nur bei Premium: Freischalten und Laden der Funnel-Vorlagen |
-| optional: Zugriff auf eine einzelne Webseite | nur falls der Browser ihn für Seiten-Check oder Funnel-Hack verlangt, mit deiner Zustimmung |
+| optional: Zugriff auf eine einzelne Webseite | nur falls der Browser ihn für Seiten-Check oder „Aktuelle Seite erfassen“ verlangt, mit deiner Zustimmung, nur für diese Webseite |
+| optional: Zugriff auf alle Webseiten (`<all_urls>`) | nur für die Funnel-Hack-Aufnahme: Der Browser erlaubt Screenshots (`captureVisibleTab`) einer Seite nur mit diesem Zugriff, und ein Funnel führt über mehrere Seiten und oft mehrere Domains (z. B. Checkout). Wird erst beim Klick auf „Aufnahme starten“ mit deiner Zustimmung erbeten und beim Stoppen wieder entfernt. |
 
 ## Keine Weitergabe und kein Verkauf
 
@@ -66,3 +67,9 @@ Es werden keine Daten an Dritte weitergegeben oder verkauft. Die Erweiterung ver
 Wer Premium freischaltet, sendet den Freischaltcode einmalig an `https://vikitor.de/api/vsmacos/freischalten/`. Zurück kommt eine Lizenz, die lokal in der Erweiterung gespeichert wird. Mit dieser Lizenz lädt die Erweiterung höchstens alle zwölf Stunden die Vorlagen von `https://vikitor.de/api/vsmacos/premium/`; die Lizenz wird dabei zur Prüfung mitgesendet. Weitere personenbezogene Daten, Eingaben oder dein Briefing werden nicht übertragen. Den Freischaltcode bekommen Teilnehmer der Vibecoding Masterclass persönlich per WhatsApp; dieser Austausch findet außerhalb der Erweiterung statt.
 
 Der Funnel-Hack liest die Struktur der gerade geöffneten Seite (Überschriften, Texte, Buttons, Formularfelder, Preise, Links) nur auf Knopfdruck und nur lokal. Daraus entsteht ein Text, den du selbst kopierst oder in Claude, ChatGPT oder Lovable einfügst bzw. an Claude Code oder Codex gibst. Die Erweiterung sendet diese Inhalte an keinen Server. Dein Briefing (Angebot, Zielgruppe, Marke) bleibt lokal in der Erweiterung gespeichert.
+
+### Funnel-Hack-Aufnahme (Mitschneiden)
+
+Die Aufnahme startet nur, wenn du ausdrücklich auf „Aufnahme starten“ klickst. Solange sie läuft, zeigt das Symbol der Erweiterung einen roten Hinweis („REC“ bzw. die Zahl der erfassten Seiten) und der Funnel-Hack ein Banner „Aufnahme läuft“. Erfasst wird ausschließlich der Tab, in dem du die Aufnahme gestartet hast (und ein Tab, den dieser selbst öffnet, etwa für den Checkout): Nach jedem Seitenaufruf scrollt die Erweiterung die Seite einmal durch, macht Screenshots des sichtbaren Bereichs, setzt sie zu einem Ganzseiten-Bild zusammen und liest die Seitenstruktur wie bei „Aktuelle Seite erfassen“. Danach steht die Seite wieder an der alten Position.
+
+Alles wird nur lokal in der Erweiterung gespeichert und an keinen Server gesendet. Beim Stoppen gibt die Erweiterung den Zugriff auf alle Webseiten wieder ab. Den ZIP-Download (Ordner `funnelhack/`) erzeugt dein Browser selbst; mit „Aufnahme verwerfen“ oder beim Deinstallieren wird die Aufnahme gelöscht. Hinweis: Screenshots zeigen, was auf dem Bildschirm steht. Gib während einer Aufnahme deshalb keine echten Zahlungs- oder sonstigen sensiblen Daten ein.

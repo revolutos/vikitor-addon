@@ -1,5 +1,6 @@
 // Logik-Tests ohne Browser: Generator, Quiz, Prompt-Check, Datenprüfung.
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 import { buildPrompt } from "../src/js/generator.js";
 import { evaluate } from "../src/js/quiz.js";
 import { checkPrompt, completePrompt } from "../src/js/promptcheck.js";
@@ -116,6 +117,29 @@ if (content.version !== ver) fail(`content.json ${content.version} ≠ Manifest 
 if (!appJs.includes(`|| "${ver}"`)) fail("Footer-Fallback in app.js passt nicht zur Version");
 if (!readme.includes(`v${ver}`)) fail("README nennt die aktuelle Version nicht");
 console.log(`Version überall ${ver}.`);
+
+// 8) Funnel-Hack: Regeln „sehr nah modellieren, aber Texte/Bilder/Marke immer eigen“, ZIP-Format der Aufnahme
+const { funnelPrompt } = await import("../src/js/funnel.js");
+const fp = funnelPrompt({ url: "https://beispiel.de/", titel: "T", beschreibung: "", items: [{ type: "h1", text: "X" }], preise: [], links: [] }, { angebot: "A", zielgruppe: "Z", marke: "" });
+for (const must of ["sehr nah", "Sektionsreihenfolge", "Layout-Muster", "IMMER eigen", "NIE fremde Texte", "Urheber- und Wettbewerbsrecht"]) if (!fp.includes(must)) fail(`Funnel-Hack-Prompt: „${must}“ fehlt`);
+const { slugOf, funnelJson, indexHtml } = await import("../src/js/recexport.js");
+const SLUGS = [["https://a.de/", 1, "01-start"], ["https://a.de/webinar/anmeldung?x=1", 2, "02-anmeldung"], ["https://a.de/Danke-Seite.html", 3, "03-danke-seite"], ["https://a.de/größe-ü", 12, "12-grosse-u"]];
+for (const [u, n, want] of SLUGS) if (slugOf(u, n) !== want) fail(`slugOf(${u}) = ${slugOf(u, n)}, erwartet ${want}`);
+const fj = funnelJson({ startUrl: "https://a.de/", started: "2026-11-21T10:00:00Z" }, [{ url: "https://a.de/", title: "Start", viewport: { width: 1280, height: 800, dpr: 2 } }, { url: "https://a.de/danke", title: "<Danke>", viewport: { width: 390, height: 800, dpr: 3 } }]);
+if (fj.format !== "vikitor-funnelhack" || fj.steps[1].dir !== "steps/02-danke" || fj.steps[1].device !== "mobile" || fj.transitions.length !== 1) fail("funnel.json: Aufbau falsch");
+if (!/immer eigen/.test(fj.rules)) fail("funnel.json: Regel fehlt");
+if (indexHtml(fj).includes("<Danke>")) fail("index.html: Titel nicht maskiert");
+const { makeZip, crc32 } = await import("../src/js/zip.js");
+if (crc32(new TextEncoder().encode("123456789")) !== 0xcbf43926) fail("CRC32 falsch");
+const zb = Buffer.from(await (await makeZip([{ name: "funnelhack/funnel.json", data: "{}" }, { name: "funnelhack/ä.txt", data: new Uint8Array([1, 2, 3]) }])).arrayBuffer());
+const tmpZip = new URL("../test/.logic-test.zip", root);
+fs.writeFileSync(tmpZip, zb);
+try {
+  const { execFileSync } = await import("node:child_process");
+  const out = execFileSync("unzip", ["-t", fileURLToPath(tmpZip)]).toString();
+  if (!/No errors/.test(out) || !/funnelhack\/.*\.txt/.test(out)) fail("ZIP ungültig: " + out);
+} catch (e) { fail("ZIP ungültig: " + e.message); } finally { fs.rmSync(tmpZip, { force: true }); }
+console.log("Funnel-Hack: Prompt-Regeln, Ordnernamen, funnel.json und ZIP geprüft.");
 
 console.log(fails ? `\n${fails} Fehler` : "\nAlle Logik-Tests bestanden.");
 process.exit(fails ? 1 : 0);
