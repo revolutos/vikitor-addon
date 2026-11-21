@@ -10,13 +10,14 @@ export async function viewFunnelHack(ctx) {
   if (!(await isUnlocked())) return premiumGate(ctx, "Funnel-Hack");
   const b = await get("funnelBrief", { angebot: "", zielgruppe: "", marke: "" });
   let data = null;
-  const field = (key, ph, rows = 2) => {
-    const t = h("textarea", { class: "textarea", rows, placeholder: ph }); t.value = b[key] || "";
+  const field = (key, label, ph, rows = 2) => {
+    const id = "fh-" + key;
+    const t = h("textarea", { class: "textarea", id, rows, placeholder: ph }); t.value = b[key] || "";
     t.addEventListener("input", () => { b[key] = t.value; set("funnelBrief", b); });
-    return t;
+    return h("div", { class: "field" }, h("label", { for: id }, label), t);
   };
   const out = h("div", { class: "stack" });
-  const note = h("p", { class: "hint" });
+  const note = h("p", { class: "hint", role: "status", "aria-live": "polite" });
   const btn = h("button", { class: "btn btn-signal", type: "button" }, icon("compass"), "Aktuelle Seite erfassen");
   btn.addEventListener("click", async () => {
     note.textContent = ""; out.textContent = "";
@@ -37,7 +38,7 @@ export async function viewFunnelHack(ctx) {
         h("span", { class: "overline" }, "Dein Auftrag an die KI"),
         h("p", { class: "small subtle" }, "Enthält Regeln (keine fremden Texte, Bilder oder Marken, nichts erfinden), dein Briefing und die erfasste Struktur."),
         promptActions(ctx, () => funnelPrompt(data, b))),
-      h("p", { class: "small subtle" }, "Tipp: Erfasse auch die Folgeseiten (Danke-Seite, Angebot) und gib sie nacheinander in denselben Chat. In VS MAC OS legt der Funnel-Hack daraus direkt ein Projekt mit Aufgaben an."));
+      h("p", { class: "small subtle" }, "Tipp: Erfasse auch die Folgeseiten (Danke-Seite, Angebot) und gib sie nacheinander in denselben Chat oder dieselbe Sitzung in Claude Code oder Codex. In VS MAC OS legt der Funnel-Hack daraus direkt ein Projekt mit Aufgaben an."));
   });
   return [
     h("header", { class: "vhead" },
@@ -46,9 +47,9 @@ export async function viewFunnelHack(ctx) {
       h("p", {}, "Öffne eine erfolgreiche Seite oder einen Funnel. Der Assistent erfasst Aufbau, Überschriften, Texte, Buttons, Formulare und Preise und baut daraus einen Auftrag, der das Erfolgsmuster auf dein Angebot überträgt.")),
     h("div", { class: "card stack-s" },
       h("span", { class: "overline" }, "1 · Dein Briefing"),
-      field("angebot", "Dein Angebot (was, für wen, Preis, Ergebnis)"),
-      field("zielgruppe", "Deine Zielgruppe"),
-      field("marke", "Deine Marke und Positionierung (optional)", 1)),
+      field("angebot", "Dein Angebot", "Was, für wen, Preis, Ergebnis"),
+      field("zielgruppe", "Deine Zielgruppe", "Wen willst du erreichen?"),
+      field("marke", "Deine Marke und Positionierung (optional)", "Wofür stehst du, wie klingst du?", 1)),
     h("div", { class: "card stack-s" },
       h("span", { class: "overline" }, "2 · Vorbild erfassen"),
       btn, note),

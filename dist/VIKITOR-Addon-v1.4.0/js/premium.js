@@ -1,6 +1,7 @@
 // Premium im Addon (gleicher Freischaltcode wie VS MAC OS): Lizenz von vikitor.de, Vorlagen geschützt laden.
 import { h, icon, toast, copyText } from "./ui.js";
 import { get, set } from "./store.js";
+import { withUtm } from "./data.js";
 import { getActiveTab, aiSiteOf, insertIntoTab, onTabChange } from "./browser.js";
 
 const API = "https://vikitor.de/api/vsmacos";
@@ -37,7 +38,7 @@ export async function loadVorlagen(force = false) {
 
 /** Hinweis + Code-Feld, solange Premium gesperrt ist */
 export function premiumGate(ctx, feature) {
-  const input = h("input", { class: "input", id: "premium-code", type: "password", placeholder: "Freischaltcode", autocomplete: "off", "aria-label": "Freischaltcode" });
+  const input = h("input", { class: "input", id: "premium-code", type: "password", placeholder: "Freischaltcode", autocomplete: "off", "aria-label": "Freischaltcode eingeben" });
   const err = h("p", { class: "small", style: { color: "var(--danger)" } });
   const btn = h("button", { class: "btn btn-signal", type: "button" }, icon("ok"), "Freischalten");
   const go = async () => {
@@ -52,14 +53,14 @@ export function premiumGate(ctx, feature) {
     h("header", { class: "vhead" },
       h("span", { class: "overline" }, "Premium"),
       h("h1", {}, h("span", { class: "hl nowrap" }, feature + ".")),
-      h("p", {}, "Mit Premium bekommst du fertige Baupläne für Webseiten und Funnels und den Funnel-Hack: Struktur einer erfolgreichen Seite erfassen und als Auftrag an Claude, ChatGPT oder Lovable geben, übertragen auf dein Angebot.")),
+      h("p", {}, "Mit Premium bekommst du fertige Baupläne für Webseiten und Funnels und den Funnel-Hack: Struktur einer erfolgreichen Seite erfassen und als Auftrag an Claude Code, Codex, ChatGPT oder Lovable geben, übertragen auf dein Angebot.")),
     h("div", { class: "card is-strong stack" },
       h("span", { class: "overline" }, "Freischaltcode"),
       h("div", { class: "unlock-row" }, input, btn),
       err,
       h("div", { class: "unlock-buy" },
-        h("a", { class: "btn btn-signal", href: ctx.links.shop.url + "?utm_source=vikitor-addon&utm_medium=addon&utm_content=premium-kaufen", target: "_blank", rel: "noopener" }, icon("bag"), "Freischaltcode kaufen"),
-        h("p", { class: "small subtle" }, "Noch keinen Code? Im VIKITOR Shop gibt es ihn in Kürze zu kaufen. Er gilt auch für VS MAC OS Premium.")))
+        h("a", { class: "btn btn-signal", href: withUtm(ctx.links.masterclass.url, "premium-gate"), target: "_blank", rel: "noopener" }, icon("arrow"), "Zur Vibecoding Masterclass"),
+        h("p", { class: "small subtle" }, "Noch keinen Code? Premium ist in der Vibecoding 3.0 Masterclass enthalten. Den Freischaltcode bekommst du persönlich per WhatsApp. Er gilt auch für VS MAC OS Premium.")))
   ];
 }
 

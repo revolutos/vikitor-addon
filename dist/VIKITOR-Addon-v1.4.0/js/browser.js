@@ -1,4 +1,4 @@
-// Anbindung an Chrome: aktiven Tab ermitteln, Prompt einfügen, Seiten-Check ausführen.
+// Anbindung an den Browser (Chrome, Edge, Brave): aktiven Tab ermitteln, Prompt einfügen, Seiten-Check ausführen.
 import { collectPageData } from "./pagecheck.js";
 import { collectFunnelData } from "./funnel.js";
 
@@ -71,15 +71,15 @@ async function inject(tabId, func = collectPageData) {
   return res ? res.result : null;
 }
 
-// Seiten-Check: erst mit activeTab versuchen; falls Chrome den Zugriff verweigert,
+// Seiten-Check: erst mit activeTab versuchen; falls der Browser den Zugriff verweigert,
 // den Zugriff nur für genau diese Webseite erfragen (optionale Berechtigung).
 export async function runPageCheck(tab, func = collectPageData) {
   try {
     return { data: await inject(tab.id, func) };
   } catch (err) {
     const msg = String(err && err.message || err);
-    if (/chrome:\/\/|chrome-extension:|webstore|Cannot access a chrome|extensions gallery/i.test(msg)) {
-      return { error: "Diese Seite ist von Chrome geschützt und kann nicht geprüft werden. Öffne eine normale Webseite und versuche es erneut." };
+    if (/chrome:\/\/|edge:\/\/|brave:\/\/|chrome-extension:|extension:\/\/|webstore|microsoftedge|Cannot access a chrome|extensions gallery/i.test(msg)) {
+      return { error: "Diese Seite ist vom Browser geschützt (Chrome, Edge oder Brave lassen Erweiterungen dort nicht zu) und kann nicht geprüft werden. Öffne eine normale Webseite und versuche es erneut." };
     }
     let origin = null;
     try { origin = tab.url ? new URL(tab.url).origin : null; } catch (_) { origin = null; }

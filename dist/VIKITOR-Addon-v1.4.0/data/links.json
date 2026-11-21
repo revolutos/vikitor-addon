@@ -4,8 +4,20 @@
     "url": "https://vikitor.de"
   },
   "webinar": {
-    "label": "Zum Live-Webinar anmelden",
-    "url": "https://vikitor.de/#anfrage"
+    "label": "Zum kostenlosen Live-Call anmelden",
+    "url": "https://vikitor.de/live/"
+  },
+  "masterclass": {
+    "label": "Vibecoding 3.0 Masterclass",
+    "url": "https://vikitor.de/angebot/vibecoding-masterclass/"
+  },
+  "blueprint": {
+    "label": "Business Blueprint (gratis)",
+    "url": "https://vikitor.de/blueprint/"
+  },
+  "kostenlos": {
+    "label": "Werkzeug-Bundle (gratis)",
+    "url": "https://vikitor.de/kostenlos/"
   },
   "framework": {
     "label": "VS Premium Vibecoding Framework",
@@ -19,6 +31,14 @@
     "label": "VS MAC OS",
     "url": "https://vikitor.de/downloads/vs-mac-os/"
   },
+  "news": {
+    "label": "News",
+    "url": "https://vikitor.de/news/"
+  },
+  "shop": {
+    "label": "Shop",
+    "url": "https://vikitor.de/shop/"
+  },
   "datenschutz": {
     "label": "Datenschutz",
     "url": "https://vikitor.de/downloads/addons/datenschutz/"
@@ -26,6 +46,10 @@
   "instagram": {
     "label": "Instagram",
     "url": "https://www.instagram.com/viktorsiemens.business/"
+  },
+  "youtube": {
+    "label": "YouTube",
+    "url": "https://www.youtube.com/@viktorsiemens?sub_confirmation=1"
   },
   "facebook": {
     "label": "Facebook",
@@ -39,14 +63,6 @@
     "label": "LinkedIn",
     "url": "https://www.linkedin.com/in/viktor-siemens/"
   },
-  "youtube": {
-    "label": "YouTube",
-    "url": ""
-  },
-  "tiktok": {
-    "label": "TikTok",
-    "url": ""
-  },
   "skillsBase": {
     "label": "Skill-Downloads",
     "url": "https://vikitor.de/downloads/addons/skills/"
@@ -54,13 +70,5 @@
   "contentUpdate": {
     "label": "Inhalts-Aktualisierung",
     "url": "https://vikitor.de/downloads/addons/content.json"
-  },
-  "shop": {
-    "label": "VIKITOR Shop",
-    "url": "https://vikitor.de/shop/"
-  },
-  "warteliste": {
-    "label": "Auf die Warteliste",
-    "url": "https://vikitor.de/shop/#warteliste"
   }
 }

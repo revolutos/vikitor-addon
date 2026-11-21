@@ -51,7 +51,7 @@ Du bist erfahrener Funnel-Stratege und Werbetexter. Unten steht die erfasste Str
 ## Regeln
 - Übernimm Strategie, Aufbau, Dramaturgie und Psychologie. Übernimm NIE fremde Texte, Bilder, Logos, Markennamen, Kundenstimmen oder Zahlen. Alle Texte für mich neu und eigenständig schreiben.
 - Erfinde keine Fakten, Zahlen, Bewertungen oder Versprechen. Was fehlt, sammelst du als offene Frage.
-- Keine Einkommensversprechen. Schreib auf Deutsch, klar und konkret.
+- Starke Ergebnisversprechen sind erlaubt (z. B. „von 0 auf 5-stellige Monatsumsätze“), als erreichbares Ziel formuliert, nie als Garantie, mit Hinweis auf einen Disclaimer. Schreib auf Deutsch, klar und konkret.
 
 ## Mein Briefing
 - Angebot: ${b.angebot || "(fehlt, bitte als Frage aufnehmen)"}

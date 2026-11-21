@@ -1,6 +1,6 @@
 // VIKITOR Vibecoding Assistent – App-Gerüst: Layout (Seitenleiste oder Tab), Menü, Router.
 import { h, icon, wordmark, reveal, socialRow } from "./ui.js";
-import { loadContent, loadLinks } from "./data.js";
+import { loadContent, loadLinks, withUtm } from "./data.js";
 import { get } from "./store.js";
 import { openInTab } from "./browser.js";
 import { viewStart } from "./views/start.js";
@@ -31,7 +31,7 @@ const VIEWS = [
   { id: "guides", label: "Anleitungen", icon: "book", render: viewGuides, group: "Lernen" },
   { id: "saved", label: "Merkliste", icon: "bookmark", render: viewSaved, group: "Lernen" },
   { id: "downloads", label: "Downloads", icon: "download", href: "https://vikitor.de/downloads/", group: "Mehr" },
-  { id: "shop", label: "Shop · bald", icon: "bag", render: viewShop, group: "Mehr" },
+  { id: "shop", label: "Masterclass & Shop", icon: "bag", render: viewShop, group: "Mehr" },
   { id: "about", label: "Über Viktor", icon: "user", render: viewAbout, group: "Mehr" }
 ];
 
@@ -51,9 +51,9 @@ const ctx = {
 };
 
 function linkList(links, cls = "links") {
-  const order = ["website", "downloads", "vsmacos", "shop", "webinar", "datenschutz"];
+  const order = ["website", "webinar", "masterclass", "downloads", "news", "shop", "datenschutz"];
   return h("nav", { class: cls, "aria-label": "Links" },
-    order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Webinar" : links[k].label)));
+    order.filter((k) => links[k] && links[k].url).map((k) => h("a", { href: links[k].url, target: "_blank", rel: "noopener" }, k === "webinar" ? "Live-Call" : k === "masterclass" ? "Masterclass" : links[k].label)));
 }
 
 /** Logo mit Untertitel: führt überall zurück zum Start (schließt dabei das Menü) */
@@ -68,10 +68,10 @@ function footer() {
     homeLink("foot-brand"),
     linkList(ctx.links),
     socialRow(ctx.links),
-    h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.0.0"} · kostenlos`));
+    h("span", { class: "small subtle" }, `Version ${chrome.runtime?.getManifest?.().version || "1.4.0"} · kostenlos`));
 }
 
-/** Abschluss unter der Fußzeile: Positionierung mit Foto, Unterschrift und Webinar-CTA (wie auf vikitor.de) */
+/** Abschluss unter der Fußzeile: Positionierung mit Foto, Unterschrift und Live-Call-CTA (wie auf vikitor.de) */
 function ctaFoot() {
   const sec = h("section", { class: "sig", "aria-labelledby": "sig-h" },
     h("div", { class: "sig-photo", "aria-hidden": "true" }, h("img", { src: "img/viktor-experte.jpg", alt: "", loading: "lazy" })),
@@ -85,15 +85,15 @@ function ctaFoot() {
         h("li", {}, h("b", {}, "4 Jahre"), " intensiv mit KI")),
       h("div", { class: "sig-who sig-a" }, h("span", { class: "sig-name" }, "Viktor Siemens"), h("img", { class: "sig-sign", src: "img/signatur.png", alt: "Unterschrift von Viktor Siemens" })),
       h("div", { class: "sig-cta sig-a" },
-        h("a", { class: "btn btn-signal", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" }, "Kostenlosen Webinar-Platz sichern", icon("arrow")),
-        h("span", { class: "small subtle" }, "Live-Webinar „Vibecoding 3.0“ · Mac oder Windows · ohne Vorkenntnisse")),
+        h("a", { class: "btn btn-signal", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" }, "Kostenlosen Live-Call-Platz sichern", icon("arrow")),
+        h("span", { class: "small subtle" }, "Live-Call „Vibecoding 3.0“ · Mac oder Windows · ohne Vorkenntnisse")),
       h("div", { class: "sig-social sig-a" }, h("span", { class: "overline" }, "Folge mir"), socialRow(ctx.links))));
   const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { sec.classList.add("is-in"); io.disconnect(); } }, { threshold: 0.15 });
   io.observe(sec);
   return sec;
 }
 
-/** Menü in Gruppen: Überschrift vor jeder neuen Gruppe, im Premium-Block zusätzlich der Kaufen-Button */
+/** Menü in Gruppen: Überschrift vor jeder neuen Gruppe, im Premium-Block zusätzlich der Weg zum Freischaltcode */
 function navItems(onPick) {
   const out = [];
   let group = null;
@@ -114,7 +114,7 @@ function premiumBuy(onPick) {
   isUnlocked().then((ok) => {
     box.append(ok
       ? h("span", { class: "nav-buy-ok" }, icon("ok"), "Premium aktiv")
-      : h("a", { class: "btn btn-signal btn-sm nav-buy-btn", href: "https://vikitor.de/shop/?utm_source=vikitor-addon&utm_medium=addon&utm_content=menue-premium", target: "_blank", rel: "noopener", onclick: () => onPick && onPick() }, icon("bag"), "Premium-Code kaufen"));
+      : h("a", { class: "btn btn-signal btn-sm nav-buy-btn", href: withUtm(ctx.links.masterclass.url, "menue-premium"), target: "_blank", rel: "noopener", title: "Premium ist in der Vibecoding Masterclass enthalten", onclick: () => onPick && onPick() }, icon("bag"), "Premium-Code erhalten"));
   });
   return box;
 }
@@ -152,7 +152,7 @@ function shell() {
     h("div", { class: "side-foot" },
       h("a", { class: "side-cta", href: ctx.links.webinar.url, target: "_blank", rel: "noopener" },
         h("span", { class: "overline" }, h("span", { class: "live-dot" }), "Live"),
-        h("b", {}, "Kostenloses Live-Webinar Vibecoding 3.0"),
+        h("b", {}, "Kostenloser Live-Call Vibecoding 3.0"),
         h("span", {}, "Platz sichern →"))));
 
   const closeMenu = () => { drawer.classList.remove("is-open"); menuBtn.setAttribute("aria-expanded", "false"); };
